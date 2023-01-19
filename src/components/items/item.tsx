@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
+import CloseButton from '../global/buttons/closeButton';
+import Counter from '../global/buttons/counter';
 
 interface IProps {
     item: string; //TODO: CAMBIAR
@@ -18,12 +20,8 @@ const Item: React.FC<IProps> = ({item}) => {
             <Text style={styles.itemPrice}>{50}US$</Text>
         </View>
         <View style={styles.buttonContainer}>
-            <View><Text style={styles.deleteItem}>x</Text></View>
-            <View style={styles.addDecItem}>
-                <View><Text>+</Text></View>
-                <View><Text>{2}</Text></View>
-                <View><Text>-</Text></View>
-            </View>
+            <CloseButton />
+            <Counter addCharacter={'+'} count={0} decCharacter={'-'} />
         </View>
     </View>
   )
@@ -36,7 +34,7 @@ const styles = StyleSheet.create({
         width: "100%", height: '100%',
         display: 'flex',
         flexDirection: 'row',
-        padding: '6%',
+        padding: '3%',
 
         //IOS
         shadowColor: "#000",
@@ -50,7 +48,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     imageContainer: {
-        height: '80%', aspectRatio: 1,
+        height: '60%', aspectRatio: 1,
         flexGrow: 3,
         display: 'flex',
         justifyContent: 'center',
@@ -89,29 +87,10 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        width: '10%',
-        height: imageSize,
+        alignItems: 'flex-end',
         justifyContent: 'space-between',
+        width: '15%',
     },
-    deleteItem: {
-        color: MAIN_COLOR,
-        borderColor: 'gray',
-        borderWidth: 1,
-        borderRadius: 15,
-    },
-    addDecItem: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        
-        flex: 1,
-        backgroundColor: 'gray',
-        width: '80%',
-        borderRadius: 15,
-    },
-
-
 })
 
 export default Item;
