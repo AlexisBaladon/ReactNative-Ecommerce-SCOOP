@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   app: {
     flex: 1,
     width: '100%', height: height,
-    backgroundColor: 'gray'//BACKGROUND_COLOR,
+    backgroundColor: BACKGROUND_COLOR,
   },
   header: {
     height: headerHeight,

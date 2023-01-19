@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   searchInputContainer: {
+    backgroundColor: 'white',
     width: 300,
     display: 'flex',
     flexDirection: 'row',

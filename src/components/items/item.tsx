@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         padding: '3%',
+        backgroundColor: 'white',
+        borderRadius: 15,
 
         //IOS
         shadowColor: "#000",
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        width: '15%',
+        width: '10%',
     },
 })
 
