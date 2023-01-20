@@ -1,17 +1,18 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
 import { LIGHT_COLOR, NEUTRAL_COLOR, MAIN_COLOR } from '../../constants/styles';
 
 interface IProps {
-    button: string;
+    title: string;
     isSelected: boolean,
+    onPress(event: GestureResponderEvent): void;
 }
 
-const Button: React.FC<IProps> = ({button, isSelected}) => {
+const Button: React.FC<IProps> = ({title, isSelected, onPress}) => {
     const customStyles = styles(isSelected);
 
-    return (<TouchableOpacity style={customStyles.button}>
-            <Text style={customStyles.text}>{button}</Text>
+    return (<TouchableOpacity style={customStyles.button} onPress={onPress}>
+            <Text style={customStyles.text}>{title}</Text>
         </TouchableOpacity>
     )
 }

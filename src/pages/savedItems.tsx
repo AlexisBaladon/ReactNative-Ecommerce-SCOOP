@@ -1,13 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/global/header'
 import Items from '../components/items/items'
 import Search from '../components/global/search'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, GestureResponderEvent } from 'react-native'
 import { BACKGROUND_COLOR } from '../constants/styles'
 import Buttons from '../components/options/buttons'
+import DtItem from '../interfaces/item'
+import CreatorModal from '../components/options/creatorModal'
 
 const SavedItems = () => {
+  const [items, setItems] = useState<Array<DtItem>>([]) //TODO: Hacer context
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+    const addItem = (item: DtItem) => {
+      setItems([...items, item]);
+    }
+
+    const handleAddItem = (event: GestureResponderEvent) => {
+      event.preventDefault();
+
+      setModalVisible(true);
+
+      addItem({
+        id: Math.random().toString(),
+        title: "aasdasddsa",
+        description: "dasdsaasd",
+        priceDollars: 3,
+        imageURL: "./",
+        amount: 0,
+      })
+    }
+
+    const handleDeleteAllItems = (event: GestureResponderEvent) => {
+      event.preventDefault();
+      setItems([]);
+    }
+
+  type TButton = {title: string, onPress(e: GestureResponderEvent): void};
+  const buttons: Array<TButton> = [
+    {title: 'Agregar', onPress: handleAddItem},
+    {title: 'Borrar todo', onPress: handleDeleteAllItems},
+  ]
+
   return (<View style={styles.app}>
+    <CreatorModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
     <View style={styles.header}>
       <Header title={'Deseados'}/>
     </View>
@@ -15,10 +51,10 @@ const SavedItems = () => {
       <Search placeHolder={'Buscar...'} />
     </View>
     <View style={styles.options}>
-      <Buttons buttons={['Agregar', 'Borrar todo']} />
+      <Buttons buttons={buttons} />
     </View>
     <View style={styles.items}>
-      <Items items={['Item1', 'Item2', 'Item3', 'Item4', 'ITEM5']} />
+      <Items items={items} setItems={setItems} />
     </View>
   </View>
   )

@@ -1,25 +1,45 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { BACKGROUND_COLOR } from '../../constants/styles'
+import DtItem from '../../interfaces/item'
 import Item from './item'
 
 interface IProps {
-    items: Array<string>,
+    items: Array<DtItem>;
+    setItems(items: Array<DtItem>): void;
 }
 
-const Items: React.FC<IProps> = ({items}) => {
-  const RenderItem: React.FC<{item: string}> = ({item}) => {
-      return <View style={styles.item}><Item item={item}/></View>
-  }
+const Items: React.FC<IProps> = ({items, setItems}) => {
+    type TItemAmount = {id: DtItem['id'], amount: DtItem['amount']}
+    const amountItems = useRef<Array<TItemAmount>>([]);
+    const deleteItem = (itemId: DtItem['id']) => {
+        const itemsWithoutDeleted = items.filter(item => item.id != itemId);
+        setItems(itemsWithoutDeleted);
+    }
+    const addToCounter = (itemId: DtItem['id'], added: number) => {
+        const foundItem = items.find((item) => item.id === itemId);
+        if (foundItem) {
+            foundItem.amount += added;
+            const newItemsAmount = {id: itemId, amount: foundItem.amount};
+            const itemsWithoutChanged = amountItems.current.filter(amountItem => amountItem.id !== itemId);
+            amountItems.current = [...itemsWithoutChanged, newItemsAmount];
+        }
+    }
 
-  return (
-    <FlatList 
-        contentContainerStyle={styles.items}
-        data={items}
-        renderItem={RenderItem}
-        keyExtractor={(item: string) => item}
-    />
-  )
+    const RenderItem: React.FC<{item: DtItem}> = ({item}) => {
+        return <View style={styles.item}>
+            <Item item={item} deleteItem={deleteItem} addToCounter={addToCounter}/>
+        </View>
+    }
+
+
+    return (
+        <FlatList 
+            contentContainerStyle={styles.items}
+            renderItem={RenderItem}
+            data={items}
+            keyExtractor={(item: DtItem) => item.id}
+        />
+    )
 }
 
 const styles = StyleSheet.create({

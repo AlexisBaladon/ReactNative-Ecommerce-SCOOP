@@ -1,17 +1,22 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { GestureResponderEvent, StyleSheet, Text, View } from 'react-native'
+import DtItem from '../../interfaces/item';
 import Button from './button'
 
 interface IProps {
-    buttons: string[]; //TODO
+    buttons: Array<any>; //TODO: CAMBIAR
 }
 
 const Buttons: React.FC<IProps> = ({buttons}) => {
 
     return (<View style={styles.categoryContainer}>
             {buttons.map((but, i) => {
-                return <Button key={i} 
-                    button={but} isSelected={!((i)%9)}/>
+                return <Button 
+                            key={i}
+                            title={but.title}
+                            isSelected={!((i)%9)}
+                            onPress={but.onPress}
+                        />
             })} 
         </View>
   )
