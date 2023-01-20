@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     item: {
         width: '90%', height: 150,
         marginVertical: 15,
-        borderColor: 'black',
+        borderColor: 'whitesmoke',
         borderWidth: 1,
         borderRadius: 15,
     }

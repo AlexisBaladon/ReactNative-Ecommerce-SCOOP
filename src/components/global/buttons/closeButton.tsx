@@ -23,9 +23,7 @@ const getStyles = (height: number, width: number) => {
             width: width, height: height,            
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'white',
-            borderColor: 'gray',
-            borderWidth: 1,
+            backgroundColor: 'whitesmoke',
             borderRadius: 10,
         },
         text: {

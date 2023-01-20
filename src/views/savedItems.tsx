@@ -30,7 +30,7 @@ const SavedItems = () => {
   return (<View style={styles.app}>
     <CreatorModal modalVisible={modalVisible} setModalVisible={setModalVisible} addItem={ addItem } />
     <View style={styles.header}>
-      <Header title={'Deseados'}/>
+      <Header title={'Lista de productos'}/>
     </View>
     <View style={styles.search}>
       <Search placeHolder={'Buscar...'} />
@@ -46,9 +46,9 @@ const SavedItems = () => {
 }
 
 const { width, height } = Dimensions.get('window');
-const headerHeight = height/8 + height%8;
-const searchHeight = height/10 + height%10;
-const optionsHeight = height/16 + height%16;
+const headerHeight = height/8;
+const searchHeight = height/12;
+const optionsHeight = height/25;
 
 const styles = StyleSheet.create({
   app: {

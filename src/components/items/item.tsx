@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import itemImages from '../../assets/items';
 import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
+import { getItemImage } from '../../helpers/imageHandler';
 import DtItem from '../../interfaces/item';
 import CloseButton from '../global/buttons/closeButton';
 import Counter from '../global/buttons/counter';
@@ -11,10 +13,12 @@ interface IProps {
 }
 
 const Item: React.FC<IProps> = ({item, deleteItem}) => {
+    const imageSrc = getItemImage(item.imageURL);
+
     return (
     <View style={styles.item}>
         <View style={styles.imageContainer}>
-            <Image style={styles.itemImage} source={require('./helado.png')} />
+            <Image style={styles.itemImage} source={imageSrc} />
         </View>
         <View style={styles.textContainer}>
             <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
         width: "100%", height: '100%',
         display: 'flex',
         flexDirection: 'row',
-        padding: '3%',
+        padding: '4%',
         backgroundColor: 'white',
         borderRadius: 15,
 
@@ -56,18 +60,28 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     imageContainer: {
-        height: '60%', aspectRatio: 1,
-        flexGrow: 3,
+        //move image to left like object-fit: cover:
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         alignSelf: 'center',
-        borderRadius: 15,
-        borderColor: 'gray',
-        borderWidth: 1,
     },
     itemImage: {
-        width: '70%', height: '70%',
+        aspectRatio: 1,
+        width: '100%', height: '100%',
+        borderRadius: 15,
+        borderWidth: 1,
+
+        //IOS
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+
+        //ANDROID
+        elevation: 4,
+        
     },
     textContainer: {
         position: 'relative',

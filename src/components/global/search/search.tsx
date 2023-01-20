@@ -41,26 +41,26 @@ const styles = StyleSheet.create({
   },
   searchInputContainer: {
     backgroundColor: 'white',
-    width: 300,
+    width: 300, height: 45,//TODO: DESHARDCODEAR
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 10,
 
-    borderColor: 'gray',
+    borderColor: 'whitesmoke',
     borderWidth: 1,
     borderRadius: 15,
   },
   searchInput: {
     marginVertical: 2.5,
     marginLeft: 12.5,
-    width: '100%',
+    width: '100%', height: '100%',
 
     color: 'gray',
     fontSize: 17.5,
   },
   magnifyingGlass: {
-    width: 25, height: 25,
+    height: 30, width: 30,
     marginLeft: 7.5,
   },
   filterContainer: {

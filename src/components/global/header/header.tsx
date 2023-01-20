@@ -8,10 +8,6 @@ interface IProps {
 const Header: React.FC<IProps> = ({title}) => {
     return (
         <View style={styles.header}>
-            <Image 
-                style={styles.backArrow}
-                source={require('./back-arrow.png')}
-            />
             <Text style={styles.title}>{title}</Text>
             <Image 
                 style={styles.hamburger}

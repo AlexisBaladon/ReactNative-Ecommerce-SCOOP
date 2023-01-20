@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Modal, View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, ScrollView } from 'react-native';
 import { MAIN_COLOR } from '../../constants/styles';
 import getUniqueId from '../../helpers/idProvider';
+import { getItemImagesIds } from '../../helpers/imageHandler';
 import DtItem from '../../interfaces/item';
 import ImageSlider from './imageSlider';
 
@@ -23,7 +24,7 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
     const amountRef = useRef<string>('');
     const imageURLRef = useRef<string>('');
 
-    const imageUrls = ['./books.jpg', './food.jpg', './clothes.jpg'] 
+    const imageUrls = getItemImagesIds();
     
     const sanitizeInputs = (): DtItem => {
         let title = titleRef.current;
@@ -44,7 +45,7 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
             description: descriptionRef.current,
             priceDollars: priceDollars,
             amount: amount,
-            imageURL: imageUrls[0],
+            imageURL: imageURLRef.current,
         }
     }
 
@@ -89,6 +90,7 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
                                     placeholder='...' 
                                     onChange={e => titleRef.current = e.nativeEvent.text}
                                     maxLength={MAX_TITLE_LENGTH}
+                                    keyboardType='default'
                                 />
                             </View>
                             <View style={styles.inputTitleContainer}>
@@ -112,16 +114,18 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
                                         placeholder='US$' 
                                         onChange={e => priceDollarsRef.current = e.nativeEvent.text}
                                         maxLength={MAX_PRICE_LENGTH}
+                                        keyboardType='numeric'
                                     />
                                 </View>
                                 <View style={styles.doubleInputColumn}>
                                     <Text style={styles.subtitle}>Cantidad</Text>
                                     <TextInput 
                                         style={styles.inputBox}
-                                        defaultValue='0' 
-                                        placeholder='0' 
+                                        defaultValue='1' 
+                                        placeholder='1' 
                                         onChange={e => {amountRef.current = e.nativeEvent.text}}
                                         maxLength={MAX_AMOUNT_LENGTH}
+                                        keyboardType='numeric'
                                     />
                                 </View>
                             </View>

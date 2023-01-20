@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { MAIN_COLOR } from '../../../constants/styles';
 import useCounter from '../../../hooks/useCounter';
 
@@ -21,9 +21,13 @@ const Counter: React.FC<IProps> = ({addCharacter, decCharacter, height=80, width
                     {addCharacter}
                 </Text>
             </TouchableOpacity>
-            <Text style={styles.text}>
-                {count}
-            </Text>
+            <TextInput 
+                style={styles.text}
+                keyboardType={'numeric'} 
+                defaultValue={count.toString()} 
+                placeholder={count.toString()}
+            >
+            </ TextInput>
             <TouchableOpacity onPress={() => decToCounter(1)}>
                 <Text style={styles.text}>
                     {decCharacter}
@@ -42,14 +46,13 @@ const getStyles = (height: number | string, width: number | string) => {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: 'white',
-            borderColor: 'gray',
-            borderWidth: 1,
+            backgroundColor: 'whitesmoke',
             borderRadius: 25,
         },
         text: {
             color: MAIN_COLOR,
             fontWeight: 'bold',
+            textAlign: 'center',
         }
     });
 }

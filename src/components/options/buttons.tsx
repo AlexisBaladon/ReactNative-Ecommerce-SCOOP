@@ -8,27 +8,31 @@ interface IProps {
 
 const Buttons: React.FC<IProps> = ({buttons}) => {
 
-    return (<View style={styles.categoryContainer}>
+    return (<View style={styles.categoriesContainer}>
             {buttons.map((but, i) => {
-                return <Button 
-                            key={i}
-                            title={but.title}
-                            isSelected={!((i)%9)}
-                            onPress={but.onPress}
-                        />
+                return <View style={styles.categoryContainer} key={i}>
+                    <Button 
+                        title={but.title}
+                        isSelected={i==0}
+                        onPress={but.onPress}
+                    />
+                </View>
             })} 
         </View>
   )
 }
 
 const styles = StyleSheet.create({
-    categoryContainer: {
+    categoriesContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         width: '100%',
         paddingHorizontal: 20,
-    }  
+    } ,
+    categoryContainer: {
+        marginRight: 10,
+    }
 })
 
 export default Buttons

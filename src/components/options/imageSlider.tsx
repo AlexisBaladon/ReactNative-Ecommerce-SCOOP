@@ -1,14 +1,15 @@
 import React, { useRef, useState } from 'react'
 import { TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
 import { MAIN_COLOR } from '../../constants/styles';
+import { getItemImage, getItemImagesIds } from '../../helpers/imageHandler';
 
 interface IProps {
     imageUrlRef: React.MutableRefObject<string>;
 }
 
 const ImageSlider: React.FC<IProps> = ({imageUrlRef}) => {
-    const imageUrls = ['./books.jpg', './food.jpg', './clothes.jpg'] 
-    const imagesRequired = [require('./books.jpg'), require('./food.jpg'), require('./clothes.jpg')];
+    const imageUrls = getItemImagesIds();
+    const imagesRequired = imageUrls.map((url) => getItemImage(url));
     const [imagesStyle, setImagesStyle] = useState<Array<StyleSheet | {}>>(Array(imageUrls.length).fill({}))
 
     const handleOnPress = (i: number) => {
