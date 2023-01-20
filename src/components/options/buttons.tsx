@@ -1,6 +1,5 @@
 import React from 'react'
 import { GestureResponderEvent, StyleSheet, Text, View } from 'react-native'
-import DtItem from '../../interfaces/item';
 import Button from './button'
 
 interface IProps {

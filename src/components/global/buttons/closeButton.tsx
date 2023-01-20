@@ -3,14 +3,15 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MAIN_COLOR } from '../../../constants/styles';
 
 interface IProps {
+    onPress: () => void;
     height?: number;
     width?: number;
 }
 
-const CloseButton: React.FC<IProps> = ({height=25, width=25}) => {
+const CloseButton: React.FC<IProps> = ({onPress, height=25, width=25}) => {
     const styles = getStyles(height, width);
     return (
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={onPress}>
             <Image source={require('./cross.png')} style={styles.crossImage} />
         </TouchableOpacity>
     )

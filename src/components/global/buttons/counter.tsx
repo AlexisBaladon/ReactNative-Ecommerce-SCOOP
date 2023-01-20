@@ -1,20 +1,22 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MAIN_COLOR } from '../../../constants/styles';
+import useCounter from '../../../hooks/useCounter';
 
 interface IProps {
     addCharacter: string;
-    count: number | string;
     decCharacter: string;
     height?: number | string;
     width?: number | string;
 }
 
-const Counter: React.FC<IProps> = ({addCharacter, count, decCharacter, height=80, width=25}) => {
+const Counter: React.FC<IProps> = ({addCharacter, decCharacter, height=80, width=25}) => {
     const styles = getStyles(height, width);
+    const [count, addToCounter, decToCounter] = useCounter(0);
+
     return (<>
         <View style={styles.counter}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => addToCounter(1)}>
                 <Text style={styles.text}>
                     {addCharacter}
                 </Text>
@@ -22,7 +24,7 @@ const Counter: React.FC<IProps> = ({addCharacter, count, decCharacter, height=80
             <Text style={styles.text}>
                 {count}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => decToCounter(1)}>
                 <Text style={styles.text}>
                     {decCharacter}
                 </Text>

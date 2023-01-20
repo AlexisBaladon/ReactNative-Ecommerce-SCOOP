@@ -1,6 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { BACKGROUND_COLOR } from './constants/styles'
-import SavedItems from './pages/savedItems';
+import SavedItems from './views/savedItems';
 
 export default function App() {
   return (

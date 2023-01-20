@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React, { useRef } from 'react';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
 import DtItem from '../../interfaces/item';
 import CloseButton from '../global/buttons/closeButton';
@@ -7,33 +7,36 @@ import Counter from '../global/buttons/counter';
 
 interface IProps {
     item: DtItem,
-    addToCounter(itemId: DtItem["id"], amount: number): void;
     deleteItem(itemId: DtItem["id"]): void;
 }
 
-const Item: React.FC<IProps> = ({item, addToCounter, deleteItem}) => {
-  return (
+const Item: React.FC<IProps> = ({item, deleteItem}) => {
+    return (
     <View style={styles.item}>
         <View style={styles.imageContainer}>
             <Image style={styles.itemImage} source={require('./helado.png')} />
         </View>
         <View style={styles.textContainer}>
-            <Text style={styles.itemTitle}>{item.title}</Text>
+            <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
             <Text style={styles.itemDescription}>{item.description}</Text>
             <Text style={styles.itemPrice}>{item.priceDollars}US$</Text>
         </View>
         <View style={styles.buttonContainer}>
-            <CloseButton />
-            <Counter addCharacter={'+'} count={0} decCharacter={'-'} />
+            <CloseButton onPress={() => deleteItem(item.id)}/>
+            <Counter 
+                addCharacter={'+'} 
+                decCharacter={'-'}
+            />
         </View>
     </View>
   )
 }
 
-const imageSize = 100; 
+const {width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     item: {
+        maxWidth: width*0.9,
         width: "100%", height: '100%',
         display: 'flex',
         flexDirection: 'row',
