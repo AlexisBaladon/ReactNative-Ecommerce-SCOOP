@@ -21,9 +21,9 @@ const Item: React.FC<IProps> = ({item, deleteItem}) => {
             <Image style={styles.itemImage} source={imageSrc} />
         </View>
         <View style={styles.textContainer}>
-            <Text style={styles.itemTitle} numberOfLines={2}>{item.title}</Text>
-            <Text style={styles.itemDescription}>{item.description}</Text>
-            <Text style={styles.itemPrice}>{item.priceDollars}US$</Text>
+            <Text style={styles.itemTitle} numberOfLines={2} ellipsizeMode='tail'>{item.title}</Text>
+            <Text style={styles.itemDescription} numberOfLines={2} ellipsizeMode='tail'>{item.description}</Text>
+            <Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode='tail'>{item.priceDollars}US$</Text>
         </View>
         <View style={styles.buttonContainer}>
             <CloseButton onPress={() => deleteItem(item.id)}/>
@@ -41,7 +41,7 @@ const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
     item: {
         maxWidth: width*0.9,
-        width: "100%", height: '100%',
+        width: "90%", height: '100%',
         display: 'flex',
         flexDirection: 'row',
         padding: '4%',
@@ -60,17 +60,18 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     imageContainer: {
-        //move image to left like object-fit: cover:
+        width: '35%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-start',
         alignSelf: 'center',
+        alignItems: 'flex-start',
+        borderRadius: 15,
+        overflow: 'hidden',
+        
     },
     itemImage: {
         aspectRatio: 1,
         width: '100%', height: '100%',
-        borderRadius: 15,
-        borderWidth: 1,
 
         //IOS
         shadowColor: "#000",
@@ -84,13 +85,16 @@ const styles = StyleSheet.create({
         
     },
     textContainer: {
+        width: '40%',
+        
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         flexGrow: 6,
-        marginLeft: '5%', paddingRight: '5%',
+        marginLeft: '4%', paddingRight: '5%',
     },
     itemTitle: {
+
         fontWeight: 'bold',
         fontSize: 20,
     },
@@ -106,12 +110,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     buttonContainer: {
+        width: '10%',
         flexGrow: 1,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
-        width: '10%',
     },
 })
 

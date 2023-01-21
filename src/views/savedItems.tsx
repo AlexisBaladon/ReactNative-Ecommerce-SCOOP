@@ -53,7 +53,7 @@ const optionsHeight = height/25;
 const styles = StyleSheet.create({
   app: {
     flex: 1,
-    width: '100%', height: height,
+    width: width, height: height,
     backgroundColor: BACKGROUND_COLOR,
   },
   header: {

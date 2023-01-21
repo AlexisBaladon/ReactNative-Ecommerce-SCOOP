@@ -23,8 +23,6 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
     const priceDollarsRef = useRef<string>('');
     const amountRef = useRef<string>('');
     const imageURLRef = useRef<string>('');
-
-    const imageUrls = getItemImagesIds();
     
     const sanitizeInputs = (): DtItem => {
         let title = titleRef.current;
