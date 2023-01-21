@@ -56,12 +56,11 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         marginVertical: 15,
         borderRadius: 15,
+        overflow: 'hidden',
     },
     image: {
         width: 150, height: 150,
         resizeMode: 'cover',
-        overflow: 'hidden',
-        borderRadius: 15,
     },
 });
 export default ImageSlider;
