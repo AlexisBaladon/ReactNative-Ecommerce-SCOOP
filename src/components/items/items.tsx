@@ -20,18 +20,35 @@ const Items: React.FC<IProps> = ({items, setItems}) => {
         </View>
     }
 
-
-    return (
-        <FlatList 
+    return (<>
+        {!items.length && <View style={styles.emptyListTextContainer}>
+            <Text style={styles.emptyListText}>No hay items que mostrar 😔 Agrega uno! </Text>
+        </View>}
+        {items.length > 0 && <FlatList 
             contentContainerStyle={styles.items}
             renderItem={RenderItem}
             data={items}
             keyExtractor={(item: DtItem) => item.id}
-        />
+        />}
+    </>
     )
 }
 
 const styles = StyleSheet.create({
+    emptyListTextContainer: {
+        width: '100%', height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 125, paddingHorizontal: 30,
+        
+    },
+    emptyListText: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'gray',
+    },
     items: {
         display: 'flex',
         flexDirection: 'column',
