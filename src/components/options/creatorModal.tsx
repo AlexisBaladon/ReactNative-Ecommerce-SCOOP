@@ -16,6 +16,7 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
     const MAX_DESCRIPTION_LENGTH = 100;
     const MAX_PRICE_LENGTH = 10;
     const MAX_AMOUNT_LENGTH = 10;
+    const currencySymbol = 'US$';
 
     const titleRef = useRef<string>('');
     const descriptionRef = useRef<string>('');
@@ -24,9 +25,9 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
     const imageURLRef = useRef<string>('');
     
     const sanitizeInputs = (): DtItem => {
-        let title = titleRef.current;
-        let priceDollars: string | number = priceDollarsRef.current;
-        let amount: string | number = amountRef.current;
+        let title = titleRef.current.trim();
+        let priceDollars: string | number = priceDollarsRef.current.trim().split(' ')[0];
+        let amount: string | number = amountRef.current.trim();
 
         if (!title.length) title = 'Item';
         if (!priceDollars.length) priceDollars = 0;
@@ -107,8 +108,8 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
                                     <Text style={styles.subtitle}>Precio</Text>
                                     <TextInput
                                         style={[styles.inputBox, styles.priceInput]} 
-                                        defaultValue='0' 
-                                        placeholder='US$' 
+                                        defaultValue={`0`} 
+                                        placeholder={currencySymbol} 
                                         onChange={e => priceDollarsRef.current = e.nativeEvent.text}
                                         maxLength={MAX_PRICE_LENGTH}
                                         keyboardType='numeric'

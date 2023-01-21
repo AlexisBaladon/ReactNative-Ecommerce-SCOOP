@@ -7,14 +7,24 @@ interface IProps {
     addCharacter: string;
     decCharacter: string;
     minCount?: number;
+    maxCount?: number;
     initialCount?: number;
     height?: number | string;
     width?: number | string;
 }
 
-const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, initialCount=1, height=80, width=25}) => {
+const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, maxCount=99, initialCount=1, height=80, width=25}) => {
     const styles = getStyles(height, width);
-    const [count, addToCounter, decToCounter] = useCounter(minCount, initialCount);
+    const [count, addToCounter, decToCounter] = useCounter(minCount, initialCount, maxCount);
+    
+    const onChangeCount = (text: string) => {
+        const inputCount = Number.parseInt(text);
+        if (!Number.isNaN(inputCount)) {
+            const addedCount = inputCount - count;
+            if (addedCount > 0) addToCounter(addedCount);
+            else decToCounter(-addedCount);
+        }
+    }
 
     return (<>
         <View style={styles.counter}>
@@ -26,11 +36,9 @@ const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, init
             <TextInput 
                 style={styles.text}
                 keyboardType={'numeric'} 
-                defaultValue={count.toString()} 
-                placeholder={count.toString()}
+                onChangeText={onChangeCount}
                 value={count.toString()}
-            >
-            </ TextInput>
+            />
             <TouchableOpacity onPress={() => decToCounter(1)}>
                 <Text style={styles.text}>
                     {decCharacter}

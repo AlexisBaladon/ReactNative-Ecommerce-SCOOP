@@ -14,7 +14,8 @@ interface IProps {
 
 const Item: React.FC<IProps> = ({item, deleteItem}) => {
     const imageSrc = getItemImage(item.imageURL);
-
+    const currencySymbol = 'US$'
+    console.log(item.id)
     return (
     <View style={styles.item}>
         <View style={styles.imageContainer}>
@@ -23,7 +24,7 @@ const Item: React.FC<IProps> = ({item, deleteItem}) => {
         <View style={styles.textContainer}>
             <Text style={styles.itemTitle} numberOfLines={2} ellipsizeMode='tail'>{item.title}</Text>
             <Text style={styles.itemDescription} numberOfLines={2} ellipsizeMode='tail'>{item.description}</Text>
-            <Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode='tail'>{item.priceDollars}US$</Text>
+            <Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode='tail'>{`${item.priceDollars} ${currencySymbol}`}</Text>
         </View>
         <View style={styles.buttonContainer}>
             <CloseButton onPress={() => deleteItem(item.id)}/>
@@ -32,6 +33,7 @@ const Item: React.FC<IProps> = ({item, deleteItem}) => {
                 decCharacter={'-'}
                 initialCount={item.amount}
                 minCount={1}
+                maxCount={99}
             />
         </View>
     </View>
