@@ -28,7 +28,7 @@ const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, maxC
 
     return (<>
         <View style={styles.counter}>
-            <TouchableOpacity onPress={() => addToCounter(1)}>
+            <TouchableOpacity style={styles.addDecButton} onPress={() => addToCounter(1)}>
                 <Text style={styles.text}>
                     {addCharacter}
                 </Text>
@@ -39,7 +39,7 @@ const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, maxC
                 onChangeText={onChangeCount}
                 value={count.toString()}
             />
-            <TouchableOpacity onPress={() => decToCounter(1)}>
+            <TouchableOpacity style={styles.addDecButton} onPress={() => decToCounter(1)}>
                 <Text style={styles.text}>
                     {decCharacter}
                 </Text>
@@ -59,6 +59,9 @@ const getStyles = (height: number | string, width: number | string) => {
             alignItems: 'center',
             backgroundColor: 'whitesmoke',
             borderRadius: 25,
+        },
+        addDecButton: {
+            width: '100%',
         },
         text: {
             color: MAIN_COLOR,
