@@ -30,6 +30,8 @@ const Item: React.FC<IProps> = ({item, deleteItem}) => {
             <Counter 
                 addCharacter={'+'} 
                 decCharacter={'-'}
+                initialCount={item.amount}
+                minCount={1}
             />
         </View>
     </View>

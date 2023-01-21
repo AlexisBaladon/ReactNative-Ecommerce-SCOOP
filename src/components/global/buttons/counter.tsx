@@ -6,13 +6,15 @@ import useCounter from '../../../hooks/useCounter';
 interface IProps {
     addCharacter: string;
     decCharacter: string;
+    minCount?: number;
+    initialCount?: number;
     height?: number | string;
     width?: number | string;
 }
 
-const Counter: React.FC<IProps> = ({addCharacter, decCharacter, height=80, width=25}) => {
+const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, initialCount=1, height=80, width=25}) => {
     const styles = getStyles(height, width);
-    const [count, addToCounter, decToCounter] = useCounter(0);
+    const [count, addToCounter, decToCounter] = useCounter(minCount, initialCount);
 
     return (<>
         <View style={styles.counter}>
@@ -26,6 +28,7 @@ const Counter: React.FC<IProps> = ({addCharacter, decCharacter, height=80, width
                 keyboardType={'numeric'} 
                 defaultValue={count.toString()} 
                 placeholder={count.toString()}
+                value={count.toString()}
             >
             </ TextInput>
             <TouchableOpacity onPress={() => decToCounter(1)}>

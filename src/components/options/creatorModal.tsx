@@ -32,9 +32,9 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
         if (!priceDollars.length) priceDollars = 0;
         priceDollars = +priceDollars;
         if (Number.isNaN(priceDollars)) priceDollars = 0;
-        if (!amount.length) amount = 0;
+        if (!amount.length) amount = 1;
         amount = +amount;
-        if (Number.isNaN(amount)) amount = 0;
+        if (Number.isNaN(amount)) amount = 1;
 
         return {
             id: getUniqueId(),
@@ -118,9 +118,9 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}
                                     <Text style={styles.subtitle}>Cantidad</Text>
                                     <TextInput 
                                         style={styles.inputBox}
-                                        defaultValue='1' 
+                                        defaultValue='1'
                                         placeholder='1' 
-                                        onChange={e => {amountRef.current = e.nativeEvent.text}}
+                                        onChange={e => amountRef.current = e.nativeEvent.text}
                                         maxLength={MAX_AMOUNT_LENGTH}
                                         keyboardType='numeric'
                                     />
