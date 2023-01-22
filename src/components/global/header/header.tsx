@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 interface IProps {
     title: string;
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         fontSize: 28,
         paddingLeft: 10,
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     hamburger: {
         width: 37.5, height: 37.5,

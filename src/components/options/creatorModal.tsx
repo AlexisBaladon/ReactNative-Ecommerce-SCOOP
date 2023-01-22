@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import { Modal, View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import { MAIN_COLOR } from '../../constants/styles';
+import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
 import getUniqueId from '../../helpers/idProvider';
 import DtItem from '../../interfaces/item';
 import ImageSlider from './imageSlider';
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
         backgroundColor: MAIN_COLOR,
     },
     cancelButton: {
-        backgroundColor: 'gray',
+        backgroundColor: NEUTRAL_COLOR,
     },
     buttonText: {
         color: 'white',

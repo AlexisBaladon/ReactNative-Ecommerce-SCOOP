@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { MAIN_COLOR } from '../../../constants/styles';
+import { LIGHT_COLOR, MAIN_COLOR } from '../../../constants/styles';
 
 interface IProps {
     addCharacter: string;
@@ -63,7 +63,7 @@ const getStyles = (height: number | string, width: number | string) => {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: 'whitesmoke',
+            backgroundColor: LIGHT_COLOR,
             borderRadius: 25,
         },
         addDecButton: {

@@ -12,7 +12,7 @@ interface IProps {
   cancelModalButtonTitle: string,
 }
 
-const CategoriesContainer: React.FC<IProps> = ({
+const OptionsContainer: React.FC<IProps> = ({
       currencySymbol, 
       addButtonTitle, 
       deleteAllButtonTitle,
@@ -43,4 +43,4 @@ const CategoriesContainer: React.FC<IProps> = ({
   )
 }
 
-export default CategoriesContainer;
+export default OptionsContainer;

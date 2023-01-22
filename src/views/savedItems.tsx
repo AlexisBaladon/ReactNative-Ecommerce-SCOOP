@@ -3,7 +3,7 @@ import Items from '../components/items/items'
 import Search from '../components/global/search/search'
 import { View, Text, Dimensions, StyleSheet } from 'react-native'
 import { BACKGROUND_COLOR } from '../constants/styles'
-import CategoriesContainer from '../components/options/categoriesContainer'
+import OptionsContainer from '../components/options/optionsContainer'
 import { 
   CURRENCY_SYMBOL,
   SEARCH_PLACEHOLDER,
@@ -25,7 +25,7 @@ const SavedItems = () => {
       <Search placeHolder={SEARCH_PLACEHOLDER} />
     </View>
     <View style={styles.options}>
-      <CategoriesContainer 
+      <OptionsContainer 
         currencySymbol={CURRENCY_SYMBOL} 
         addButtonTitle={ADD_BUTTON_MESSAGE}
         deleteAllButtonTitle={DELETE_ALL_BUTTON_MESSAGE}

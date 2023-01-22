@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { MAIN_COLOR } from '../../../constants/styles';
+import { LIGHT_COLOR, MAIN_COLOR } from '../../../constants/styles';
 
 interface IProps {
     onPress: () => void;
@@ -23,7 +23,7 @@ const getStyles = (height: number, width: number) => {
             width: width, height: height,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'whitesmoke',
+            backgroundColor: LIGHT_COLOR,
             borderRadius: 10,
         },
         crossImage: {

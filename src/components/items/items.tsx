@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { LIGHT_COLOR } from '../../constants/styles';
 import { ItemContext } from '../../context/itemContext';
 import DtItem from '../../interfaces/item'
 import Item from './item'
@@ -45,7 +46,7 @@ const createStyles = (height: number | string) => StyleSheet.create({
         minHeight: 150, height,
         paddingHorizontal: "6%",
         marginVertical: 15,
-        borderColor: 'whitesmoke',
+        borderColor: LIGHT_COLOR,
         borderWidth: 1,
         borderRadius: 15,
     },

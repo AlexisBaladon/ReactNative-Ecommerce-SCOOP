@@ -21,9 +21,15 @@ export default Button
 
 const styles = (isSelected: boolean) => StyleSheet.create({
     button: {
-        backgroundColor: isSelected? MAIN_COLOR:LIGHT_COLOR,
-        borderColor: NEUTRAL_COLOR,
-        borderWidth: 1,
+        backgroundColor: isSelected? MAIN_COLOR:'white',
+
+        //shadow of elevation 3
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        elevation: 3,
+
         borderRadius: 50,
         paddingVertical: 2.5, paddingHorizontal: 12,
     },
