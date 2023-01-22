@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
-import { MAIN_COLOR } from '../../../constants/styles';
-import { getItemImage, getItemImagesIds } from '../../../helpers/imageHandler';
+import { MAIN_COLOR } from '../../../../constants/styles';
+import { getItemImage, getItemImagesIds } from '../../../../helpers/imageHandler';
+import styles from './imageSlider.styles';
 
 interface IProps {
     imageUrlRef: React.MutableRefObject<string>;
@@ -49,18 +50,4 @@ const ImageSlider: React.FC<IProps> = ({imageUrlRef}) => {
   )
 }
 
-const styles = StyleSheet.create({ 
-    imageButton: {
-        width: 150, height: 150,
-        aspectRatio: 1,
-        marginHorizontal: 15,
-        marginVertical: 15,
-        borderRadius: 15,
-        overflow: 'hidden',
-    },
-    image: {
-        width: 150, height: 150,
-        resizeMode: 'cover',
-    },
-});
 export default ImageSlider;

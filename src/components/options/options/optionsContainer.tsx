@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { ItemContext } from '../../../context/itemContext';
-import Buttons from '../../global/buttons/options/buttons';
+import Buttons from '../../global/buttons/options/buttons/buttons';
 import CreatorModal from '../creatorModal/modal/creatorModal';
 
 interface IProps {

@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
+import styles from './header.styles';
 
 interface IProps {
     title: string;
@@ -12,25 +13,5 @@ const Header: React.FC<IProps> = ({title}) => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    header: {
-        marginLeft: 15, marginRight: 20,
-        marginTop: '15%',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 28,
-        paddingLeft: 10,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    hamburger: {
-        width: 37.5, height: 37.5,
-    }
-})
 
 export default Header;

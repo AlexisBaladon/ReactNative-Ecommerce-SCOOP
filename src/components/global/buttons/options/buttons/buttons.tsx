@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import Button from './button'
+import { View } from 'react-native'
+import Button from '../button/button'
+import styles from './buttons.styles';
 
 interface IProps {
     buttons: Array<{title: string, onPress: () => void}>;
@@ -21,18 +22,5 @@ const Buttons: React.FC<IProps> = ({buttons}) => {
         </View>
   )
 }
-
-const styles = StyleSheet.create({
-    categoriesContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        width: '100%',
-        paddingHorizontal: 20,
-    } ,
-    categoryContainer: {
-        marginRight: 10,
-    }
-})
 
 export default Buttons

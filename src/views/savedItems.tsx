@@ -1,9 +1,9 @@
 import React from 'react'
-import Items from '../components/items/items'
+import Items from '../components/items/items/items'
 import Search from '../components/global/search/search'
-import { View, Text, Dimensions, StyleSheet } from 'react-native'
-import { BACKGROUND_COLOR } from '../constants/styles'
+import { View, Text } from 'react-native'
 import OptionsContainer from '../components/options/options/optionsContainer'
+import { styles, itemHeight } from './savedItems.styles'
 import { 
   CURRENCY_SYMBOL,
   SEARCH_PLACEHOLDER,
@@ -44,40 +44,5 @@ const SavedItems = () => {
   </View>
   )
 }
-
-const { width, height } = Dimensions.get('window');
-const headerHeight = height/9;
-const searchHeight = height/12;
-const optionsHeight = height/22;
-const itemHeight = height/5.25;
-
-const styles = StyleSheet.create({
-  app: {
-    flex: 1,
-    width: width, height: height,
-    backgroundColor: BACKGROUND_COLOR,
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'center',
-    height: headerHeight,
-    marginTop: 30,
-  },
-  title: {
-      fontSize: 28,
-      textAlign: 'center',
-      fontWeight: 'bold',
-  },
-  search: {
-    height: searchHeight,
-  },
-  options: {
-    height: optionsHeight,
-  },
-  items: {
-    height: height - headerHeight - searchHeight - optionsHeight,
-  }
-})
-
 
 export default SavedItems;
