@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     height: headerHeight,
-    paddingTop: 30,
+    marginTop: 30,
   },
   title: {
       fontSize: 28,
