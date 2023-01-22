@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Modal, View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, ScrollView } from 'react-native';
+import { Modal, View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { MAIN_COLOR } from '../../constants/styles';
 import getUniqueId from '../../helpers/idProvider';
 import DtItem from '../../interfaces/item';

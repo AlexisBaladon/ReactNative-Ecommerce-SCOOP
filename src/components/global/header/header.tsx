@@ -9,10 +9,6 @@ const Header: React.FC<IProps> = ({title}) => {
     return (
         <View style={styles.header}>
             <Text style={styles.title}>{title}</Text>
-            <Image 
-                style={styles.hamburger}
-                source={require('./hamburger.png')}
-            />
         </View>
     )
 }
@@ -20,18 +16,15 @@ const Header: React.FC<IProps> = ({title}) => {
 const styles = StyleSheet.create({
     header: {
         marginLeft: 15, marginRight: 20,
-        marginTop: 50,
-        minHeight: 50,
+        marginTop: '15%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    backArrow: {
-        width: 30, height: 30,
-    },
     title: {
-        fontSize: 30,
+        fontSize: 28,
+        paddingLeft: 10,
         textAlign: 'center',
         fontWeight: 'bold'
     },

@@ -15,7 +15,7 @@ interface IProps {
 const Item: React.FC<IProps> = ({item, deleteItem}) => {
     const imageSrc = getItemImage(item.imageURL);
     const currencySymbol = 'US$'
-    console.log(item.id)
+
     return (
     <View style={styles.item}>
         <View style={styles.imageContainer}>
@@ -98,9 +98,8 @@ const styles = StyleSheet.create({
         marginLeft: '4%', paddingRight: '5%',
     },
     itemTitle: {
-
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 22,
     },
     itemDescription: {
         color: NEUTRAL_COLOR,
@@ -111,6 +110,7 @@ const styles = StyleSheet.create({
         left: 0,
         color: MAIN_COLOR,
 
+        fontSize: 20,
         fontWeight: 'bold',
     },
     buttonContainer: {

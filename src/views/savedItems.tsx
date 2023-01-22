@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import Header from '../components/global/header/header'
+import React, { useState } from 'react'
 import Items from '../components/items/items'
 import Search from '../components/global/search/search'
-import { View, StyleSheet, Dimensions, GestureResponderEvent } from 'react-native'
+import { View, Text, Dimensions, StyleSheet } from 'react-native'
 import { BACKGROUND_COLOR } from '../constants/styles'
 import Buttons from '../components/options/buttons'
 import DtItem from '../interfaces/item'
@@ -16,21 +15,16 @@ const SavedItems = () => {
     setItems([...items, item]);
   }
 
-  const handleDeleteAllItems = (event: GestureResponderEvent) => {
-    event.preventDefault();
-    setItems([]);
-  }
-
-  type TButton = {title: string, onPress(e: GestureResponderEvent): void};
+  type TButton = {title: string, onPress(): void};
   const buttons: Array<TButton> = [
     {title: 'Agregar', onPress: () => setModalVisible(true)},
-    {title: 'Borrar todo', onPress: handleDeleteAllItems},
+    {title: 'Borrar todo', onPress: () => setItems([])},
   ]
 
   return (<View style={styles.app}>
     <CreatorModal modalVisible={modalVisible} setModalVisible={setModalVisible} addItem={ addItem } />
     <View style={styles.header}>
-      <Header title={'Lista de productos'}/>
+        <Text style={styles.title}>Lista de productos</Text>
     </View>
     <View style={styles.search}>
       <Search placeHolder={'Buscar...'} />
@@ -46,9 +40,9 @@ const SavedItems = () => {
 }
 
 const { width, height } = Dimensions.get('window');
-const headerHeight = height/8;
+const headerHeight = height/9;
 const searchHeight = height/12;
-const optionsHeight = height/25;
+const optionsHeight = height/22;
 
 const styles = StyleSheet.create({
   app: {
@@ -57,8 +51,15 @@ const styles = StyleSheet.create({
     backgroundColor: BACKGROUND_COLOR,
   },
   header: {
+    display: 'flex',
+    justifyContent: 'center',
     height: headerHeight,
-    marginBottom: 15,
+    paddingTop: 30,
+  },
+  title: {
+      fontSize: 28,
+      textAlign: 'center',
+      fontWeight: 'bold',
   },
   search: {
     height: searchHeight,

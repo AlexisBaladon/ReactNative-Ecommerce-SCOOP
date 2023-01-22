@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
   searchInputContainer: {
     backgroundColor: 'white',
@@ -52,15 +52,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   searchInput: {
+    width: '100%', height: '100%',
     marginVertical: 2.5,
     marginLeft: 12.5,
-    width: '100%', height: '100%',
 
-    color: 'gray',
     fontSize: 17.5,
   },
   magnifyingGlass: {
-    height: 30, width: 30,
+    height: 28, width: 27,
     marginLeft: 7.5,
   },
   filterContainer: {
