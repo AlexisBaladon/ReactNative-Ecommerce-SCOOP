@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext } from 'react'
 import { View, TextInput, Image, StyleSheet } from 'react-native'
 import { MAIN_COLOR } from '../../../constants/styles'
 import { ItemContext } from '../../../context/itemContext';
@@ -9,16 +9,7 @@ interface IProps {
 }
 
 const Search: React.FC<IProps> = ({placeHolder, defaultValue=''}) => {
-  const {items, setShownItems} = useContext(ItemContext);
-
-  const handleOnChangeText = (text: string) => {
-    const filteredItems = items.filter(item => {
-      return item.title.toLowerCase().includes(text.toLowerCase())
-      || item.description.toLowerCase().includes(text.toLowerCase())
-      || text === '';
-    });
-    setShownItems(filteredItems);
-  }
+  const { filterByText } = useContext(ItemContext);
 
   return (
     <View style={styles.search}>
@@ -31,7 +22,7 @@ const Search: React.FC<IProps> = ({placeHolder, defaultValue=''}) => {
           style={styles.searchInput} 
           placeholder={placeHolder} 
           defaultValue={defaultValue}
-          onChangeText={handleOnChangeText}
+          onChangeText={filterByText}
         />
       </View>
       <View style={styles.filterContainer}>

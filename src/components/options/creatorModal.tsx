@@ -110,7 +110,6 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
                                     <Text style={styles.subtitle}>Precio</Text>
                                     <TextInput
                                         style={[styles.inputBox, styles.priceInput]} 
-                                        defaultValue={`0`} 
                                         placeholder={currencySymbol} 
                                         onChange={e => priceDollarsRef.current = e.nativeEvent.text}
                                         maxLength={MAX_PRICE_LENGTH}

@@ -6,16 +6,24 @@ import useCounter from '../../../hooks/useCounter';
 interface IProps {
     addCharacter: string;
     decCharacter: string;
-    minCount?: number;
-    maxCount?: number;
-    initialCount?: number;
+    addToCounter: (addedCount: number) => void;
+    count: number;
+    decToCounter: (decCount: number) => void;
     height?: number | string;
     width?: number | string;
 }
 
-const Counter: React.FC<IProps> = ({addCharacter, decCharacter, minCount=1, maxCount=99, initialCount=1, height=80, width=25}) => {
+const Counter: React.FC<IProps> = ({
+        addCharacter,
+        decCharacter, 
+        addToCounter, 
+        count, 
+        decToCounter,
+        height=80, 
+        width=25
+    }) => {
+        
     const styles = getStyles(height, width);
-    const [count, addToCounter, decToCounter] = useCounter(minCount, initialCount, maxCount);
     
     const onChangeCount = (text: string) => {
         const inputCount = Number.parseInt(text);

@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
-import itemImages from '../../assets/items';
 import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
 import { getItemImage } from '../../helpers/imageHandler';
+import useCounter from '../../hooks/useCounter';
 import DtItem from '../../interfaces/item';
 import CloseButton from '../global/buttons/closeButton';
 import Counter from '../global/buttons/counter';
@@ -10,9 +10,12 @@ import Counter from '../global/buttons/counter';
 interface IProps {
     item: DtItem,
     deleteItem(itemId: DtItem["id"]): void;
+    minCount?: number,
+    maxCount?: number,
 }
 
-const Item: React.FC<IProps> = ({item, deleteItem}) => {
+const Item: React.FC<IProps> = ({item, deleteItem, minCount=1, maxCount=99}) => {
+    const [count, addToCounter, decToCounter] = useCounter(minCount, item.amount, maxCount);
     const imageSrc = getItemImage(item.imageURL);
     const currencySymbol = 'US$'
 
@@ -24,16 +27,16 @@ const Item: React.FC<IProps> = ({item, deleteItem}) => {
         <View style={styles.textContainer}>
             <Text style={styles.itemTitle} numberOfLines={2} ellipsizeMode='tail'>{item.title}</Text>
             <Text style={styles.itemDescription} numberOfLines={2} ellipsizeMode='tail'>{item.description}</Text>
-            <Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode='tail'>{`${item.priceDollars} ${currencySymbol}`}</Text>
+            <Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode='tail'>{`${item.priceDollars * count} ${currencySymbol}`}</Text>
         </View>
         <View style={styles.buttonContainer}>
             <CloseButton onPress={() => deleteItem(item.id)}/>
             <Counter 
                 addCharacter={'+'} 
                 decCharacter={'-'}
-                initialCount={item.amount}
-                minCount={1}
-                maxCount={99}
+                addToCounter={addToCounter}
+                count={count}
+                decToCounter={decToCounter}
             />
         </View>
     </View>
