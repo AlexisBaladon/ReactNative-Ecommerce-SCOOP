@@ -26,7 +26,7 @@ const ImageSlider: React.FC<IProps> = ({imageUrlRef}) => {
         setImagesStyle(newImagesStyle);
     }
 
-    //React native doesn't allow to use require inside a loop
+    //React native doesn't allow the use of require inside a loop
     const images = imagesRequired.map((uri, i) => {
         return {
             id: imageUrls[i],

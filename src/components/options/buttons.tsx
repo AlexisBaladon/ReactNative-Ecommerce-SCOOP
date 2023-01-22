@@ -1,9 +1,9 @@
 import React from 'react'
-import { GestureResponderEvent, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Button from './button'
 
 interface IProps {
-    buttons: Array<any>; //TODO: CAMBIAR
+    buttons: Array<{title: string, onPress: () => void}>;
 }
 
 const Buttons: React.FC<IProps> = ({buttons}) => {

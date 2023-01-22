@@ -4,20 +4,42 @@ import Search from '../components/global/search/search'
 import { View, Text, Dimensions, StyleSheet } from 'react-native'
 import { BACKGROUND_COLOR } from '../constants/styles'
 import CategoriesContainer from '../components/options/categoriesContainer'
+import { 
+  CURRENCY_SYMBOL,
+  SEARCH_PLACEHOLDER,
+  NO_ITEMS_MESSAGE,
+  ADD_BUTTON_MESSAGE,
+  DELETE_ALL_BUTTON_MESSAGE,
+  HEADER_TITLE,
+  ADD_ITEMS_TITLE,
+  ACCEPT_ADD_BUTTON_TITLE,
+  CANCEL_ADD_BUTTON_TITLE,
+} from '../constants/text'
 
 const SavedItems = () => {
   return (<View style={styles.app}>
     <View style={styles.header}>
-      <Text style={styles.title}>Lista de productos</Text>
+      <Text style={styles.title}>{HEADER_TITLE}</Text>
     </View>
     <View style={styles.search}>
-      <Search placeHolder={'Buscar...'} />
+      <Search placeHolder={SEARCH_PLACEHOLDER} />
     </View>
     <View style={styles.options}>
-      <CategoriesContainer />
+      <CategoriesContainer 
+        currencySymbol={CURRENCY_SYMBOL} 
+        addButtonTitle={ADD_BUTTON_MESSAGE}
+        deleteAllButtonTitle={DELETE_ALL_BUTTON_MESSAGE}
+        modalTitle={ADD_ITEMS_TITLE}
+        acceptModalButtonTitle={ACCEPT_ADD_BUTTON_TITLE}
+        cancelModalButtonTitle={CANCEL_ADD_BUTTON_TITLE}
+      />
     </View>
     <View style={styles.items}>
-      <Items itemHeight={itemHeight}/>
+      <Items 
+        itemHeight={itemHeight}
+        noItemsMessage={NO_ITEMS_MESSAGE}
+        currencySymbol={CURRENCY_SYMBOL}  
+      />
     </View>
   </View>
   )

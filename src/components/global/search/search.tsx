@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   searchInputContainer: {
     backgroundColor: 'white',
-    width: 300, height: 45,//TODO: DESHARDCODEAR
+    width: '77.5%', height: '90%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',

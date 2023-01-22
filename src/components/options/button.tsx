@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
 import { LIGHT_COLOR, NEUTRAL_COLOR, MAIN_COLOR } from '../../constants/styles';
 
 interface IProps {

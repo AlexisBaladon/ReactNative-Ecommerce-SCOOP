@@ -9,9 +9,20 @@ import { ItemContext } from '../../context/itemContext';
 interface IProps {
     modalVisible: boolean,
     setModalVisible(visible: boolean): void;
+    currencySymbol: string;
+    modalTitle: string;
+    acceptModalButtonTitle: string;
+    cancelModalButtonTitle: string;
 }
 
-const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
+const CreatorModal: React.FC<IProps> = ({
+            modalVisible, 
+            currencySymbol,
+            setModalVisible, 
+            modalTitle,
+            acceptModalButtonTitle,
+            cancelModalButtonTitle
+        }) => {
     const { addItem } = useContext(ItemContext);
     
     const titleRef = useRef<string>('');
@@ -24,7 +35,6 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
     const MAX_DESCRIPTION_LENGTH = 100;
     const MAX_PRICE_LENGTH = 10;
     const MAX_AMOUNT_LENGTH = 2;
-    const currencySymbol = 'US$';
     
     const sanitizeInputs = (): DtItem => {
         let title = titleRef.current.trim();
@@ -76,14 +86,14 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
                         <Text style={[styles.textStyle, styles.closeButtonText]}>x</Text>
                     </TouchableOpacity>
                     <View>
-                        <Text style={styles.title}>Agregar item</Text>
+                        <Text style={styles.title}>{modalTitle}</Text>
                         <ScrollView>
                             <View style={styles.inputTitleContainer}>
                                 <Text style={styles.subtitle}>Imagen:</Text>
                                 <ImageSlider imageUrlRef={imageURLRef} />
                             </View>
                             <View style={styles.inputTitleContainer}>
-                                <Text style={styles.subtitle}>Nombre</Text>
+                                <Text style={styles.subtitle}>Nombre:</Text>
                                 <TextInput 
                                     style={styles.inputBox}
                                     defaultValue=''
@@ -94,7 +104,7 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
                                 />
                             </View>
                             <View style={styles.inputTitleContainer}>
-                                <Text style={styles.subtitle}>Descripción</Text>
+                                <Text style={styles.subtitle}>Descripción:</Text>
                                 <TextInput
                                     style={styles.inputBox}
                                     defaultValue=''
@@ -131,10 +141,10 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
                         </ScrollView>
                         <View  style={styles.buttons}>
                             <TouchableOpacity style={[styles.acceptButton, styles.button]} onPress={handleCreateItem}>
-                                <Text style={styles.buttonText}>Añadir</Text>
+                                <Text style={styles.buttonText}>{acceptModalButtonTitle}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.cancelButton, styles.button]} onPress={() => setModalVisible(!modalVisible)}>
-                                <Text style={styles.buttonText}>Cancelar</Text>
+                                <Text style={styles.buttonText}>{cancelModalButtonTitle}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -218,7 +228,16 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         padding: 12,
         marginLeft: 15,
-        elevation: 2 //TODO: IOS
+    
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 2
     },
     acceptButton: {
         backgroundColor: MAIN_COLOR,

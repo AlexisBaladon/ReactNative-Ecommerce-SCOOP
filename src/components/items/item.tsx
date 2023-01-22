@@ -10,14 +10,14 @@ import Counter from '../global/buttons/counter';
 interface IProps {
     item: DtItem,
     deleteItem(itemId: DtItem["id"]): void;
+    currencySymbol: string,
     minCount?: number,
     maxCount?: number,
 }
 
-const Item: React.FC<IProps> = ({item, deleteItem, minCount=1, maxCount=99}) => {
+const Item: React.FC<IProps> = ({item, deleteItem, currencySymbol, minCount=1, maxCount=99}) => {
     const [count, addToCounter, decToCounter] = useCounter(minCount, item.amount, maxCount);
     const imageSrc = getItemImage(item.imageURL);
-    const currencySymbol = 'US$'
 
     return (
     <View style={styles.item}>

@@ -3,25 +3,26 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 import { ItemContext } from '../../context/itemContext';
 import DtItem from '../../interfaces/item'
 import Item from './item'
- 
 
 interface IProps {
     itemHeight: number | string;
+    noItemsMessage: string;
+    currencySymbol: string;
 }
 
-const Items: React.FC<IProps> = ({itemHeight}) => {
+const Items: React.FC<IProps> = ({itemHeight, noItemsMessage, currencySymbol}) => {
     const { shownItems, deleteItem } = useContext(ItemContext);
     const styles = createStyles(itemHeight);
 
     const RenderItem: React.FC<{item: DtItem}> = ({item}) => {
         return <View style={styles.item}>
-            <Item item={item} deleteItem={deleteItem} />
+            <Item item={item} deleteItem={deleteItem} currencySymbol={currencySymbol} />
         </View>
     }
 
     return (<>
         {!shownItems.length && <View style={styles.emptyListTextContainer}>
-            <Text style={styles.emptyListText}>No hay items que mostrar 😔</Text>
+            <Text style={styles.emptyListText}>{noItemsMessage}</Text>
         </View>}
         {shownItems.length > 0 && <FlatList 
             contentContainerStyle={styles.items}
