@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { MAIN_COLOR } from '../../../constants/styles';
-import useCounter from '../../../hooks/useCounter';
 
 interface IProps {
     addCharacter: string;
@@ -22,9 +21,9 @@ const Counter: React.FC<IProps> = ({
         height=80, 
         width=25
     }) => {
-        
+
     const styles = getStyles(height, width);
-    
+
     const onChangeCount = (text: string) => {
         const inputCount = Number.parseInt(text);
         if (!Number.isNaN(inputCount)) {
@@ -60,7 +59,6 @@ const Counter: React.FC<IProps> = ({
 const getStyles = (height: number | string, width: number | string) => {
     return StyleSheet.create({
         counter: {
-            width: width, height: height,            
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -75,6 +73,7 @@ const getStyles = (height: number | string, width: number | string) => {
             color: MAIN_COLOR,
             fontWeight: 'bold',
             textAlign: 'center',
+            fontSize: 18,
         }
     });
 }

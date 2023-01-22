@@ -30,7 +30,15 @@ const Item: React.FC<IProps> = ({item, deleteItem, minCount=1, maxCount=99}) => 
             <Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode='tail'>{`${item.priceDollars * count} ${currencySymbol}`}</Text>
         </View>
         <View style={styles.buttonContainer}>
-            <CloseButton onPress={() => deleteItem(item.id)}/>
+            <View>
+            <CloseButton 
+                onPress={() => deleteItem(item.id)}
+                height={buttonWidth} width={buttonWidth}
+            />
+
+            </View>
+            <View style={styles.counterButtons}>
+
             <Counter 
                 addCharacter={'+'} 
                 decCharacter={'-'}
@@ -38,20 +46,22 @@ const Item: React.FC<IProps> = ({item, deleteItem, minCount=1, maxCount=99}) => 
                 count={count}
                 decToCounter={decToCounter}
             />
+                </View>
         </View>
     </View>
   )
 }
 
-const {width} = Dimensions.get('window');
+const buttonWidth = 26;
 
 const styles = StyleSheet.create({
     item: {
-        maxWidth: width*0.9,
-        width: "90%", height: '100%',
+        width: "100%", height: '100%',
         display: 'flex',
         flexDirection: 'row',
-        padding: '4%',
+        justifyContent: 'space-around',
+        paddingVertical: '4%',
+        paddingHorizontal: '3%',
         backgroundColor: 'white',
         borderRadius: 15,
 
@@ -67,19 +77,16 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
     imageContainer: {
-        width: '35%',
+        width: '40%',
         display: 'flex',
         justifyContent: 'center',
-        alignSelf: 'center',
-        alignItems: 'flex-start',
         borderRadius: 15,
         overflow: 'hidden',
-        
     },
     itemImage: {
-        aspectRatio: 1,
+        
         width: '100%', height: '100%',
-
+        
         //IOS
         shadowColor: "#000",
         shadowOffset: {
@@ -89,7 +96,7 @@ const styles = StyleSheet.create({
 
         //ANDROID
         elevation: 4,
-        
+        overflow: 'visible',
     },
     textContainer: {
         width: '40%',
@@ -97,8 +104,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        flexGrow: 6,
-        marginLeft: '4%', paddingRight: '5%',
+        
     },
     itemTitle: {
         fontWeight: 'bold',
@@ -110,20 +116,21 @@ const styles = StyleSheet.create({
     itemPrice: {
         position: 'absolute',
         bottom: 0,
-        left: 0,
         color: MAIN_COLOR,
 
         fontSize: 20,
         fontWeight: 'bold',
     },
     buttonContainer: {
-        width: '10%',
-        flexGrow: 1,
+        width: '10%', height: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-end',
         justifyContent: 'space-between',
     },
+    counterButtons: {
+        width: buttonWidth
+    }
 })
 
 export default Item;

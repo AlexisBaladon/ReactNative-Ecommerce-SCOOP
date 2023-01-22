@@ -17,7 +17,7 @@ const SavedItems = () => {
       <CategoriesContainer />
     </View>
     <View style={styles.items}>
-      <Items />
+      <Items itemHeight={itemHeight}/>
     </View>
   </View>
   )
@@ -27,6 +27,7 @@ const { width, height } = Dimensions.get('window');
 const headerHeight = height/9;
 const searchHeight = height/12;
 const optionsHeight = height/22;
+const itemHeight = height/5.25;
 
 const styles = StyleSheet.create({
   app: {

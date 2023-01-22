@@ -23,7 +23,7 @@ const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
     const MAX_TITLE_LENGTH = 20;
     const MAX_DESCRIPTION_LENGTH = 100;
     const MAX_PRICE_LENGTH = 10;
-    const MAX_AMOUNT_LENGTH = 10;
+    const MAX_AMOUNT_LENGTH = 2;
     const currencySymbol = 'US$';
     
     const sanitizeInputs = (): DtItem => {
