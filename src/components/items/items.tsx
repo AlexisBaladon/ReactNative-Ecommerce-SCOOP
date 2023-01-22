@@ -1,18 +1,16 @@
-import React, { useRef } from 'react'
+import React, { useContext } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { ItemContext } from '../../context/itemContext';
 import DtItem from '../../interfaces/item'
 import Item from './item'
+ 
 
 interface IProps {
-    items: Array<DtItem>;
-    setItems(items: Array<DtItem>): void;
 }
 
-const Items: React.FC<IProps> = ({items, setItems}) => {
-    const deleteItem = (itemId: DtItem['id']) => {
-        const itemsWithoutDeleted = items.filter(item => item.id != itemId);
-        setItems(itemsWithoutDeleted);
-    }
+const Items: React.FC<IProps> = ({}) => {
+    const { shownItems, deleteItem } = useContext(ItemContext);
+    
 
     const RenderItem: React.FC<{item: DtItem}> = ({item}) => {
         return <View style={styles.item}>
@@ -21,13 +19,13 @@ const Items: React.FC<IProps> = ({items, setItems}) => {
     }
 
     return (<>
-        {!items.length && <View style={styles.emptyListTextContainer}>
-            <Text style={styles.emptyListText}>No hay items que mostrar 😔 Agrega uno! </Text>
+        {!shownItems.length && <View style={styles.emptyListTextContainer}>
+            <Text style={styles.emptyListText}>No hay items que mostrar 😔</Text>
         </View>}
-        {items.length > 0 && <FlatList 
+        {shownItems.length > 0 && <FlatList 
             contentContainerStyle={styles.items}
             renderItem={RenderItem}
-            data={items}
+            data={shownItems}
             keyExtractor={(item: DtItem) => item.id}
         />}
     </>

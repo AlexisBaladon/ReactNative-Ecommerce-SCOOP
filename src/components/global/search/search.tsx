@@ -1,6 +1,7 @@
-import React from 'react'
-import { View, Text, TextInput, Image, StyleSheet } from 'react-native'
+import React, { useContext, useEffect, useRef } from 'react'
+import { View, TextInput, Image, StyleSheet } from 'react-native'
 import { MAIN_COLOR } from '../../../constants/styles'
+import { ItemContext } from '../../../context/itemContext';
 
 interface IProps {
   placeHolder: string;
@@ -8,6 +9,17 @@ interface IProps {
 }
 
 const Search: React.FC<IProps> = ({placeHolder, defaultValue=''}) => {
+  const {items, setShownItems} = useContext(ItemContext);
+
+  const handleOnChangeText = (text: string) => {
+    const filteredItems = items.filter(item => {
+      return item.title.toLowerCase().includes(text.toLowerCase())
+      || item.description.toLowerCase().includes(text.toLowerCase())
+      || text === '';
+    });
+    setShownItems(filteredItems);
+  }
+
   return (
     <View style={styles.search}>
       <View style={styles.searchInputContainer}>
@@ -15,7 +27,12 @@ const Search: React.FC<IProps> = ({placeHolder, defaultValue=''}) => {
           style={styles.magnifyingGlass}
           source={require('./search.png')}
         />
-        <TextInput style={styles.searchInput} placeholder={placeHolder} defaultValue={defaultValue}/>
+        <TextInput 
+          style={styles.searchInput} 
+          placeholder={placeHolder} 
+          defaultValue={defaultValue}
+          onChangeText={handleOnChangeText}
+        />
       </View>
       <View style={styles.filterContainer}>
         <Image 
@@ -26,7 +43,6 @@ const Search: React.FC<IProps> = ({placeHolder, defaultValue=''}) => {
     </View>
   )
 }
-
 
 const FILTER_WIDTH = 35;
 const FILTER_HEIGHT = 30;

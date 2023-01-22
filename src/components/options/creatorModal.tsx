@@ -1,28 +1,30 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { Modal, View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import { MAIN_COLOR } from '../../constants/styles';
 import getUniqueId from '../../helpers/idProvider';
 import DtItem from '../../interfaces/item';
 import ImageSlider from './imageSlider';
+import { ItemContext } from '../../context/itemContext';
 
 interface IProps {
     modalVisible: boolean,
     setModalVisible(visible: boolean): void;
-    addItem(item: DtItem): void;
 }
 
-const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible, addItem}) => {
-    const MAX_TITLE_LENGTH = 20;
-    const MAX_DESCRIPTION_LENGTH = 100;
-    const MAX_PRICE_LENGTH = 10;
-    const MAX_AMOUNT_LENGTH = 10;
-    const currencySymbol = 'US$';
-
+const CreatorModal: React.FC<IProps> = ({modalVisible, setModalVisible}) => {
+    const { addItem } = useContext(ItemContext);
+    
     const titleRef = useRef<string>('');
     const descriptionRef = useRef<string>('');
     const priceDollarsRef = useRef<string>('');
     const amountRef = useRef<string>('');
     const imageURLRef = useRef<string>('');
+    
+    const MAX_TITLE_LENGTH = 20;
+    const MAX_DESCRIPTION_LENGTH = 100;
+    const MAX_PRICE_LENGTH = 10;
+    const MAX_AMOUNT_LENGTH = 10;
+    const currencySymbol = 'US$';
     
     const sanitizeInputs = (): DtItem => {
         let title = titleRef.current.trim();

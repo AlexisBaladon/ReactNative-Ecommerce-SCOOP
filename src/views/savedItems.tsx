@@ -6,34 +6,21 @@ import { BACKGROUND_COLOR } from '../constants/styles'
 import Buttons from '../components/options/buttons'
 import DtItem from '../interfaces/item'
 import CreatorModal from '../components/options/creatorModal'
+import CategoriesContainer from '../components/options/categoriesContainer'
 
 const SavedItems = () => {
-  const [items, setItems] = useState<Array<DtItem>>([]) //TODO: Hacer context
-  const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-  const addItem = (item: DtItem) => {
-    setItems([...items, item]);
-  }
-
-  type TButton = {title: string, onPress(): void};
-  const buttons: Array<TButton> = [
-    {title: 'Agregar', onPress: () => setModalVisible(true)},
-    {title: 'Borrar todo', onPress: () => setItems([])},
-  ]
-
   return (<View style={styles.app}>
-    <CreatorModal modalVisible={modalVisible} setModalVisible={setModalVisible} addItem={ addItem } />
     <View style={styles.header}>
-        <Text style={styles.title}>Lista de productos</Text>
+      <Text style={styles.title}>Lista de productos</Text>
     </View>
     <View style={styles.search}>
       <Search placeHolder={'Buscar...'} />
     </View>
     <View style={styles.options}>
-      <Buttons buttons={buttons} />
+      <CategoriesContainer />
     </View>
     <View style={styles.items}>
-      <Items items={items} setItems={setItems} />
+      <Items />
     </View>
   </View>
   )

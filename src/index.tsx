@@ -1,11 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
+import { ItemContextProvider } from './context/itemContext';
 import SavedItems from './views/savedItems';
 
 export default function App() {
   return (
-    <View style={styles.app}>
-      <SavedItems />
-    </View>
+    <ItemContextProvider>
+      <View style={styles.app}>
+        <SavedItems />
+      </View>
+    </ItemContextProvider>
   );
 }
 
