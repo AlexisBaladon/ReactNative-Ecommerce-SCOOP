@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { LIGHT_COLOR, MAIN_COLOR } from '../../../constants/styles';
+import { LIGHT_COLOR, MAIN_COLOR } from '../../../../constants/styles';
 
 interface IProps {
     onPress: () => void;

@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
 import { getItemImage } from '../../helpers/imageHandler';
 import useCounter from '../../hooks/useCounter';
 import DtItem from '../../interfaces/item';
-import CloseButton from '../global/buttons/closeButton';
-import Counter from '../global/buttons/counter';
+import CloseButton from '../global/buttons/close_button/closeButton';
+import Counter from '../global/buttons/counter/counter';
 
 interface IProps {
     item: DtItem,

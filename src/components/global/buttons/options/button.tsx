@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
-import { LIGHT_COLOR, NEUTRAL_COLOR, MAIN_COLOR } from '../../constants/styles';
+import { LIGHT_COLOR, NEUTRAL_COLOR, MAIN_COLOR } from '../../../../constants/styles';
 
 interface IProps {
     title: string;
@@ -34,6 +34,6 @@ const styles = (isSelected: boolean) => StyleSheet.create({
         paddingVertical: 2.5, paddingHorizontal: 12,
     },
     text: {
-        color: isSelected? LIGHT_COLOR:NEUTRAL_COLOR,
+        color: isSelected? LIGHT_COLOR : NEUTRAL_COLOR,
     }
 })

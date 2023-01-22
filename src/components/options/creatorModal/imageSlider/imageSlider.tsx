@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { TouchableOpacity, Image, FlatList, StyleSheet } from 'react-native';
-import { MAIN_COLOR } from '../../constants/styles';
-import { getItemImage, getItemImagesIds } from '../../helpers/imageHandler';
+import { MAIN_COLOR } from '../../../constants/styles';
+import { getItemImage, getItemImagesIds } from '../../../helpers/imageHandler';
 
 interface IProps {
     imageUrlRef: React.MutableRefObject<string>;

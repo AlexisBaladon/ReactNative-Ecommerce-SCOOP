@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-import { LIGHT_COLOR, MAIN_COLOR } from '../../../constants/styles';
+import { LIGHT_COLOR, MAIN_COLOR } from '../../../../constants/styles';
 
 interface IProps {
     addCharacter: string;

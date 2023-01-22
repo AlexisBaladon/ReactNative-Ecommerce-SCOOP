@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
-import { ItemContext } from '../../context/itemContext';
-import Buttons from './buttons';
-import CreatorModal from './creatorModal';
+import { ItemContext } from '../../../context/itemContext';
+import Buttons from '../../global/buttons/options/buttons';
+import CreatorModal from '../creatorModal/modal/creatorModal';
 
 interface IProps {
   currencySymbol: string,

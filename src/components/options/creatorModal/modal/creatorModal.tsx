@@ -1,10 +1,10 @@
 import React, { useContext, useRef } from 'react'
 import { Modal, View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import { MAIN_COLOR, NEUTRAL_COLOR } from '../../constants/styles';
-import getUniqueId from '../../helpers/idProvider';
-import DtItem from '../../interfaces/item';
-import ImageSlider from './imageSlider';
-import { ItemContext } from '../../context/itemContext';
+import { MAIN_COLOR, NEUTRAL_COLOR } from '../../../../constants/styles';
+import getUniqueId from '../../../../helpers/idProvider';
+import DtItem from '../../../../interfaces/item';
+import ImageSlider from '../imageSlider/imageSlider';
+import { ItemContext } from '../../../../context/itemContext';
 
 interface IProps {
     modalVisible: boolean,

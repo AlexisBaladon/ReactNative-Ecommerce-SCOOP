@@ -3,7 +3,7 @@ import Items from '../components/items/items'
 import Search from '../components/global/search/search'
 import { View, Text, Dimensions, StyleSheet } from 'react-native'
 import { BACKGROUND_COLOR } from '../constants/styles'
-import OptionsContainer from '../components/options/optionsContainer'
+import OptionsContainer from '../components/options/options/optionsContainer'
 import { 
   CURRENCY_SYMBOL,
   SEARCH_PLACEHOLDER,
