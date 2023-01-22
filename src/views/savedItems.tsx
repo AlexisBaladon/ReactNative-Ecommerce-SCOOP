@@ -4,19 +4,21 @@ import Search from '../components/global/search/search'
 import { View, Text } from 'react-native'
 import OptionsContainer from '../components/options/options/optionsContainer'
 import { styles, itemHeight } from './savedItems.styles'
-import { 
-  CURRENCY_SYMBOL,
-  SEARCH_PLACEHOLDER,
-  NO_ITEMS_MESSAGE,
-  ADD_BUTTON_MESSAGE,
-  DELETE_ALL_BUTTON_MESSAGE,
-  HEADER_TITLE,
-  ADD_ITEMS_TITLE,
-  ACCEPT_ADD_BUTTON_TITLE,
-  CANCEL_ADD_BUTTON_TITLE,
-} from '../constants/text'
+import { TEXT } from '../constants/index'
 
 const SavedItems = () => {
+  const { 
+    HEADER_TITLE,
+    SEARCH_PLACEHOLDER, 
+    CURRENCY_SYMBOL, 
+    ADD_BUTTON_MESSAGE, 
+    DELETE_ALL_BUTTON_MESSAGE, 
+    ADD_ITEMS_TITLE, 
+    ACCEPT_ADD_BUTTON_TITLE, 
+    CANCEL_ADD_BUTTON_TITLE, 
+    NO_ITEMS_MESSAGE 
+  } = TEXT;
+  
   return (<View style={styles.app}>
     <View style={styles.header}>
       <Text style={styles.title}>{HEADER_TITLE}</Text>

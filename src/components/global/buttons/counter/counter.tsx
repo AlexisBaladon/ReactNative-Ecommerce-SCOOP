@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import getStyles from './counter.styles';
+import styles from './counter.styles';
 
 interface IProps {
     addCharacter: string;
@@ -8,8 +8,6 @@ interface IProps {
     addToCounter: (addedCount: number) => void;
     count: number;
     decToCounter: (decCount: number) => void;
-    height?: number | string;
-    width?: number | string;
 }
 
 const Counter: React.FC<IProps> = ({
@@ -17,12 +15,8 @@ const Counter: React.FC<IProps> = ({
         decCharacter, 
         addToCounter, 
         count, 
-        decToCounter,
-        height=80, 
-        width=25
+        decToCounter
     }) => {
-
-    const styles = getStyles(height, width);
 
     const onChangeCount = (text: string) => {
         const inputCount = Number.parseInt(text);

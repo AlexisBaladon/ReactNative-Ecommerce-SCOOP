@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, ImageSourcePropType } from 'react-native';
-import { getItemImage } from '../../../helpers/imageHandler';
+import { ImageHandler } from '../../../helpers/index';
 import useCounter from '../../../hooks/useCounter';
 import DtItem from '../../../interfaces/item';
 import CloseButton from '../../global/buttons/close_button/closeButton';
@@ -16,6 +16,7 @@ interface IProps {
 }
 
 const Item: React.FC<IProps> = ({item, deleteItem, currencySymbol, minCount=1, maxCount=99}) => {
+    const { getItemImage } = ImageHandler;
     const [count, addToCounter, decToCounter] = useCounter(minCount, item.amount, maxCount);
     const imageSrc = getItemImage(item.imageURL);
 

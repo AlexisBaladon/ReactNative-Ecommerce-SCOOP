@@ -79,4 +79,6 @@ const ItemContextProvider: React.FC<React.PropsWithChildren> = ({children}) => {
   )
 }
 
-export {ItemContextProvider,ItemContext}
+const Context = {ItemContextProvider, ItemContext};
+
+export default Context;

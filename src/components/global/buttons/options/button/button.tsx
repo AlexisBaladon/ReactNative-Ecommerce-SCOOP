@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
+import { Text, TouchableOpacity, GestureResponderEvent } from 'react-native'
 import styles from './button.styles';
 
 interface IProps {

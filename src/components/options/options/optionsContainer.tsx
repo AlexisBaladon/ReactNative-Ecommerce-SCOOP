@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { ItemContext } from '../../../context/itemContext';
+import { ItemContextComponents } from '../../../context';
 import Buttons from '../../global/buttons/options/buttons/buttons';
 import CreatorModal from '../creatorModal/modal/creatorModal';
 
@@ -20,6 +20,8 @@ const OptionsContainer: React.FC<IProps> = ({
       acceptModalButtonTitle,
       cancelModalButtonTitle
     }) => {
+
+  const { ItemContext } = ItemContextComponents;
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const { deleteAllItems } = useContext(ItemContext);
 

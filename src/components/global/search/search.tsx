@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { View, TextInput, Image } from 'react-native'
-import { ItemContext } from '../../../context/itemContext';
+import { ItemContextComponents } from '../../../context/index';
 import styles from './search.styles';
 
 interface IProps {
@@ -9,6 +9,7 @@ interface IProps {
 }
 
 const Search: React.FC<IProps> = ({placeHolder, defaultValue=''}) => {
+  const { ItemContext } = ItemContextComponents;
   const { filterByText } = useContext(ItemContext);
 
   return (

@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { BACKGROUND_COLOR } from '../constants/styles';
+import { COLORS } from '../constants/index';
+
+const { BACKGROUND_COLOR } = COLORS;
 
 const { width, height } = Dimensions.get('window');
 const headerHeight = height/9;

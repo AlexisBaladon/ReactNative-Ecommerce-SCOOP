@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { LIGHT_COLOR } from '../../../constants/styles';
+import { COLORS } from '../../../constants/index';
+
+const { LIGHT_COLOR } = COLORS;
 
 const createStyles = (height: number | string) => StyleSheet.create({
     items: {

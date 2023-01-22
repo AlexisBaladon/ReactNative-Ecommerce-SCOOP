@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { FlatList, Text, View } from 'react-native'
-import { ItemContext } from '../../../context/itemContext';
+import ItemContextComponents from '../../../context/itemContext';
 import DtItem from '../../../interfaces/item'
 import Item from '../item/item'
 import createStyles from './item.styles';
@@ -12,6 +12,7 @@ interface IProps {
 }
 
 const Items: React.FC<IProps> = ({itemHeight, noItemsMessage, currencySymbol}) => {
+    const { ItemContext } = ItemContextComponents;
     const { shownItems, deleteItem } = useContext(ItemContext);
     const styles = createStyles(itemHeight);
 

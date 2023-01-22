@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from 'react'
 import { Modal, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { ItemContextComponents } from '../../../../context';
 import getUniqueId from '../../../../helpers/idProvider';
 import DtItem from '../../../../interfaces/item';
 import ImageSlider from '../imageSlider/imageSlider';
-import { ItemContext } from '../../../../context/itemContext';
 import styles from './creatorModal.styles';
 
 interface IProps {
@@ -23,6 +23,8 @@ const CreatorModal: React.FC<IProps> = ({
             acceptModalButtonTitle,
             cancelModalButtonTitle
         }) => {
+        
+    const { ItemContext } = ItemContextComponents;
     const { addItem } = useContext(ItemContext);
     
     const titleRef = useRef<string>('');

@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { LIGHT_COLOR, MAIN_COLOR } from '../../../constants/styles';
+import { COLORS } from '../../../constants';
+
+const { MAIN_COLOR, LIGHT_COLOR } = COLORS;
 
 const FILTER_WIDTH = 35;
 const FILTER_HEIGHT = 30;

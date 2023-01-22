@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { LIGHT_COLOR, MAIN_COLOR, NEUTRAL_COLOR } from '../../../../../constants/styles';
+import { COLORS } from '../../../../../constants';
+
+const { MAIN_COLOR, LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 
 const styles = (isSelected: boolean) => StyleSheet.create({
     button: {

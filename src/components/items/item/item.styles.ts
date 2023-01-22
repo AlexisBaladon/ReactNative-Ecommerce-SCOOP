@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { MAIN_COLOR, NEUTRAL_COLOR } from '../../../constants/styles';
+import { COLORS } from '../../../constants';
 
+const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 const buttonWidth = 26;
 
 const styles = StyleSheet.create({

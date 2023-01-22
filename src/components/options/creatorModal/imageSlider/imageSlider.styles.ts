@@ -1,4 +1,16 @@
 import { StyleSheet } from 'react-native';
+import { COLORS } from '../../../../constants';
+
+const { MAIN_COLOR } = COLORS;
+
+const selectedStyle = StyleSheet.create({
+    style: {
+        borderColor: MAIN_COLOR,
+        borderWidth: 3,
+        opacity: 1,
+        overflow: 'hidden',
+    }
+}).style;
 
 const styles = StyleSheet.create({ 
     imageButton: {
@@ -15,4 +27,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default styles
+export { styles, selectedStyle };

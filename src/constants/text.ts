@@ -8,7 +8,7 @@ const ADD_ITEMS_TITLE = 'Agregar item';
 const ACCEPT_ADD_BUTTON_TITLE = 'Añadir';
 const CANCEL_ADD_BUTTON_TITLE = 'Cancelar';
 
-export {
+const TEXT = {
     CURRENCY_SYMBOL,
     SEARCH_PLACEHOLDER,
     NO_ITEMS_MESSAGE,
@@ -19,3 +19,5 @@ export {
     ACCEPT_ADD_BUTTON_TITLE,
     CANCEL_ADD_BUTTON_TITLE,
 };
+
+export default TEXT;

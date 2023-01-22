@@ -1,4 +1,3 @@
-import { ImageSourcePropType } from "react-native";
 import itemImages from "../assets/items";
 
 const DEFAULT_ID = './default.jpg';
@@ -15,4 +14,9 @@ const getItemImage = (id: string) => {
     return foundItem.src;
 }
 
-export { getItemImagesIds, getItemImage };
+const ImageHandler = {
+    getItemImagesIds,
+    getItemImage,
+}
+
+export default ImageHandler;
