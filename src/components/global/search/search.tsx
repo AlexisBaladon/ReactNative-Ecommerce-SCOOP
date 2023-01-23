@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { View, TextInput, Image } from 'react-native';
+import React, { useContext, useRef } from 'react';
+import { View, TextInput, Image, TouchableHighlight } from 'react-native';
 import { ItemContextComponents } from '../../../context/index';
 import styles from './search.styles';
 
@@ -11,6 +11,7 @@ interface IProps {
 const Search: React.FC<IProps> = ({ placeHolder, defaultValue = '' }) => {
 	const { ItemContext } = ItemContextComponents;
 	const { filterByText } = useContext(ItemContext);
+	const searchInputRef = useRef<TextInput>(null);
 
 	return (
 		<View style={styles.search}>
@@ -21,10 +22,13 @@ const Search: React.FC<IProps> = ({ placeHolder, defaultValue = '' }) => {
 					placeholder={placeHolder}
 					defaultValue={defaultValue}
 					onChangeText={filterByText}
+					ref={searchInputRef}
 				/>
 			</View>
 			<View style={styles.filterContainer}>
-				<Image style={styles.filterImage} source={require('./filter.png')} />
+				<TouchableHighlight onPress={() => searchInputRef.current?.focus()}>
+					<Image style={styles.filterImage} source={require('./filter.png')} />
+				</TouchableHighlight>
 			</View>
 		</View>
 	);
