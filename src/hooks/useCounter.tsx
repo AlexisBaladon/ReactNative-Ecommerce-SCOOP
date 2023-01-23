@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect, useCallback } from 'react';
+import { useState, useReducer } from 'react';
 
 const useCounter = (minCount = 0, initialCount = 0, maxCount: number | null = null) => {
 	const [count, setCount] = useState(initialCount);

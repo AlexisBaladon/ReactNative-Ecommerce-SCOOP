@@ -3,15 +3,15 @@ import { ItemContextComponents } from './context';
 import SavedItems from './views/savedItems';
 
 const App = () => {
-	const { ItemContextProvider } = ItemContextComponents;
+    const { ItemContextProvider } = ItemContextComponents;
 
-	return (
-		<ItemContextProvider>
-			<View style={styles.app}>
-				<SavedItems />
-			</View>
-		</ItemContextProvider>
-	);
+    return (
+        <ItemContextProvider>
+            <View style={styles.app}>
+                <SavedItems />
+            </View>
+        </ItemContextProvider>
+    );
 };
 
 const styles = StyleSheet.create({
