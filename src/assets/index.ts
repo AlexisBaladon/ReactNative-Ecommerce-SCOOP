@@ -1,7 +1,7 @@
 import itemImages from './items/index';
 
 const images = {
-    itemImages,
-}
+	itemImages,
+};
 
 export default images;

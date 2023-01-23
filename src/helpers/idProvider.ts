@@ -1,9 +1,9 @@
 var getUniqueId = (function () {
-    var i = 0;
+	var i = 0;
 
-    return function () {
-        return (i++).toString();
-    }
+	return function () {
+		return (i++).toString();
+	};
 })();
 
 export default getUniqueId;

@@ -14,4 +14,3 @@ export { default as Items } from './items/items/items';
 export { default as CreatorModal } from './options/creatorModal/modal/creatorModal';
 export { default as ImageSlider } from './options/creatorModal/imageSlider/imageSlider';
 export { default as Options } from './options/options/optionsContainer';
-
