@@ -3,8 +3,8 @@ import { COLORS } from '../../../constants';
 
 const { MAIN_COLOR, LIGHT_COLOR } = COLORS;
 
-const FILTER_WIDTH = 35;
-const FILTER_HEIGHT = 30;
+const FILTER_WIDTH = 32;
+const FILTER_HEIGHT = 27;
 const FILTER_CONTAINER_FACTOR = 1.75;
 
 const styles = StyleSheet.create({
