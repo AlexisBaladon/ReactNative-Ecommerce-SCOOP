@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import OptionsContainer from '../../components/options/options/optionsContainer';
 import { styles, itemHeight } from './favourites.styles';
 import { TEXT } from '../../constants/index';
+import CustomText from '../../components/global/customText/customText';
 
 const FavouritesScreen: React.FC = () => {
 	const {
@@ -14,8 +15,6 @@ const FavouritesScreen: React.FC = () => {
 		ADD_BUTTON_MESSAGE,
 		DELETE_ALL_ITEMS_TITLE,
 		DELETE_ALL_ITEMS_DESCRIPTION,
-		ADD_ITEM_TITLE,
-		CONFIRM_CREATE_ITEM_TITLE,
 		CANCEL_TITLE,
 		NO_ITEMS_MESSAGE,
 		DELETE_ITEM_TITLE,
@@ -26,19 +25,16 @@ const FavouritesScreen: React.FC = () => {
 	return (
 		<View style={styles.app}>
 			<View style={styles.header}>
-				<Text style={styles.title}>{HEADER_TITLE}</Text>
+				<CustomText style={styles.title}>{HEADER_TITLE}</CustomText>
 			</View>
 			<View style={styles.search}>
 				<Search placeHolder={SEARCH_PLACEHOLDER} />
 			</View>
 			<View style={styles.options}>
 				<OptionsContainer
-					currencySymbol={CURRENCY_SYMBOL}
 					addButtonTitle={ADD_BUTTON_MESSAGE}
 					deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
 					deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
-					modalTitle={ADD_ITEM_TITLE}
-					acceptModalButtonTitle={CONFIRM_CREATE_ITEM_TITLE}
 					cancelButtonTitle={CANCEL_TITLE}
 				/>
 			</View>

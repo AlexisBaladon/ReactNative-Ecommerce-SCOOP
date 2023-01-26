@@ -1,6 +1,7 @@
-import itemImages from '../assets/items';
+import { images } from '../assets/';
 
 const DEFAULT_ID = './default.jpg';
+const { itemImages } = images;
 
 const getItemImagesIds = () => {
 	const itemImagesWithoutDefault = itemImages.filter((image) => image.id !== DEFAULT_ID);

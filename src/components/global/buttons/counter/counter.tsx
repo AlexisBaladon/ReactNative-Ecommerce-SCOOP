@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import CustomText from '../../customText/customText';
 import styles from './counter.styles';
 
 interface IProps {
@@ -30,7 +31,7 @@ const Counter: React.FC<IProps> = ({
 		<>
 			<View style={styles.counter}>
 				<TouchableOpacity style={styles.addDecButton} onPress={() => addToCounter(1)}>
-					<Text style={styles.text}>{addCharacter}</Text>
+					<CustomText style={styles.text}>{addCharacter}</CustomText>
 				</TouchableOpacity>
 				<TextInput
 					style={styles.text}
@@ -39,7 +40,7 @@ const Counter: React.FC<IProps> = ({
 					value={count.toString()}
 				/>
 				<TouchableOpacity style={styles.addDecButton} onPress={() => decToCounter(1)}>
-					<Text style={styles.text}>{decCharacter}</Text>
+					<CustomText style={styles.text}>{decCharacter}</CustomText>
 				</TouchableOpacity>
 			</View>
 		</>

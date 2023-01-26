@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import OptionsContainer from '../../components/options/options/optionsContainer';
 import { styles, itemHeight } from './store.styles';
 import { TEXT } from '../../constants/index';
+import CustomText from '../../components/global/customText/customText';
 
 const StoreScreen: React.FC = () => {
 	const {
@@ -26,7 +27,7 @@ const StoreScreen: React.FC = () => {
 	return (
 		<View style={styles.app}>
 			<View style={styles.header}>
-				<Text style={styles.title}>{HEADER_TITLE}</Text>
+				<CustomText style={styles.title} textType='bold'>{HEADER_TITLE}</CustomText>
 			</View>
 			<View style={styles.search}>
 				<Search placeHolder={SEARCH_PLACEHOLDER} />

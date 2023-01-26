@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Alert, FlatList, Text, View } from 'react-native';
 import ItemContextComponents from '../../../context/itemContext';
 import DtItem from '../../../interfaces/item';
+import CustomText from '../../global/customText/customText';
 import Item from '../item/item';
 import createStyles from './item.styles';
 
@@ -50,7 +51,7 @@ const Items: React.FC<IProps> = ({
 		<>
 			{!shownItems.length && (
 				<View style={styles.emptyListTextContainer}>
-					<Text style={styles.emptyListText}>{noItemsMessage}</Text>
+					<CustomText style={styles.emptyListText}>{noItemsMessage}</CustomText>
 				</View>
 			)}
 			{shownItems.length > 0 && (

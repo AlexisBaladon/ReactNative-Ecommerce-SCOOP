@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import CustomText from '../customText/customText';
 import styles from './header.styles';
 
 interface IProps {
@@ -9,7 +10,7 @@ interface IProps {
 const Header: React.FC<IProps> = ({ title }) => {
 	return (
 		<View style={styles.header}>
-			<Text style={styles.title}>{title}</Text>
+			<CustomText style={styles.title} textType='bold'>{title}</CustomText>
 		</View>
 	);
 };

@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 	},
 	itemTitle: {
-		fontWeight: 'bold',
 		fontSize: 22,
 	},
 	itemDescription: {
@@ -64,7 +63,6 @@ const styles = StyleSheet.create({
 		color: MAIN_COLOR,
 
 		fontSize: 20,
-		fontWeight: 'bold',
 	},
 	buttonContainer: {
 		width: '10%',

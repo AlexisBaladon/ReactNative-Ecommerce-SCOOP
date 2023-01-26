@@ -20,6 +20,7 @@ const styles = (isSelected: boolean) =>
 		},
 		text: {
 			color: isSelected ? LIGHT_COLOR : NEUTRAL_COLOR,
+			fontSize: 12,
 		},
 	});
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import CustomText from '../../../customText/customText';
 import styles from './button.styles';
 
 interface IProps {
@@ -13,7 +14,7 @@ const Button: React.FC<IProps> = ({ title, isSelected, onPress }) => {
 
 	return (
 		<TouchableOpacity style={customStyles.button} onPress={onPress}>
-			<Text style={customStyles.text}>{title}</Text>
+			<CustomText style={customStyles.text}>{title}</CustomText>
 		</TouchableOpacity>
 	);
 };

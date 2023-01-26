@@ -5,6 +5,7 @@ import useCounter from '../../../hooks/useCounter';
 import DtItem from '../../../interfaces/item';
 import CloseButton from '../../global/buttons/close_button/closeButton';
 import Counter from '../../global/buttons/counter/counter';
+import CustomText from '../../global/customText/customText';
 import { styles, buttonWidth } from './item.styles';
 
 interface IProps {
@@ -32,15 +33,15 @@ const Item: React.FC<IProps> = ({
 				<Image style={styles.itemImage} source={imageSrc} />
 			</View>
 			<View style={styles.textContainer}>
-				<Text style={styles.itemTitle} numberOfLines={2} ellipsizeMode="tail">
+				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={2} ellipsizeMode="tail">
 					{item.title}
-				</Text>
-				<Text style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
+				</CustomText>
+				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
 					{item.description}
-				</Text>
-				<Text style={styles.itemPrice} numberOfLines={1} ellipsizeMode="tail">{`${
+				</CustomText>
+				<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">{`${
 					item.priceDollars * count
-				} ${currencySymbol}`}</Text>
+				} ${currencySymbol}`}</CustomText>
 			</View>
 			<View style={styles.buttonContainer}>
 				<View>

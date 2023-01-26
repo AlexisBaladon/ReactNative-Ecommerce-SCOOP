@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 28,
 		textAlign: 'center',
-		fontWeight: 'bold',
 	},
 	search: {
 		height: searchHeight,

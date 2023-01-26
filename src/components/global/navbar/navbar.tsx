@@ -20,7 +20,7 @@ const Navbar: React.FC<IProps> = ({chosenIcon, setChosenIcon}) => {
                 const middleIconIndex = (iconsImages.length/2) >> 0; //Rounds down to nearest integer
                 const chosenIconStyle = i === chosenIcon ? styles.chosenIcon : {};
                 const mainIconStyle = i === middleIconIndex ? styles.mainIcon : {};
-                return <TouchableWithoutFeedback onPress={() => setChosenIcon(i)}>
+                return <TouchableWithoutFeedback onPress={() => setChosenIcon(i)} key={i}>
                         <Image key={i} source={icon} style={[styles.icon, chosenIconStyle, mainIconStyle]} />
                     </TouchableWithoutFeedback>
             })}
