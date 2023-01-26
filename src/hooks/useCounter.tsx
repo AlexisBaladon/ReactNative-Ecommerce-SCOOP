@@ -6,12 +6,16 @@ const useCounter = (minCount = 0, initialCount = 0, maxCount: number | null = nu
 
 	const addToCounter = (added: number) => {
 		if (maxCount && count + added > maxCount) forceUpdate();
-		else setCount(count + added);
+		else setCount(prevCount => {
+			return prevCount + added;
+		});
 	};
 
 	const decToCounter = (dec: number) => {
-		if (count - dec >= minCount) setCount(count - dec);
-		else forceUpdate();
+		if (count - dec < minCount) forceUpdate();
+		else setCount(prevCount => {
+			return prevCount - dec;
+		});
 	};
 
 	const resetCounter = () => {
