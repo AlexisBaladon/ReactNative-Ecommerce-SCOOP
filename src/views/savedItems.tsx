@@ -12,11 +12,15 @@ const SavedItems = () => {
 		SEARCH_PLACEHOLDER,
 		CURRENCY_SYMBOL,
 		ADD_BUTTON_MESSAGE,
-		DELETE_ALL_BUTTON_MESSAGE,
-		ADD_ITEMS_TITLE,
-		ACCEPT_ADD_BUTTON_TITLE,
-		CANCEL_ADD_BUTTON_TITLE,
+		DELETE_ALL_ITEMS_TITLE,
+		DELETE_ALL_ITEMS_DESCRIPTION,
+		ADD_ITEM_TITLE,
+		CONFIRM_CREATE_ITEM_TITLE,
+		CANCEL_TITLE,
 		NO_ITEMS_MESSAGE,
+		DELETE_ITEM_TITLE,
+		DELETE_ITEM_DESCRIPTION,
+		CONFIRM_DELETE_ITEM_TITLE
 	} = TEXT;
 
 	return (
@@ -31,10 +35,11 @@ const SavedItems = () => {
 				<OptionsContainer
 					currencySymbol={CURRENCY_SYMBOL}
 					addButtonTitle={ADD_BUTTON_MESSAGE}
-					deleteAllButtonTitle={DELETE_ALL_BUTTON_MESSAGE}
-					modalTitle={ADD_ITEMS_TITLE}
-					acceptModalButtonTitle={ACCEPT_ADD_BUTTON_TITLE}
-					cancelModalButtonTitle={CANCEL_ADD_BUTTON_TITLE}
+					deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
+					deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
+					modalTitle={ADD_ITEM_TITLE}
+					acceptModalButtonTitle={CONFIRM_CREATE_ITEM_TITLE}
+					cancelButtonTitle={CANCEL_TITLE}
 				/>
 			</View>
 			<View style={styles.items}>
@@ -42,6 +47,10 @@ const SavedItems = () => {
 					itemHeight={itemHeight}
 					noItemsMessage={NO_ITEMS_MESSAGE}
 					currencySymbol={CURRENCY_SYMBOL}
+					deleteItemTitle={DELETE_ITEM_TITLE}
+					deleteItemDescription={DELETE_ITEM_DESCRIPTION}
+					cancelTitle={CANCEL_TITLE}
+					confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
 				/>
 			</View>
 		</View>
