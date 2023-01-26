@@ -1,12 +1,12 @@
 import React from 'react';
-import Items from '../components/items/items/items';
-import Search from '../components/global/search/search';
+import Items from '../../components/items/items/items';
+import Search from '../../components/global/search/search';
 import { View, Text } from 'react-native';
-import OptionsContainer from '../components/options/options/optionsContainer';
-import { styles, itemHeight } from './savedItems.styles';
-import { TEXT } from '../constants/index';
+import OptionsContainer from '../../components/options/options/optionsContainer';
+import { styles, itemHeight } from './store.styles';
+import { TEXT } from '../../constants/index';
 
-const SavedItems = () => {
+const StoreScreen: React.FC = () => {
 	const {
 		HEADER_TITLE,
 		SEARCH_PLACEHOLDER,
@@ -57,4 +57,4 @@ const SavedItems = () => {
 	);
 };
 
-export default SavedItems;
+export default StoreScreen;

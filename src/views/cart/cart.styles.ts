@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, StatusBar } from 'react-native';
-import { COLORS } from '../constants/index';
+import { COLORS } from '../../constants/index';
 
 const { BACKGROUND_COLOR } = COLORS;
 
