@@ -1,3 +1,11 @@
 # mobile-app-ch
 
-Aplicación móvil programada en React Native con Expo CLI para curso de CoderHouse
+## Lista de compras
+
+Aplicación móvil programada en React Native con Expo CLI para curso de CoderHouse.
+
+
+![readme](./readme/gif.gif)
+
+
+
