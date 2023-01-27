@@ -10,7 +10,7 @@ interface IContext {
 	filterByText: (text: string) => void;
 }
 
-const FavouritesItemContext = React.createContext<IContext>({
+const FavouriteItemsContext = React.createContext<IContext>({
 	favouritesItems: [],
 	shownItems: [],
 	deleteItem: (itemId: DtItem['id']) => {},
@@ -19,7 +19,7 @@ const FavouritesItemContext = React.createContext<IContext>({
 	filterByText: (text: string) => {},
 });
 
-const FavouritesItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [favouritesItems, setFavouritesItems] = useState<Array<DtItem>>([]);
 	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
 	const filterRef = React.useRef<(item: DtItem) => boolean>((_) => true);
@@ -32,7 +32,7 @@ const FavouritesItemContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 	};
 
 	const addItem = (item: DtItem) => {
-		if (favouritesItems.find((item) => item.id === item.id)) return;
+		if (favouritesItems.some((item) => item.id === item.id)) return;
 		const newItems = [...favouritesItems, item];
 		const newShownItems = newItems.filter(filterRef.current);
 		setFavouritesItems(newItems);
@@ -62,7 +62,7 @@ const FavouritesItemContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 	};
 
 	return (
-		<FavouritesItemContext.Provider
+		<FavouriteItemsContext.Provider
 			value={{
 				favouritesItems,
 				shownItems,
@@ -73,10 +73,10 @@ const FavouritesItemContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 			}}
 		>
 			{children}
-		</FavouritesItemContext.Provider>
+		</FavouriteItemsContext.Provider>
 	);
 };
 
-const Context = { FavouritesItemContextProvider, FavouritesItemContext };
+const Context = { FavouriteItemsContextProvider, FavouriteItemsContext };
 
 export default Context;

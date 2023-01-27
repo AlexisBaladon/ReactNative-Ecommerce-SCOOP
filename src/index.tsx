@@ -10,7 +10,8 @@ import styles from './styles';
 
 import Navbar from './components/global/navbar/navbar';
 import OptionsContainer from './components/options/options/optionsContainer';
-import { CartItemContextComponents } from './context';
+import { CartItemContextComponents, FavouritesContextComponents } from './context';
+
 import CartScreen from './views/cart/cart';
 import FavouritesScreen from './views/favourites/favourites';
 import StoreScreen from './views/store/store';
@@ -34,6 +35,7 @@ const titles = ['Tienda', 'Carrito', 'Favoritos']
 const App = () => {
     const [loaded] = useFonts(fonts);
     const { CartItemContextProvider } = CartItemContextComponents;
+    const { FavouriteItemsContextProvider } = FavouritesContextComponents;
     const [screen, setScreen] = useState<Screen>(Screen.STORE)
 
     const title = titles[screen];
@@ -49,28 +51,30 @@ const App = () => {
 
     return (
         <CartItemContextProvider>
-            <View style={styles.app}>
-                <View style={styles.header}>
-                    <CustomText style={styles.title}>{title}</CustomText>
+            <FavouriteItemsContextProvider>
+                <View style={styles.app}>
+                    <View style={styles.header}>
+                        <CustomText style={styles.title}>{title}</CustomText>
+                    </View>
+                    <View style={styles.search}>
+                        <Search placeHolder={SEARCH_PLACEHOLDER} />
+                    </View>
+                    <View style={styles.options}>
+                        <OptionsContainer
+                            addButtonTitle={ADD_BUTTON_MESSAGE}
+                            deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
+                            deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
+                            cancelButtonTitle={CANCEL_TITLE}
+                        />
+                    </View>
+                    <View style={styles.currentScreen}>
+                        <CurrentScreen />
+                    </View>
                 </View>
-                <View style={styles.search}>
-                    <Search placeHolder={SEARCH_PLACEHOLDER} />
+                <View style={styles.navbarContainer}>
+                    <Navbar chosenIcon={screen} setChosenIcon={setScreen}/>
                 </View>
-                <View style={styles.options}>
-                    <OptionsContainer
-                        addButtonTitle={ADD_BUTTON_MESSAGE}
-                        deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
-                        deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
-                        cancelButtonTitle={CANCEL_TITLE}
-                    />
-                </View>
-                <View style={styles.currentScreen}>
-                    <CurrentScreen />
-                </View>
-            </View>
-            <View style={styles.navbarContainer}>
-                <Navbar chosenIcon={screen} setChosenIcon={setScreen}/>
-            </View>
+            </FavouriteItemsContextProvider>
         </CartItemContextProvider>
     );
 };

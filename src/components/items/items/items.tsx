@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
-import { CartItemContextComponents } from '../../../context';
+import React from 'react';
+import { FlatList, View } from 'react-native';
 import DtItem from '../../../interfaces/item';
 import CustomText from '../../global/customText/customText';
 import Item from '../item/item';
-import StoreItem from '../storeItem/storeItem';
 import createStyles from './item.styles';
 
 interface IProps {
-	items: DtItem[];
+	shownItems: DtItem[];
+	handleDeleteItem: (itemId: DtItem['id']) => void;
 	itemHeight: number | string;
 	noItemsMessage: string;
 	deleteItemTitle: string;
@@ -19,28 +18,14 @@ interface IProps {
 }
 
 const Items: React.FC<IProps> = ({
-	items,
+	shownItems,
+	handleDeleteItem,
 	itemHeight, 
 	noItemsMessage, 
 	currencySymbol,
-	deleteItemTitle,
-	deleteItemDescription,
-	cancelTitle,
-	confirmDeleteTitle,
 }) => {
-	const { CartItemContext } = CartItemContextComponents;
-	const { shownItems, deleteItem } = useContext(CartItemContext);
 	const styles = createStyles(itemHeight);
 
-	const handleDeleteItem = (id: string) => {
-		Alert.alert(
-			deleteItemTitle,
-			deleteItemDescription, [
-				{text: cancelTitle, style: 'cancel'},
-				{text: confirmDeleteTitle, onPress: () => deleteItem(id)},
-			]
-		)
-	}
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Text, View, Image, ImageSourcePropType } from 'react-native';
-import { ImageHandler } from '../../../helpers/index';
-import useCounter from '../../../hooks/useCounter';
+import { View, Image } from 'react-native';
+import { ImageHandler } from '../../../helpers';
+import { useCounter } from '../../../hooks';
 import DtItem from '../../../interfaces/item';
-import CloseButton from '../../global/buttons/close_button/closeButton';
+import CloseButton from '../../global/buttons/closeButton/closeButton';
 import Counter from '../../global/buttons/counter/counter';
 import CustomText from '../../global/customText/customText';
+import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import { styles, buttonWidth } from './item.styles';
 
 interface IProps {
@@ -30,7 +31,9 @@ const Item: React.FC<IProps> = ({
 	return (
 		<View style={styles.item}>
 			<View style={styles.imageContainer}>
-				<Image style={styles.itemImage} source={imageSrc} />
+				<LikeableContainer item={item}>
+					<Image style={styles.itemImage} source={imageSrc} />
+				</LikeableContainer>
 			</View>
 			<View style={styles.textContainer}>
 				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={2} ellipsizeMode="tail">
