@@ -5,14 +5,21 @@ const { LIGHT_COLOR } = COLORS;
 
 const createStyles = (height: number) =>
 	StyleSheet.create({
-		items: {
-			flexDirection: 'column',
-			alignItems: 'center',
+		itemsContainer: {
+			width: '100%',
+			paddingHorizontal: 10,
+			display: 'flex',
+			flexDirection: 'row',
 			justifyContent: 'center',
+		},
+		items: {
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'flex-start',
 		},
 		item: {
 			minHeight: 300,
-			width: height*0.615, height: height,
+			width: height*0.6, height: height,
 			margin: 10,
 		},
 		emptyListTextContainer: {

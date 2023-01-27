@@ -18,7 +18,7 @@ const mockItems: DtItem[] = [
 	{
 		id: "1",
 		title: 'Item 1',
-		description: 'This is a description',
+		description: 'This is',
 		priceDollars: 100,
 		imageURL: 'https://picsum.photos/200/300',
 		amount: 1,
@@ -40,7 +40,6 @@ const mockItems: DtItem[] = [
 		amount: 1,
 	},
 ];
-
 
 const StoreScreen: React.FC = () => {
 	const [items, setItems] = useState<DtItem[]>([]);

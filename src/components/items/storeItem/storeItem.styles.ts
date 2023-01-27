@@ -53,12 +53,15 @@ const styles = StyleSheet.create({
 		backgroundColor: MAIN_COLOR,
 		marginBottom: 5, padding: 5,
 		borderRadius: 7.5,
-		width: '50%',
+		width: 70, height: 30,
+		position: 'absolute',
+		bottom: 0,
+		right: 0,
 	},
 	addToCartButtonText: {
 		color: 'white',
-		fontSize: 12,
-		paddingLeft: 2.5,
+		fontSize: 10,
+		textAlign: 'center',
 	}
 });
 

@@ -1,10 +1,12 @@
 import { useFonts } from 'expo-font';
 import { useState } from 'react';
-import { Dimensions, StatusBar, StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Fonts as fonts } from './assets';
+import { TEXT } from './constants';
 import { Search } from './components';
 import CustomText from './components/global/customText/customText';
+import styles from './styles';
 
 import Navbar from './components/global/navbar/navbar';
 import OptionsContainer from './components/options/options/optionsContainer';
@@ -62,44 +64,15 @@ const App = () => {
                         cancelButtonTitle={CANCEL_TITLE}
                     />
                 </View>
-                <CurrentScreen />
+                <View style={styles.currentScreen}>
+                    <CurrentScreen />
+                </View>
             </View>
-            <Navbar chosenIcon={screen} setChosenIcon={setScreen}/>
+            <View style={styles.navbarContainer}>
+                <Navbar chosenIcon={screen} setChosenIcon={setScreen}/>
+            </View>
         </ItemContextProvider>
     );
 };
-
-
-import { COLORS, TEXT } from './constants';
-
-const { BACKGROUND_COLOR } = COLORS;
-const { width } = Dimensions.get('window');
-const headerHeight = 100;
-const searchHeight = 70;
-const optionsHeight = 40;
-
-const styles = StyleSheet.create({
-	app: {
-		flex: 1,
-		width: width,
-		backgroundColor: BACKGROUND_COLOR,
-	},
-	header: {
-		display: 'flex',
-		justifyContent: 'center',
-		height: headerHeight,
-		paddingTop: StatusBar.currentHeight,
-	},
-	title: {
-		fontSize: 28,
-		textAlign: 'center',
-	},
-	search: {
-		height: searchHeight,
-	},
-	options: {
-		height: optionsHeight,
-	},
-});
 
 export default App;

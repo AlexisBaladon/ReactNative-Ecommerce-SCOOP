@@ -40,12 +40,15 @@ const StoreItems: React.FC<IProps> = ({
 				</View>
 			)}
 			{!!items.length && (
-				<FlatList
-					contentContainerStyle={styles.items}
-					renderItem={RenderItem}
-					data={items}
-					keyExtractor={(item: DtItem) => item.id}
-				/>
+				<View style={styles.itemsContainer}>
+					<FlatList
+						contentContainerStyle={styles.items}
+						renderItem={RenderItem}
+						data={items}
+						keyExtractor={(item: DtItem) => item.id}
+						numColumns={2}
+					/>
+				</View>
 			)}
 		</>
 	);
