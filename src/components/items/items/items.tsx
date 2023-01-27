@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Alert, FlatList, Text, View } from 'react-native';
-import ItemContextComponents from '../../../context/itemContext';
+import { CartItemContextComponents } from '../../../context';
 import DtItem from '../../../interfaces/item';
 import CustomText from '../../global/customText/customText';
 import Item from '../item/item';
@@ -28,8 +28,8 @@ const Items: React.FC<IProps> = ({
 	cancelTitle,
 	confirmDeleteTitle,
 }) => {
-	const { ItemContext } = ItemContextComponents;
-	const { shownItems, deleteItem } = useContext(ItemContext);
+	const { CartItemContext } = CartItemContextComponents;
+	const { shownItems, deleteItem } = useContext(CartItemContext);
 	const styles = createStyles(itemHeight);
 
 	const handleDeleteItem = (id: string) => {
@@ -46,7 +46,6 @@ const Items: React.FC<IProps> = ({
 		return (
 			<View style={styles.item}>
 				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={currencySymbol} />
-				<StoreItem item={item} currencySymbol={currencySymbol}/>
 			</View>
 		);
 	};

@@ -1,1 +1,1 @@
-export { default as ItemContextComponents } from './itemContext';
+export { default as CartItemContextComponents } from './cartIemContext';

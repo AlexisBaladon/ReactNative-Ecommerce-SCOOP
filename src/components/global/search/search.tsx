@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { View, TextInput, Image, TouchableHighlight } from 'react-native';
-import { ItemContextComponents } from '../../../context/index';
+import { CartItemContextComponents } from '../../../context';
 import styles from './search.styles';
 
 interface IProps {
@@ -9,8 +9,8 @@ interface IProps {
 }
 
 const Search: React.FC<IProps> = ({ placeHolder, defaultValue = '' }) => {
-	const { ItemContext } = ItemContextComponents;
-	const { filterByText } = useContext(ItemContext);
+	const { CartItemContext } = CartItemContextComponents;
+	const { filterByText } = useContext(CartItemContext);
 	const searchInputRef = useRef<TextInput>(null);
 
 	return (

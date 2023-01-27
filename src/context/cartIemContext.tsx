@@ -2,53 +2,50 @@ import React, { useState } from 'react';
 import DtItem from '../interfaces/item';
 
 interface IContext {
-	items: Array<DtItem>;
-	setItems: (items: Array<DtItem>) => void;
+	cartItems: Array<DtItem>;
 	shownItems: Array<DtItem>;
-	setShownItems: (items: Array<DtItem>) => void;
 	deleteItem: (itemId: DtItem['id']) => void;
 	addItem: (item: DtItem) => void;
 	deleteAllItems: () => void;
 	filterByText: (text: string) => void;
 }
 
-const ItemContext = React.createContext<IContext>({
-	items: [],
-	setItems: (items: Array<DtItem>) => {},
+const CartItemContext = React.createContext<IContext>({
+	cartItems: [],
 	shownItems: [],
-	setShownItems: (items: Array<DtItem>) => {},
 	deleteItem: (itemId: DtItem['id']) => {},
 	addItem: (item: DtItem) => {},
 	deleteAllItems: () => {},
 	filterByText: (text: string) => {},
 });
 
-const ItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-	const [items, setItems] = useState<Array<DtItem>>([]);
+const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+	const [cartItems, setCartItems] = useState<Array<DtItem>>([]);
 	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
 	const filterRef = React.useRef<(item: DtItem) => boolean>((_) => true);
 
 	const deleteItem = (itemId: DtItem['id']) => {
-		const itemsWithoutDeleted = items.filter((item) => item.id != itemId);
+		const itemsWithoutDeleted = cartItems.filter((item) => item.id != itemId);
 		const shownItemsWithoutDeleted = shownItems.filter((item) => item.id != itemId);
-		setItems(itemsWithoutDeleted);
+		setCartItems(itemsWithoutDeleted);
 		setShownItems(shownItemsWithoutDeleted);
 	};
 
 	const addItem = (item: DtItem) => {
-		const newItems = [...items, item];
+		if (cartItems.find((cartItem) => cartItem.id === item.id)) return;
+		const newItems = [...cartItems, item];
 		const newShownItems = newItems.filter(filterRef.current);
-		setItems(newItems);
+		setCartItems(newItems);
 		setShownItems(newShownItems);
 	};
 
 	const deleteAllItems = () => {
-		setItems([]);
+		setCartItems([]);
 		setShownItems([]);
 	};
 
 	const __filterItems = (filterFunction: (item: DtItem) => boolean) => {
-		const filteredItems = items.filter(filterFunction);
+		const filteredItems = cartItems.filter(filterFunction);
 		setShownItems(filteredItems);
 		filterRef.current = filterFunction;
 	};
@@ -65,12 +62,10 @@ const ItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
 	};
 
 	return (
-		<ItemContext.Provider
+		<CartItemContext.Provider
 			value={{
-				items,
-				setItems,
+				cartItems,
 				shownItems,
-				setShownItems,
 				deleteItem,
 				addItem,
 				deleteAllItems,
@@ -78,10 +73,10 @@ const ItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
 			}}
 		>
 			{children}
-		</ItemContext.Provider>
+		</CartItemContext.Provider>
 	);
 };
 
-const Context = { ItemContextProvider, ItemContext };
+const Context = { CartItemContextProvider, CartItemContext };
 
 export default Context;

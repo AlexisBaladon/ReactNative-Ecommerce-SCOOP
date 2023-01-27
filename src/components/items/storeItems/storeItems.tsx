@@ -1,9 +1,10 @@
-import React from 'react';
-import {  FlatList, View } from 'react-native';
+import React, { useContext } from 'react';
+import {  FlatList, TouchableHighlight, View } from 'react-native';
 import DtItem from '../../../interfaces/item';
 import CustomText from '../../global/customText/customText';
 import StoreItem from '../storeItem/storeItem';
 import createStyles from './storeItems.styles';
+import { CartItemContextComponents } from '../../../context';
 
 interface IProps {
 	items: DtItem[];
@@ -22,12 +23,14 @@ const StoreItems: React.FC<IProps> = ({
 	noItemsMessage, 
 	currencySymbol,
 }) => {
+	const { CartItemContext } = CartItemContextComponents;
+	const { addItem } = useContext(CartItemContext);
 	const styles = createStyles(itemHeight);
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<StoreItem item={item} currencySymbol={currencySymbol}/>
+				<StoreItem item={item} currencySymbol={currencySymbol} onPressButton={() => addItem(item)}/>
 			</View>
 		);
 	};

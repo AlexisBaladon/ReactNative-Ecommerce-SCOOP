@@ -10,7 +10,7 @@ import styles from './styles';
 
 import Navbar from './components/global/navbar/navbar';
 import OptionsContainer from './components/options/options/optionsContainer';
-import { ItemContextComponents } from './context';
+import { CartItemContextComponents } from './context';
 import CartScreen from './views/cart/cart';
 import FavouritesScreen from './views/favourites/favourites';
 import StoreScreen from './views/store/store';
@@ -33,7 +33,7 @@ const titles = ['Tienda', 'Carrito', 'Favoritos']
 
 const App = () => {
     const [loaded] = useFonts(fonts);
-    const { ItemContextProvider } = ItemContextComponents;
+    const { CartItemContextProvider } = CartItemContextComponents;
     const [screen, setScreen] = useState<Screen>(Screen.STORE)
 
     const title = titles[screen];
@@ -48,7 +48,7 @@ const App = () => {
     if (!loaded) return null; //TODO: spinner
 
     return (
-        <ItemContextProvider>
+        <CartItemContextProvider>
             <View style={styles.app}>
                 <View style={styles.header}>
                     <CustomText style={styles.title}>{title}</CustomText>
@@ -71,7 +71,7 @@ const App = () => {
             <View style={styles.navbarContainer}>
                 <Navbar chosenIcon={screen} setChosenIcon={setScreen}/>
             </View>
-        </ItemContextProvider>
+        </CartItemContextProvider>
     );
 };
 

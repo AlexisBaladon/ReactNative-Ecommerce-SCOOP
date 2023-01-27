@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { ItemContextComponents } from '../../../context';
+import { CartItemContextComponents } from '../../../context';
 import Buttons from '../../global/buttons/options/buttons/buttons';
 
 interface IProps {
@@ -16,8 +16,8 @@ const OptionsContainer: React.FC<IProps> = ({
 	deleteAllAlertDescription,
 	cancelButtonTitle,
 }) => {
-	const { ItemContext } = ItemContextComponents;
-	const { deleteAllItems } = useContext(ItemContext);
+	const { CartItemContext } = CartItemContextComponents;
+	const { deleteAllItems } = useContext(CartItemContext);
 
 	const onHandleDeleteAllItems = () => {
 		Alert.alert(

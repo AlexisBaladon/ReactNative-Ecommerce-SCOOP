@@ -7,11 +7,13 @@ import styles from './storeItem.styles';
 
 interface IProps {
 	item: DtItem;
+	onPressButton: () => void;
 	currencySymbol: string;
 }
 
 const StoreItem: React.FC<IProps> = ({
 	item,
+	onPressButton,
 	currencySymbol
 }) => {
 	const { getItemImage } = ImageHandler;
@@ -31,7 +33,7 @@ const StoreItem: React.FC<IProps> = ({
 					<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
 						{`${item.priceDollars}${currencySymbol}`}
 					</CustomText>
-					<TouchableHighlight style={styles.addToCartButton} >
+					<TouchableHighlight style={styles.addToCartButton} onPress={onPressButton}>
 						<CustomText style={styles.addToCartButtonText} textType='bold' numberOfLines={1} ellipsizeMode="tail">
 							{`Agregar`}
 						</CustomText>

@@ -47,7 +47,6 @@ const StoreScreen: React.FC = () => {
 	useEffect(() => {
 	  setItems(mockItems);
 	}, [])
-	
 
 	return (
 		<View style={{}}>
