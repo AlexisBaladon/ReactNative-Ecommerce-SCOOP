@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../../../constants';
 
-const { MAIN_COLOR, LIGHT_COLOR } = COLORS;
+const { MAIN_COLOR, LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 
 const FILTER_WIDTH = 32;
 const FILTER_HEIGHT = 27;
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
 		height: 28,
 		width: 27,
 		marginLeft: 7.5,
+		tintColor: NEUTRAL_COLOR,
 	},
 	filterContainer: {
 		backgroundColor: MAIN_COLOR,
