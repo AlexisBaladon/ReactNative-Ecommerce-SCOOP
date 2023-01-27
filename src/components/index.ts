@@ -10,7 +10,4 @@ export { default as Search } from './global/search/search';
 export { default as Item } from './items/item/item';
 export { default as Items } from './items/items/items';
 
-// Options
-export { default as CreatorModal } from './options/creatorModal/modal/creatorModal';
-export { default as ImageSlider } from './options/creatorModal/imageSlider/imageSlider';
 export { default as Options } from './options/options/optionsContainer';

@@ -24,20 +24,6 @@ const CartScreen = () => {
 
 	return (
 		<View style={styles.app}>
-			<View style={styles.header}>
-				<CustomText style={styles.title} textType='bold'>{HEADER_TITLE}</CustomText>
-			</View>
-			<View style={styles.search}>
-				<Search placeHolder={SEARCH_PLACEHOLDER} />
-			</View>
-			<View style={styles.options}>
-				<OptionsContainer
-					addButtonTitle={ADD_BUTTON_MESSAGE}
-					deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
-					deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
-					cancelButtonTitle={CANCEL_TITLE}
-				/>
-			</View>
 			<View style={styles.items}>
 				<Items
 					itemHeight={itemHeight}

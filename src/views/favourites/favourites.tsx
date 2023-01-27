@@ -9,12 +9,7 @@ import CustomText from '../../components/global/customText/customText';
 
 const FavouritesScreen: React.FC = () => {
 	const {
-		HEADER_TITLE,
-		SEARCH_PLACEHOLDER,
 		CURRENCY_SYMBOL,
-		ADD_BUTTON_MESSAGE,
-		DELETE_ALL_ITEMS_TITLE,
-		DELETE_ALL_ITEMS_DESCRIPTION,
 		CANCEL_TITLE,
 		NO_ITEMS_MESSAGE,
 		DELETE_ITEM_TITLE,
@@ -23,32 +18,16 @@ const FavouritesScreen: React.FC = () => {
 	} = TEXT;
 
 	return (
-		<View style={styles.app}>
-			<View style={styles.header}>
-				<CustomText style={styles.title}>{HEADER_TITLE}</CustomText>
-			</View>
-			<View style={styles.search}>
-				<Search placeHolder={SEARCH_PLACEHOLDER} />
-			</View>
-			<View style={styles.options}>
-				<OptionsContainer
-					addButtonTitle={ADD_BUTTON_MESSAGE}
-					deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
-					deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
-					cancelButtonTitle={CANCEL_TITLE}
-				/>
-			</View>
-			<View style={styles.items}>
-				<Items
-					itemHeight={itemHeight}
-					noItemsMessage={NO_ITEMS_MESSAGE}
-					currencySymbol={CURRENCY_SYMBOL}
-					deleteItemTitle={DELETE_ITEM_TITLE}
-					deleteItemDescription={DELETE_ITEM_DESCRIPTION}
-					cancelTitle={CANCEL_TITLE}
-					confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
-				/>
-			</View>
+		<View style={styles.items}>
+			<Items
+				itemHeight={itemHeight}
+				noItemsMessage={NO_ITEMS_MESSAGE}
+				currencySymbol={CURRENCY_SYMBOL}
+				deleteItemTitle={DELETE_ITEM_TITLE}
+				deleteItemDescription={DELETE_ITEM_DESCRIPTION}
+				cancelTitle={CANCEL_TITLE}
+				confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
+			/>
 		</View>
 	);
 };

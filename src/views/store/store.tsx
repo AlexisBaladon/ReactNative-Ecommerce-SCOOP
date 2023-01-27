@@ -1,59 +1,67 @@
-import React from 'react';
-import Items from '../../components/items/items/items';
-import Search from '../../components/global/search/search';
-import { View, Text } from 'react-native';
-import OptionsContainer from '../../components/options/options/optionsContainer';
-import { styles, itemHeight } from './store.styles';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { itemHeight } from './store.styles';
 import { TEXT } from '../../constants/index';
-import CustomText from '../../components/global/customText/customText';
+import StoreItems from '../../components/items/storeItems/storeItems';
+import DtItem from '../../interfaces/item';
+
+const {
+	CURRENCY_SYMBOL,
+	CANCEL_TITLE,
+	NO_ITEMS_MESSAGE,
+	DELETE_ITEM_TITLE,
+	DELETE_ITEM_DESCRIPTION,
+	CONFIRM_DELETE_ITEM_TITLE
+} = TEXT;
+
+const mockItems: DtItem[] = [
+	{
+		id: "1",
+		title: 'Item 1',
+		description: 'This is a description',
+		priceDollars: 100,
+		imageURL: 'https://picsum.photos/200/300',
+		amount: 1,
+	},
+	{
+		id: "2",
+		title: 'Item 2',
+		description: 'This is a description',
+		priceDollars: 200,
+		imageURL: 'https://picsum.photos/200/300',
+		amount: 1,
+	},
+	{
+		id: "3",
+		title: 'Item 3',
+		description: 'This is a description',
+		priceDollars: 300,
+		imageURL: 'https://picsum.photos/200/300',
+		amount: 1,
+	},
+];
+
 
 const StoreScreen: React.FC = () => {
-	const {
-		HEADER_TITLE,
-		SEARCH_PLACEHOLDER,
-		CURRENCY_SYMBOL,
-		ADD_BUTTON_MESSAGE,
-		DELETE_ALL_ITEMS_TITLE,
-		DELETE_ALL_ITEMS_DESCRIPTION,
-		ADD_ITEM_TITLE,
-		CONFIRM_CREATE_ITEM_TITLE,
-		CANCEL_TITLE,
-		NO_ITEMS_MESSAGE,
-		DELETE_ITEM_TITLE,
-		DELETE_ITEM_DESCRIPTION,
-		CONFIRM_DELETE_ITEM_TITLE
-	} = TEXT;
+	const [items, setItems] = useState<DtItem[]>([]);
+
+	useEffect(() => {
+	  setItems(mockItems);
+	}, [])
+	
 
 	return (
-		<View style={styles.app}>
-			<View style={styles.header}>
-				<CustomText style={styles.title} textType='bold'>{HEADER_TITLE}</CustomText>
-			</View>
-			<View style={styles.search}>
-				<Search placeHolder={SEARCH_PLACEHOLDER} />
-			</View>
-			<View style={styles.options}>
-				<OptionsContainer
-					currencySymbol={CURRENCY_SYMBOL}
-					addButtonTitle={ADD_BUTTON_MESSAGE}
-					deleteAllButtonTitle={DELETE_ALL_ITEMS_TITLE}
-					deleteAllAlertDescription={DELETE_ALL_ITEMS_DESCRIPTION}
-					modalTitle={ADD_ITEM_TITLE}
-					acceptModalButtonTitle={CONFIRM_CREATE_ITEM_TITLE}
-					cancelButtonTitle={CANCEL_TITLE}
-				/>
-			</View>
-			<View style={styles.items}>
-				<Items
-					itemHeight={itemHeight}
-					noItemsMessage={NO_ITEMS_MESSAGE}
-					currencySymbol={CURRENCY_SYMBOL}
-					deleteItemTitle={DELETE_ITEM_TITLE}
-					deleteItemDescription={DELETE_ITEM_DESCRIPTION}
-					cancelTitle={CANCEL_TITLE}
-					confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
-				/>
-			</View>
+		<View style={{}}>
+			<StoreItems
+				items={items}
+				itemHeight={itemHeight}
+				currencySymbol={CURRENCY_SYMBOL}
+				cancelTitle={CANCEL_TITLE}
+				noItemsMessage={NO_ITEMS_MESSAGE}
+				deleteItemTitle={DELETE_ITEM_TITLE}
+				deleteItemDescription={DELETE_ITEM_DESCRIPTION}
+				confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
+			/>
 		</View>
 	);
 };

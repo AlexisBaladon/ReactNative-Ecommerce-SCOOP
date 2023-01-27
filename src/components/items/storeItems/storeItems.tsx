@@ -1,15 +1,13 @@
-import React, { useContext } from 'react';
-import { Alert, FlatList, Text, View } from 'react-native';
-import ItemContextComponents from '../../../context/itemContext';
+import React from 'react';
+import {  FlatList, View } from 'react-native';
 import DtItem from '../../../interfaces/item';
 import CustomText from '../../global/customText/customText';
-import Item from '../item/item';
 import StoreItem from '../storeItem/storeItem';
-import createStyles from './item.styles';
+import createStyles from './storeItems.styles';
 
 interface IProps {
 	items: DtItem[];
-	itemHeight: number | string;
+	itemHeight: number;
 	noItemsMessage: string;
 	deleteItemTitle: string;
 	deleteItemDescription: string;
@@ -18,34 +16,17 @@ interface IProps {
 	currencySymbol: string;
 }
 
-const Items: React.FC<IProps> = ({
+const StoreItems: React.FC<IProps> = ({
 	items,
 	itemHeight, 
 	noItemsMessage, 
 	currencySymbol,
-	deleteItemTitle,
-	deleteItemDescription,
-	cancelTitle,
-	confirmDeleteTitle,
 }) => {
-	const { ItemContext } = ItemContextComponents;
-	const { shownItems, deleteItem } = useContext(ItemContext);
 	const styles = createStyles(itemHeight);
-
-	const handleDeleteItem = (id: string) => {
-		Alert.alert(
-			deleteItemTitle,
-			deleteItemDescription, [
-				{text: cancelTitle, style: 'cancel'},
-				{text: confirmDeleteTitle, onPress: () => deleteItem(id)},
-			]
-		)
-	}
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={currencySymbol} />
 				<StoreItem item={item} currencySymbol={currencySymbol}/>
 			</View>
 		);
@@ -53,16 +34,16 @@ const Items: React.FC<IProps> = ({
 
 	return (
 		<>
-			{!shownItems.length && (
+			{!items.length && (
 				<View style={styles.emptyListTextContainer}>
 					<CustomText style={styles.emptyListText}>{noItemsMessage}</CustomText>
 				</View>
 			)}
-			{shownItems.length > 0 && (
+			{!!items.length && (
 				<FlatList
 					contentContainerStyle={styles.items}
 					renderItem={RenderItem}
-					data={shownItems}
+					data={items}
 					keyExtractor={(item: DtItem) => item.id}
 				/>
 			)}
@@ -70,4 +51,4 @@ const Items: React.FC<IProps> = ({
 	);
 };
 
-export default Items;
+export default StoreItems;
