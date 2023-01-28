@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 	},
 	item: {
 		minHeight: 150,
-		height: height*0.2,
+		height: height*0.2, width: width,
 		paddingHorizontal: '6%',
 		marginVertical: 15,
 		borderColor: LIGHT_COLOR,

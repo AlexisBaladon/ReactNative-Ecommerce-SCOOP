@@ -1,10 +1,19 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
+	itemsContainer: {
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+	},
 	items: {
 		flexDirection: 'column',
-		alignItems: 'center',
+		alignItems: 'flex-start',
 		justifyContent: 'center',
+	},
+	itemsTwoColumns: {
+		padding: 10,
 	},
 	emptyListTextContainer: {
 		width: '100%',

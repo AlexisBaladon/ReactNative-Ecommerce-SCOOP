@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { itemHeight } from './store.styles';
 import { TEXT } from '../../constants/index';
-import StoreItems from '../../components/items/storeItems/storeItems';
-import DtItem from '../../interfaces/item';
+import { Items } from '../../components';
+import styles from './store.styles';
+import { DtItem } from '../../interfaces';
+import StoreItem from '../../components/items/storeItem/storeItem';
+import { CartItemContextComponents } from '../../context';
 
 const {
 	CURRENCY_SYMBOL,
-	CANCEL_TITLE,
 	NO_ITEMS_MESSAGE,
-	DELETE_ITEM_TITLE,
-	DELETE_ITEM_DESCRIPTION,
-	CONFIRM_DELETE_ITEM_TITLE,
 	ADD_BUTTON_MESSAGE,
 } = TEXT;
 
@@ -44,23 +42,34 @@ const mockItems: DtItem[] = [
 
 const StoreScreen: React.FC = () => {
 	const [items, setItems] = useState<DtItem[]>([]);
+	const { CartItemContext } = CartItemContextComponents;
+	const { addItem, isItemInCart } = useContext(CartItemContext);
 
 	useEffect(() => {
 	  setItems(mockItems);
 	}, [])
 
+	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
+		return (
+			<View style={styles.item}>
+				<StoreItem 
+					item={item} 
+					currencySymbol={CURRENCY_SYMBOL} 
+					onPressButton={() => addItem(item)}
+					isAddedToCart={isItemInCart(item.id)}
+					addToCartMessage={ADD_BUTTON_MESSAGE}
+				/>
+			</View>
+		);
+	};
+
 	return (
 		<View style={{}}>
-			<StoreItems
-				items={items}
-				itemHeight={itemHeight}
-				currencySymbol={CURRENCY_SYMBOL}
-				cancelTitle={CANCEL_TITLE}
+			<Items
+				shownItems={items}
 				noItemsMessage={NO_ITEMS_MESSAGE}
-				deleteItemTitle={DELETE_ITEM_TITLE}
-				deleteItemDescription={DELETE_ITEM_DESCRIPTION}
-				confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
-				addToCartMessage={ADD_BUTTON_MESSAGE}
+				RenderItem={RenderItem}
+				numColumns={2}
 			/>
 		</View>
 	);

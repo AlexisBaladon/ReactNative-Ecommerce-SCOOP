@@ -18,6 +18,8 @@ const Items: React.FC<IProps> = ({
 	noItemsMessage, 
 }) => {
 
+	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
+
 	return (
 		<>
 			{!shownItems.length && (
@@ -26,13 +28,15 @@ const Items: React.FC<IProps> = ({
 				</View>
 			)}
 			{shownItems.length > 0 && (
-				<FlatList
-					contentContainerStyle={styles.items}
-					renderItem={RenderItem}
-					data={shownItems}
-					keyExtractor={(item: DtItem) => item.id}
-					numColumns={numColumns}
-				/>
+				<View style={[styles.itemsContainer, columnAdapterStyle]}>
+					<FlatList
+						contentContainerStyle={styles.items}
+						renderItem={RenderItem}
+						data={shownItems}
+						keyExtractor={(item: DtItem) => item.id}
+						numColumns={numColumns}
+					/>
+				</View>
 			)}
 		</>
 	);
