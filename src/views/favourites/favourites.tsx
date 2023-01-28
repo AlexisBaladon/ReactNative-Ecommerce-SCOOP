@@ -4,6 +4,8 @@ import { View, Alert } from 'react-native';
 import { styles, itemHeight } from './favourites.styles';
 import { TEXT } from '../../constants';
 import { FavouritesContextComponents } from '../../context';
+import { DtItem } from '../../interfaces';
+import { Item } from '../../components';
 
 const {
 	CURRENCY_SYMBOL,
@@ -28,19 +30,22 @@ const FavouritesScreen: React.FC = () => {
 		)
 	}
 
+	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
+		return (
+			<View style={styles.item}>
+				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={CURRENCY_SYMBOL} />
+			</View>
+		);
+	};
+
 	return (
 		<View style={styles.items}>
 			<Items
 				shownItems={shownItems}
-				handleDeleteItem={handleDeleteItem}
-				itemHeight={itemHeight}
-				noItemsMessage={NO_ITEMS_MESSAGE}
-				currencySymbol={CURRENCY_SYMBOL}
-				deleteItemTitle={DELETE_ITEM_TITLE}
-				deleteItemDescription={DELETE_ITEM_DESCRIPTION}
-				cancelTitle={CANCEL_TITLE}
-				confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
- 			/>
+				noItemsMessage={NO_ITEMS_MESSAGE} 
+				RenderItem={RenderItem} 
+				numColumns={1} 			
+			/>
 		</View>
 	);
 };

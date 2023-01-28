@@ -9,16 +9,21 @@ import styles from './storeItem.styles';
 interface IProps {
 	item: DtItem;
 	onPressButton: () => void;
+	isAddedToCart: boolean;
 	currencySymbol: string;
+	addToCartMessage: string;
 }
 
 const StoreItem: React.FC<IProps> = ({
 	item,
 	onPressButton,
-	currencySymbol
+	isAddedToCart,
+	currencySymbol,
+	addToCartMessage,
 }) => {
 	const { getItemImage } = ImageHandler;
 	const imageSrc = getItemImage(item.imageURL);
+	const addToCartButtonStyle = isAddedToCart ? styles.addToCartButtonDisabled : {};
 
 	return (
 		<View style={styles.item}>
@@ -36,9 +41,9 @@ const StoreItem: React.FC<IProps> = ({
 					<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
 						{`${item.priceDollars}${currencySymbol}`}
 					</CustomText>
-					<TouchableHighlight style={styles.addToCartButton} onPress={onPressButton}>
+					<TouchableHighlight style={[styles.addToCartButton, addToCartButtonStyle]} onPress={onPressButton}>
 						<CustomText style={styles.addToCartButtonText} textType='bold' numberOfLines={1} ellipsizeMode="tail">
-							{`Agregar`}
+							{addToCartMessage}
 						</CustomText>
 					</TouchableHighlight>
 				</View>

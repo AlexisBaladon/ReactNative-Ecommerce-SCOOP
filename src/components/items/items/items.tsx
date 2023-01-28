@@ -2,37 +2,21 @@ import React from 'react';
 import { FlatList, View } from 'react-native';
 import DtItem from '../../../interfaces/item';
 import CustomText from '../../global/customText/customText';
-import Item from '../item/item';
-import createStyles from './item.styles';
+import styles from './items.styles';
 
 interface IProps {
 	shownItems: DtItem[];
-	handleDeleteItem: (itemId: DtItem['id']) => void;
-	itemHeight: number | string;
+	RenderItem: React.FC<{item: DtItem}>;
+	numColumns: number;
 	noItemsMessage: string;
-	deleteItemTitle: string;
-	deleteItemDescription: string;
-	cancelTitle: string;
-	confirmDeleteTitle: string;
-	currencySymbol: string;
 }
 
 const Items: React.FC<IProps> = ({
 	shownItems,
-	handleDeleteItem,
-	itemHeight, 
+	RenderItem,
+	numColumns,
 	noItemsMessage, 
-	currencySymbol,
 }) => {
-	const styles = createStyles(itemHeight);
-
-	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
-		return (
-			<View style={styles.item}>
-				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={currencySymbol} />
-			</View>
-		);
-	};
 
 	return (
 		<>
@@ -47,6 +31,7 @@ const Items: React.FC<IProps> = ({
 					renderItem={RenderItem}
 					data={shownItems}
 					keyExtractor={(item: DtItem) => item.id}
+					numColumns={numColumns}
 				/>
 			)}
 		</>

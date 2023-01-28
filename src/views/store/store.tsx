@@ -11,7 +11,8 @@ const {
 	NO_ITEMS_MESSAGE,
 	DELETE_ITEM_TITLE,
 	DELETE_ITEM_DESCRIPTION,
-	CONFIRM_DELETE_ITEM_TITLE
+	CONFIRM_DELETE_ITEM_TITLE,
+	ADD_BUTTON_MESSAGE,
 } = TEXT;
 
 const mockItems: DtItem[] = [
@@ -59,6 +60,7 @@ const StoreScreen: React.FC = () => {
 				deleteItemTitle={DELETE_ITEM_TITLE}
 				deleteItemDescription={DELETE_ITEM_DESCRIPTION}
 				confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
+				addToCartMessage={ADD_BUTTON_MESSAGE}
 			/>
 		</View>
 	);

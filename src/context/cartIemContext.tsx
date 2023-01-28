@@ -6,6 +6,7 @@ interface IContext {
 	shownItems: Array<DtItem>;
 	deleteItem: (itemId: DtItem['id']) => void;
 	addItem: (item: DtItem) => void;
+	isItemInCart: (id: DtItem['id']) => boolean;
 	deleteAllItems: () => void;
 	filterByText: (text: string) => void;
 }
@@ -15,6 +16,7 @@ const CartItemContext = React.createContext<IContext>({
 	shownItems: [],
 	deleteItem: (itemId: DtItem['id']) => {},
 	addItem: (item: DtItem) => {},
+	isItemInCart: (id: DtItem['id']) => false,
 	deleteAllItems: () => {},
 	filterByText: (text: string) => {},
 });
@@ -44,6 +46,8 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		setShownItems([]);
 	};
 
+	const isItemInCart = (id: DtItem['id']) => cartItems.some((item) => item.id === id);
+
 	const __filterItems = (filterFunction: (item: DtItem) => boolean) => {
 		const filteredItems = cartItems.filter(filterFunction);
 		setShownItems(filteredItems);
@@ -68,6 +72,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 				shownItems,
 				deleteItem,
 				addItem,
+				isItemInCart,
 				deleteAllItems,
 				filterByText,
 			}}

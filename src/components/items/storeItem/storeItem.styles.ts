@@ -58,6 +58,9 @@ const styles = StyleSheet.create({
 		bottom: 0,
 		right: 0,
 	},
+	addToCartButtonDisabled: {
+		backgroundColor: NEUTRAL_COLOR,
+	},
 	addToCartButtonText: {
 		color: 'white',
 		fontSize: 10,

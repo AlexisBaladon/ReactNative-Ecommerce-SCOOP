@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import Items from '../../components/items/items/items';
 import { View, Alert } from 'react-native';
-import { styles, itemHeight } from './cart.styles';
+import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
+import { DtItem } from '../../interfaces';
+import { Item } from '../../components';
 
 const {
 	CURRENCY_SYMBOL,
@@ -17,6 +19,14 @@ const {
 const CartScreen = () => {
 	const { CartItemContext } = CartItemContextComponents;
 	const { shownItems, deleteItem } = useContext(CartItemContext);
+
+	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
+		return (
+			<View style={styles.item}>
+				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={CURRENCY_SYMBOL} />
+			</View>
+		);
+	};
 
 	const handleDeleteItem = (id: string) => {
 		Alert.alert(
@@ -33,14 +43,9 @@ const CartScreen = () => {
 			<View style={styles.items}>
 				<Items
 					shownItems={shownItems}
-					handleDeleteItem={handleDeleteItem}
-					itemHeight={itemHeight}
 					noItemsMessage={NO_ITEMS_MESSAGE}
-					currencySymbol={CURRENCY_SYMBOL}
-					deleteItemTitle={DELETE_ITEM_TITLE}
-					deleteItemDescription={DELETE_ITEM_DESCRIPTION}
-					cancelTitle={CANCEL_TITLE}
-					confirmDeleteTitle={CONFIRM_DELETE_ITEM_TITLE}
+					RenderItem={RenderItem} 
+					numColumns={0}				
 				/>
 			</View>
 		</View>

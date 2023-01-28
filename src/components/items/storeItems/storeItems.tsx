@@ -15,6 +15,7 @@ interface IProps {
 	cancelTitle: string;
 	confirmDeleteTitle: string;
 	currencySymbol: string;
+	addToCartMessage: string;
 }
 
 const StoreItems: React.FC<IProps> = ({
@@ -22,15 +23,22 @@ const StoreItems: React.FC<IProps> = ({
 	itemHeight, 
 	noItemsMessage, 
 	currencySymbol,
+	addToCartMessage,
 }) => {
 	const { CartItemContext } = CartItemContextComponents;
-	const { addItem } = useContext(CartItemContext);
+	const { addItem, isItemInCart } = useContext(CartItemContext);
 	const styles = createStyles(itemHeight);
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<StoreItem item={item} currencySymbol={currencySymbol} onPressButton={() => addItem(item)}/>
+				<StoreItem 
+					item={item} 
+					currencySymbol={currencySymbol} 
+					onPressButton={() => addItem(item)}
+					isAddedToCart={isItemInCart(item.id)}
+					addToCartMessage={addToCartMessage}
+				/>
 			</View>
 		);
 	};
