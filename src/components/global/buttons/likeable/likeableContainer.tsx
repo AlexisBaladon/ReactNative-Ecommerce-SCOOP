@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Image, TouchableHighlight } from 'react-native';
+import { Image, TouchableWithoutFeedback, View } from 'react-native';
 import { FavouritesContextComponents } from '../../../../context';
 import { DtItem } from '../../../../interfaces';
 import styles from './likeableContainer.styles';
@@ -12,19 +12,22 @@ interface IProps {
 const LikeableContainer: React.FC<IProps> = ({children, item}) => {
     const { FavouriteItemsContext } = FavouritesContextComponents;
 
-    const { addItem } = useContext(FavouriteItemsContext)
+    const { addItem, deleteItem, itemExists } = useContext(FavouriteItemsContext)
 
-    const handleAddItem = () => {
-        addItem(item);
+    const handlePressHeart = () => {
+        itemExists(item.id) ? deleteItem(item.id) : addItem(item);
     }
 
+    const existsItem = itemExists(item.id);
+    const heartStyle = existsItem ? styles.likedHeart : {};
+
     return (<>
-        <TouchableHighlight style={styles.absolute} onPress={(handleAddItem)}>
-            <>
+        <TouchableWithoutFeedback onPress={handlePressHeart}>
+            <View style={styles.absolute}>
                 <Image style={styles.circle} source={require('./circle.png')} />
-                <Image style={styles.heart} source={require('./heart.png')} />
-            </>
-        </TouchableHighlight>
+                <Image style={[styles.heart, heartStyle]} source={require('./heart.png')} />
+            </View>
+        </TouchableWithoutFeedback>
         {children}
     </>)
 }

@@ -26,7 +26,6 @@ const Items: React.FC<IProps> = ({
 }) => {
 	const styles = createStyles(itemHeight);
 
-
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>

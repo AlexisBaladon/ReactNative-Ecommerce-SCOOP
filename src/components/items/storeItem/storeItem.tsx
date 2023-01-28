@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image, TouchableHighlight } from 'react-native';
 import { ImageHandler } from '../../../helpers/index';
 import DtItem from '../../../interfaces/item';
+import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import CustomText from '../../global/customText/customText';
 import styles from './storeItem.styles';
 
@@ -21,7 +22,9 @@ const StoreItem: React.FC<IProps> = ({
 
 	return (
 		<View style={styles.item}>
-			<Image style={styles.itemImage} source={imageSrc} />
+			<LikeableContainer item={item}>
+				<Image style={styles.itemImage} source={imageSrc} />
+			</LikeableContainer>
 			<View style={styles.textContainer}>
 				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={2} ellipsizeMode="tail">
 					{item.title}

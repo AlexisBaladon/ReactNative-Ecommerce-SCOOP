@@ -7,6 +7,7 @@ interface IContext {
 	deleteItem: (itemId: DtItem['id']) => void;
 	addItem: (item: DtItem) => void;
 	deleteAllItems: () => void;
+	itemExists: (itemId: DtItem['id']) => boolean;
 	filterByText: (text: string) => void;
 }
 
@@ -16,6 +17,7 @@ const FavouriteItemsContext = React.createContext<IContext>({
 	deleteItem: (itemId: DtItem['id']) => {},
 	addItem: (item: DtItem) => {},
 	deleteAllItems: () => {},
+	itemExists: (itemId: DtItem['id']) => false,
 	filterByText: (text: string) => {},
 });
 
@@ -32,7 +34,7 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 	};
 
 	const addItem = (item: DtItem) => {
-		if (favouritesItems.some((item) => item.id === item.id)) return;
+		if (favouritesItems.some((favouriteItem) => favouriteItem.id === item.id)) return;
 		const newItems = [...favouritesItems, item];
 		const newShownItems = newItems.filter(filterRef.current);
 		setFavouritesItems(newItems);
@@ -60,6 +62,8 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 		};
 		__filterItems(filterItemsSearch);
 	};
+	
+	const itemExists = (itemId: DtItem['id']) => favouritesItems.some(item => item.id === itemId);
 
 	return (
 		<FavouriteItemsContext.Provider
@@ -69,6 +73,7 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 				deleteItem,
 				addItem,
 				deleteAllItems,
+				itemExists,
 				filterByText,
 			}}
 		>

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../../../../constants';
 
-const { MAIN_COLOR } = COLORS;
+const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
 const styles = StyleSheet.create({
     absolute: {
@@ -27,8 +27,11 @@ const styles = StyleSheet.create({
     heart: {
         width: 17.5,
         height: 15,
-        tintColor: MAIN_COLOR,
+        tintColor: NEUTRAL_COLOR,
         position: 'absolute',
+    },
+    likedHeart: {
+        tintColor: MAIN_COLOR,
     },
 });
 

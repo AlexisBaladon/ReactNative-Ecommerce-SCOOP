@@ -32,7 +32,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 	};
 
 	const addItem = (item: DtItem) => {
-		if (cartItems.some((item) => item.id === item.id)) return;
+		if (cartItems.find((cartItem) => cartItem.id === item.id)) return;
 		const newItems = [...cartItems, item];
 		const newShownItems = newItems.filter(filterRef.current);
 		setCartItems(newItems);

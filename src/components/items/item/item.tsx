@@ -32,7 +32,7 @@ const Item: React.FC<IProps> = ({
 		<View style={styles.item}>
 			<View style={styles.imageContainer}>
 				<LikeableContainer item={item}>
-					<Image style={styles.itemImage} source={imageSrc} />
+						<Image style={styles.itemImage} source={imageSrc} />
 				</LikeableContainer>
 			</View>
 			<View style={styles.textContainer}>
