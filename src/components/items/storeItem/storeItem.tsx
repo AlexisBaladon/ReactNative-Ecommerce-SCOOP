@@ -25,7 +25,7 @@ const StoreItem: React.FC<IProps> = ({item, selling}) => {
 				<Image style={styles.itemImage} source={imageSrc} />
 			</LikeableContainer>
 			<View style={styles.textContainer}>
-				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={2} ellipsizeMode="tail">
+				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={1} ellipsizeMode="tail">
 					{item.title}
 				</CustomText>
 				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">

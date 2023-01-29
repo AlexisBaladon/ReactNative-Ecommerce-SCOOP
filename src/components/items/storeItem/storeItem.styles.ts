@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 	},
 	itemTitle: {
-		fontSize: 22,
+		fontSize: 20,
 	},
 	itemDescription: {
 		color: NEUTRAL_COLOR,

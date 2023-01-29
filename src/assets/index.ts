@@ -1,4 +1,4 @@
-import itemImages from './images/items/index';
+import itemImages from './images/items';
 import Fonts from './fonts'; 
 
 const images = {

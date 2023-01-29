@@ -36,7 +36,7 @@ const Item: React.FC<IProps> = ({
 				</LikeableContainer>
 			</View>
 			<View style={styles.textContainer}>
-				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={2} ellipsizeMode="tail">
+				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={1} ellipsizeMode="tail">
 					{item.title}
 				</CustomText>
 				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">

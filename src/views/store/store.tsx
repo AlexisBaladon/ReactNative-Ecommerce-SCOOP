@@ -1,57 +1,55 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { TEXT } from '../../constants/index';
-import { Buttons, Items, Options } from '../../components';
+import { Buttons, Items } from '../../components';
 import styles from './store.styles';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 
 const {
-	NO_ITEMS_MESSAGE,
-	DELETE_ALL_ITEMS_TITLE,
-	
+	NO_ITEMS_MESSAGE,	
 } = TEXT;
 
 const mockItems: DtItem[] = [
 	{
 		id: "1",
-		title: 'Item 1',
-		description: 'This is',
+		title: 'Harry Potter',
+		description: 'Este libro es sobre un chico que va a una escuela de magia',
 		priceDollars: 100,
-		imageURL: 'https://picsum.photos/200/300',
+		imageURL: './books.jpg',
 		amount: 1,
 	},
 	{
 		id: "2",
-		title: 'Item 2',
-		description: 'This is a description',
+		title: 'Pollo con arroz',
+		description: 'Necesito comprar pollo con arroz',
 		priceDollars: 200,
-		imageURL: 'https://picsum.photos/200/300',
+		imageURL: './food.jpg',
 		amount: 1,
 	},
 	{
 		id: "3",
-		title: 'Item 3',
-		description: 'This is a description',
+		title: 'Botas',
+		description: 'Necesito comprar botas de forma urgente',
 		priceDollars: 300,
-		imageURL: 'https://picsum.photos/200/300',
+		imageURL: './clothes.png',
 		amount: 1,
 	},
 	{
 		id: "4",
-		title: 'Item 4',
-		description: 'This is a description',
+		title: 'Los juegos del hambre',
+		description: 'Este libro es sobre la pelea por la supervivencia',
 		priceDollars: 300,
-		imageURL: 'https://picsum.photos/200/300',
+		imageURL: './books.jpg',
 		amount: 1,
 	},
 	{
 		id: "5",
-		title: 'Item 5',
-		description: 'This is a description',
+		title: 'Almohada',
+		description: 'Necesito comprar varias almohada',
 		priceDollars: 300,
 		imageURL: 'https://picsum.photos/200/300',
-		amount: 1,
+		amount: 5,
 	},
 ];
 
