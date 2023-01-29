@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { TEXT } from '../../constants/index';
-import { Items } from '../../components';
+import { Buttons, Items, Options } from '../../components';
 import styles from './store.styles';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
-import { CartItemContextComponents } from '../../context';
 
 const {
-	CURRENCY_SYMBOL,
 	NO_ITEMS_MESSAGE,
-	ADD_BUTTON_MESSAGE,
+	DELETE_ALL_ITEMS_TITLE,
+	
 } = TEXT;
 
 const mockItems: DtItem[] = [
@@ -38,41 +37,53 @@ const mockItems: DtItem[] = [
 		imageURL: 'https://picsum.photos/200/300',
 		amount: 1,
 	},
+	{
+		id: "4",
+		title: 'Item 4',
+		description: 'This is a description',
+		priceDollars: 300,
+		imageURL: 'https://picsum.photos/200/300',
+		amount: 1,
+	},
+	{
+		id: "5",
+		title: 'Item 5',
+		description: 'This is a description',
+		priceDollars: 300,
+		imageURL: 'https://picsum.photos/200/300',
+		amount: 1,
+	},
 ];
 
 const StoreScreen: React.FC = () => {
 	const [items, setItems] = useState<DtItem[]>([]);
-	const { CartItemContext } = CartItemContextComponents;
-	const { addItem, isItemInCart } = useContext(CartItemContext);
 
 	useEffect(() => {
 	  setItems(mockItems);
 	}, [])
 
+	type TButton = { title: string; onPress(): void, pressed: boolean };
+	const buttons: Array<TButton> = [
+		{ title: 'Todos', onPress: () => {}, pressed: true },
+	];
+
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<StoreItem 
-					item={item} 
-					currencySymbol={CURRENCY_SYMBOL} 
-					onPressButton={() => addItem(item)}
-					isAddedToCart={isItemInCart(item.id)}
-					addToCartMessage={ADD_BUTTON_MESSAGE}
-				/>
+				<StoreItem item={item} selling={true} />
 			</View>
 		);
 	};
 
-	return (
-		<View style={{}}>
-			<Items
-				shownItems={items}
-				noItemsMessage={NO_ITEMS_MESSAGE}
-				RenderItem={RenderItem}
-				numColumns={2}
-			/>
-		</View>
-	);
+	return (<>
+		<Buttons buttons={buttons} />
+		<Items
+			shownItems={items}
+			noItemsMessage={NO_ITEMS_MESSAGE}
+			RenderItem={RenderItem}
+			numColumns={2}
+		/>
+	</>);
 };
 
 export default StoreScreen;

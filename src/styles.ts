@@ -7,7 +7,6 @@ const { width, height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
 const headerHeight = 100;
 const searchHeight = 70;
-const optionsHeight = 40;
 const navbarHeight = 60;
 
 const styles = StyleSheet.create({
@@ -29,11 +28,8 @@ const styles = StyleSheet.create({
 	search: {
 		height: searchHeight,
 	},
-	options: {
-		height: optionsHeight,
-	},
     currentScreen: {
-        height: height - headerHeight - searchHeight - optionsHeight - navbarHeight + statusBarHeight,
+        height: height - headerHeight - searchHeight - navbarHeight + statusBarHeight,
         paddingBottom: 15,
     },
     navbarContainer: {

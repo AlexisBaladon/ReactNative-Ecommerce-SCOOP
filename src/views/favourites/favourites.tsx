@@ -1,53 +1,55 @@
 import React, { useContext } from 'react';
-import Items from '../../components/items/items/items';
+import { Items, Buttons } from '../../components';
 import { View, Alert } from 'react-native';
-import { styles, itemHeight } from './favourites.styles';
+import { styles } from './favourites.styles';
 import { TEXT } from '../../constants';
 import { FavouritesContextComponents } from '../../context';
 import { DtItem } from '../../interfaces';
-import { Item } from '../../components';
+import StoreItem from '../../components/items/storeItem/storeItem';
 
 const {
-	CURRENCY_SYMBOL,
-	CANCEL_TITLE,
 	NO_ITEMS_MESSAGE,
-	DELETE_ITEM_TITLE,
-	DELETE_ITEM_DESCRIPTION,
-	CONFIRM_DELETE_ITEM_TITLE
+	DELETE_ALL_ITEMS_TITLE,
+	DELETE_ALL_ITEMS_DESCRIPTION,
+	CANCEL_TITLE,
 } = TEXT;
 
 const FavouritesScreen: React.FC = () => {
 	const { FavouriteItemsContext } = FavouritesContextComponents;
-	const { shownItems, deleteItem } = useContext(FavouriteItemsContext);
+	const { shownItems, deleteAllItems } = useContext(FavouriteItemsContext);
 
-	const handleDeleteItem = (id: string) => {
+	const onHandleDeleteAllItems = () => {
 		Alert.alert(
-			DELETE_ITEM_TITLE,
-			DELETE_ITEM_DESCRIPTION, [
+			DELETE_ALL_ITEMS_TITLE,
+			DELETE_ALL_ITEMS_DESCRIPTION, [
 				{text: CANCEL_TITLE, style: 'cancel'},
-				{text: CONFIRM_DELETE_ITEM_TITLE, onPress: () => deleteItem(id)},
+				{text: DELETE_ALL_ITEMS_TITLE, onPress: deleteAllItems},
 			]
 		)
 	}
 
+	type TButton = { title: string; onPress(): void, pressed: boolean };
+	const buttons: Array<TButton> = [
+		{ title: DELETE_ALL_ITEMS_TITLE, onPress: onHandleDeleteAllItems, pressed: false },
+	];
+
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={CURRENCY_SYMBOL} />
+				<StoreItem item={item} selling={false} />
 			</View>
 		);
 	};
 
-	return (
-		<View style={styles.items}>
-			<Items
-				shownItems={shownItems}
-				noItemsMessage={NO_ITEMS_MESSAGE} 
-				RenderItem={RenderItem} 
-				numColumns={1} 			
-			/>
-		</View>
-	);
+	return (<>
+		<Buttons buttons={buttons} />
+		<Items
+			shownItems={shownItems}
+			noItemsMessage={NO_ITEMS_MESSAGE} 
+			RenderItem={RenderItem} 
+			numColumns={2} 			
+		/>
+	</>);
 };
 
 export default FavouritesScreen;

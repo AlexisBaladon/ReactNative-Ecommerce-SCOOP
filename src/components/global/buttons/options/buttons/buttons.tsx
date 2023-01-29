@@ -4,7 +4,7 @@ import Button from '../button/button';
 import styles from './buttons.styles';
 
 interface IProps {
-	buttons: Array<{ title: string; onPress: () => void }>;
+	buttons: Array<{ title: string; onPress: () => void, pressed: boolean }>;
 }
 
 const Buttons: React.FC<IProps> = ({ buttons }) => {
@@ -13,7 +13,7 @@ const Buttons: React.FC<IProps> = ({ buttons }) => {
 			{buttons.map((but, i) => {
 				return (
 					<View style={styles.categoryContainer} key={i}>
-						<Button title={but.title} isSelected={i == 0} onPress={but.onPress} />
+						<Button title={but.title} isSelected={but.pressed} onPress={but.onPress} />
 					</View>
 				);
 			})}

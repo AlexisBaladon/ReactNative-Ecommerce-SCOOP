@@ -1,29 +1,23 @@
 import React from 'react';
-import { View, Image, TouchableHighlight } from 'react-native';
+import { View, Image } from 'react-native';
 import { ImageHandler } from '../../../helpers/index';
 import DtItem from '../../../interfaces/item';
 import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import CustomText from '../../global/customText/customText';
 import styles from './storeItem.styles';
+import ItemStoreInfo from './itemStoreInfo';
 
 interface IProps {
-	item: DtItem;
-	onPressButton: () => void;
-	isAddedToCart: boolean;
-	currencySymbol: string;
-	addToCartMessage: string;
+	item: DtItem,
+	selling: boolean,
 }
 
-const StoreItem: React.FC<IProps> = ({
-	item,
-	onPressButton,
-	isAddedToCart,
-	currencySymbol,
-	addToCartMessage,
-}) => {
+const StoreItem: React.FC<IProps> = ({item, selling}) => {
 	const { getItemImage } = ImageHandler;
 	const imageSrc = getItemImage(item.imageURL);
-	const addToCartButtonStyle = isAddedToCart ? styles.addToCartButtonDisabled : {};
+	const AddToCart: React.FC = () => {
+		return selling ? <ItemStoreInfo item={item} /> : null;
+	};
 
 	return (
 		<View style={styles.item}>
@@ -37,16 +31,7 @@ const StoreItem: React.FC<IProps> = ({
 				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
 					{item.description}
 				</CustomText>
-				<View style={styles.priceContainer}>
-					<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
-						{`${item.priceDollars}${currencySymbol}`}
-					</CustomText>
-					<TouchableHighlight style={[styles.addToCartButton, addToCartButtonStyle]} onPress={onPressButton}>
-						<CustomText style={styles.addToCartButtonText} textType='bold' numberOfLines={1} ellipsizeMode="tail">
-							{addToCartMessage}
-						</CustomText>
-					</TouchableHighlight>
-				</View>
+				< AddToCart />
 			</View>
 		</View>
 	);
