@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import DtItem from '../interfaces/item';
+import React, { useRef, useState } from 'react';
+import DtItem from '../interfaces/dtItem';
 
 interface IContext {
 	favouritesItems: Array<DtItem>;
@@ -24,7 +24,7 @@ const FavouriteItemsContext = React.createContext<IContext>({
 const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [favouritesItems, setFavouritesItems] = useState<Array<DtItem>>([]);
 	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
-	const filterRef = React.useRef<(item: DtItem) => boolean>((_) => true);
+	const filterRef = useRef<(item: DtItem) => boolean>((_) => true);
 
 	const deleteItem = (itemId: DtItem['id']) => {
 		const itemsWithoutDeleted = favouritesItems.filter((item) => item.id != itemId);

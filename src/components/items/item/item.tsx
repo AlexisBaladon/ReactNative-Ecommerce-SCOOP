@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Image } from 'react-native';
 import { ImageHandler } from '../../../helpers';
 import { useCounter } from '../../../hooks';
-import DtItem from '../../../interfaces/item';
+import DtItem from '../../../interfaces/dtItem';
 import CloseButton from '../../global/buttons/closeButton/closeButton';
 import Counter from '../../global/buttons/counter/counter';
 import CustomText from '../../global/customText/customText';
@@ -11,7 +11,9 @@ import { styles, buttonWidth } from './item.styles';
 
 interface IProps {
 	item: DtItem;
+	amount: number;
 	deleteItem(itemId: DtItem['id']): void;
+	updateItemCounter(itemId: DtItem['id'], count: number): void;
 	currencySymbol: string;
 	minCount?: number;
 	maxCount?: number;
@@ -19,14 +21,33 @@ interface IProps {
 
 const Item: React.FC<IProps> = ({
 	item,
+	amount,
 	deleteItem,
+	updateItemCounter,
 	currencySymbol,
 	minCount = 1,
 	maxCount = 99,
 }) => {
 	const { getItemImage } = ImageHandler;
-	const [count, addToCounter, decToCounter] = useCounter(minCount, item.amount, maxCount);
+	const [count, addToCounter, decToCounter] = useCounter(minCount, amount, maxCount);
 	const imageSrc = getItemImage(item.imageURL);
+	const countRef = useRef(count);
+
+	useEffect(() => {
+	    return () => {
+		    updateItemCounter(item.id, countRef.current);
+	    }
+	}, [])
+	
+	const handleAddToCounter = () => {
+		addToCounter(1);
+		countRef.current += 1;
+	};
+
+	const handleDecToCounter = () => {
+		decToCounter(1);
+		countRef.current -= 1;
+	};
 
 	return (
 		<View style={styles.item}>
@@ -42,9 +63,9 @@ const Item: React.FC<IProps> = ({
 				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
 					{item.description}
 				</CustomText>
-				<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">{`${
-					item.priceDollars * count
-				} ${currencySymbol}`}</CustomText>
+				<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
+					{`${item.priceDollars * count} ${currencySymbol}`}
+				</CustomText>
 			</View>
 			<View style={styles.buttonContainer}>
 				<View>
@@ -58,9 +79,9 @@ const Item: React.FC<IProps> = ({
 					<Counter
 						addCharacter={'+'}
 						decCharacter={'-'}
-						addToCounter={addToCounter}
+						addToCounter={handleAddToCounter}
 						count={count}
-						decToCounter={decToCounter}
+						decToCounter={handleDecToCounter}
 					/>
 				</View>
 			</View>

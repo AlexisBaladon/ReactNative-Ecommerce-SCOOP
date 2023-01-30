@@ -21,7 +21,7 @@ const ItemStoreInfo: React.FC<IProps> = ({item}) => {
 	const addToCartButtonStyle = isInCart ? styles.addToCartButtonDisabled : {};
     
     const handleOnAddToCart = () => {
-        if (!isInCart) addItem(item);
+        if (!isInCart) addItem({...item, amount: 1});
     }
 
     return (

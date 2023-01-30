@@ -6,9 +6,9 @@ import styles from './counter.styles';
 interface IProps {
 	addCharacter: string;
 	decCharacter: string;
-	addToCounter: (addedCount: number) => void;
+	addToCounter: () => void;
 	count: number;
-	decToCounter: (decCount: number) => void;
+	decToCounter: () => void;
 }
 
 const Counter: React.FC<IProps> = ({
@@ -22,15 +22,15 @@ const Counter: React.FC<IProps> = ({
 		const inputCount = Number.parseInt(text);
 		if (!Number.isNaN(inputCount)) {
 			const addedCount = inputCount - count;
-			if (addedCount > 0) addToCounter(addedCount);
-			else decToCounter(-addedCount);
+			if (addedCount > 0) addToCounter();
+			else decToCounter();
 		}
 	};
 
 	return (
 		<>
 			<View style={styles.counter}>
-				<TouchableOpacity style={styles.addDecButton} onPress={() => addToCounter(1)}>
+				<TouchableOpacity style={styles.addDecButton} onPress={() => addToCounter()}>
 					<CustomText textType={'bold'} style={styles.text}>{addCharacter}</CustomText>
 				</TouchableOpacity>
 				<TextInput
@@ -40,7 +40,7 @@ const Counter: React.FC<IProps> = ({
 				>
 					<CustomText textType={'bold'} style={styles.text}>{count}</CustomText>
 				</TextInput>
-				<TouchableOpacity style={styles.addDecButton} onPress={() => decToCounter(1)}>
+				<TouchableOpacity style={styles.addDecButton} onPress={() => decToCounter()}>
 					<CustomText textType={'bold'} style={styles.text}>{decCharacter}</CustomText>
 				</TouchableOpacity>
 			</View>

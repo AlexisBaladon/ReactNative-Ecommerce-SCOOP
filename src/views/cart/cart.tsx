@@ -4,7 +4,7 @@ import { View, Alert } from 'react-native';
 import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
-import { DtItem } from '../../interfaces';
+import { DtItem, DtItemCart } from '../../interfaces';
 import { Buttons, Item, Search } from '../../components';
 
 const {
@@ -21,7 +21,13 @@ const {
 
 const CartScreen = () => {
 	const { CartItemContext } = CartItemContextComponents;
-	const { shownItems, deleteItem, deleteAllItems, filterByText } = useContext(CartItemContext);
+	const { 
+		shownItems, 
+		deleteItem, 
+		deleteAllItems, 
+		filterByText, 
+		updateCount 
+	} = useContext(CartItemContext);
 
 	useEffect(() => {
 		return () => {
@@ -32,7 +38,13 @@ const CartScreen = () => {
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<View style={styles.item}>
-				<Item item={item} deleteItem={handleDeleteItem} currencySymbol={CURRENCY_SYMBOL} />
+				<Item 
+					item={item} 
+					amount={(item as DtItemCart).amount}
+					deleteItem={handleDeleteItem} 
+					currencySymbol={CURRENCY_SYMBOL} 
+					updateItemCounter={updateCount}
+				/>
 			</View>
 		);
 	};
@@ -71,7 +83,7 @@ const CartScreen = () => {
 			shownItems={shownItems}
 			noItemsMessage={NO_ITEMS_MESSAGE}
 			RenderItem={RenderItem} 
-			numColumns={1}				
+			numColumns={1}
 		/>
 	</>);
 };

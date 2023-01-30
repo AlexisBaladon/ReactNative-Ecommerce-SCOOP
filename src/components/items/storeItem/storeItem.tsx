@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 import { ImageHandler } from '../../../helpers/index';
-import DtItem from '../../../interfaces/item';
+import DtItem from '../../../interfaces/dtItem';
 import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import CustomText from '../../global/customText/customText';
 import styles from './storeItem.styles';

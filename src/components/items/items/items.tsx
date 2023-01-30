@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import DtItem from '../../../interfaces/item';
+import { DtItemCart } from '../../../interfaces';
+import DtItem from '../../../interfaces/dtItem';
 import CustomText from '../../global/customText/customText';
 import styles from './items.styles';
 
@@ -17,7 +18,6 @@ const Items: React.FC<IProps> = ({
 	numColumns,
 	noItemsMessage, 
 }) => {
-
 	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
 
 	return (

@@ -4,7 +4,6 @@ interface DtItem {
 	description: string;
 	imageURL: string;
 	priceDollars: number;
-	amount: number;
 }
 
 export default DtItem;

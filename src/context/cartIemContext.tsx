@@ -1,31 +1,33 @@
-import React, { useState } from 'react';
-import DtItem from '../interfaces/item';
+import React, { useRef, useState } from 'react';
+import { DtItemCart } from '../interfaces';
+import DtItem from '../interfaces/dtItem';
 
 interface IContext {
-	cartItems: Array<DtItem>;
 	shownItems: Array<DtItem>;
 	deleteItem: (itemId: DtItem['id']) => void;
-	addItem: (item: DtItem) => void;
+	addItem: (item: DtItemCart) => void;
+	updateCount: (itemId: DtItem['id'], count: number) => void;
 	isItemInCart: (id: DtItem['id']) => boolean;
 	deleteAllItems: () => void;
 	filterByText: (text: string) => void;
 }
 
 const CartItemContext = React.createContext<IContext>({
-	cartItems: [],
 	shownItems: [],
 	deleteItem: (itemId: DtItem['id']) => {},
-	addItem: (item: DtItem) => {},
+	addItem: (item: DtItemCart) => {},
+	updateCount: (itemId: DtItem['id'], count: number) => {},
 	isItemInCart: (id: DtItem['id']) => false,
 	deleteAllItems: () => {},
 	filterByText: (text: string) => {},
 });
 
-const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-	const [cartItems, setCartItems] = useState<Array<DtItem>>([]);
-	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
-	const filterRef = React.useRef<(item: DtItem) => boolean>((_) => true);
 
+const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
+	const [cartItems, setCartItems] = useState<Array<DtItemCart>>([]);
+	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
+	const filterRef = useRef<(item: DtItem) => boolean>((_) => true);
+	
 	const deleteItem = (itemId: DtItem['id']) => {
 		const itemsWithoutDeleted = cartItems.filter((item) => item.id != itemId);
 		const shownItemsWithoutDeleted = shownItems.filter((item) => item.id != itemId);
@@ -33,9 +35,20 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		setShownItems(shownItemsWithoutDeleted);
 	};
 
-	const addItem = (item: DtItem) => {
-		if (cartItems.find((cartItem) => cartItem.id === item.id)) return;
+	const addItem = (item: DtItemCart) => {
 		const newItems = [...cartItems, item];
+		const newShownItems = newItems.filter(filterRef.current);
+		setCartItems(newItems);
+		setShownItems(newShownItems);
+	};
+
+	const updateCount = (itemId: DtItem['id'], count: number) => {
+		const newItems = cartItems.map((item) => {
+			if (item.id === itemId) {
+				item.amount = count;
+			}
+			return item;
+		});
 		const newShownItems = newItems.filter(filterRef.current);
 		setCartItems(newItems);
 		setShownItems(newShownItems);
@@ -49,7 +62,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 	const isItemInCart = (id: DtItem['id']) => cartItems.some((item) => item.id === id);
 
 	const __filterItems = (filterFunction: (item: DtItem) => boolean) => {
-		const filteredItems = cartItems.filter(filterFunction);
+		const filteredItems = cartItems.filter(filterFunction)
 		setShownItems(filteredItems);
 		filterRef.current = filterFunction;
 	};
@@ -68,10 +81,10 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 	return (
 		<CartItemContext.Provider
 			value={{
-				cartItems,
 				shownItems,
 				deleteItem,
 				addItem,
+				updateCount,
 				isItemInCart,
 				deleteAllItems,
 				filterByText,
