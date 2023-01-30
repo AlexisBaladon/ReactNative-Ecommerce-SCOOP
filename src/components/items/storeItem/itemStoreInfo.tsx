@@ -30,7 +30,11 @@ const ItemStoreInfo: React.FC<IProps> = ({item}) => {
             <CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
                 {`${item.priceDollars}${CURRENCY_SYMBOL}`}
             </CustomText>
-            <TouchableHighlight style={[styles.addToCartButton, addToCartButtonStyle]} onPress={handleOnAddToCart}>
+            <TouchableHighlight 
+                style={[styles.addToCartButton, addToCartButtonStyle]} 
+                onPress={handleOnAddToCart}
+                disabled={isInCart}
+            >
                 <CustomText style={styles.addToCartButtonText} textType='bold' numberOfLines={1} ellipsizeMode="tail">
                     {ADD_BUTTON_MESSAGE}
                 </CustomText>

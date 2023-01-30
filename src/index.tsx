@@ -26,11 +26,6 @@ const {
 } = TEXT;
 
 const titles = ['Tienda', 'Carrito', 'Favoritos']
-const screenOptions = [
-    ['Todo'],
-    ['Eliminar todo'],
-    ['Eliminar todo'],
-]
 
 const App = () => {
     const [loaded] = useFonts(fonts);
@@ -39,7 +34,6 @@ const App = () => {
     const [screen, setScreen] = useState<Screen>(Screen.STORE)
 
     const title = titles[screen];
-    const options = screenOptions[screen];
 
     const CurrentScreen: React.FC = () => {
         const { STORE, CART } = Screen;

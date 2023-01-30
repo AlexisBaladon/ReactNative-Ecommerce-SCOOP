@@ -11,8 +11,5 @@ export { default as LikeableContainer } from './global/buttons/likeable/likeable
 export { default as Item } from './items/item/item';
 export { default as Items } from './items/items/items';
 
-// Options
-export { default as Options } from './options/options/optionsContainer';
-
 // Custom
 export { default as CustomText } from './global/customText/customText';

@@ -6,7 +6,7 @@ const { BACKGROUND_COLOR } = COLORS;
 const { width, height } = Dimensions.get('window');
 const statusBarHeight = StatusBar.currentHeight || 0;
 const headerHeight = 100;
-const searchHeight = 70;
+const searchHeight = 60;
 const navbarHeight = 60;
 
 const styles = StyleSheet.create({
