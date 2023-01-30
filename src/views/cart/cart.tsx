@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Items from '../../components/items/items/items';
 import { View, Alert } from 'react-native';
 import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { DtItem } from '../../interfaces';
-import { Buttons, Item } from '../../components';
+import { Buttons, Item, Search } from '../../components';
 
 const {
 	CURRENCY_SYMBOL,
@@ -15,12 +15,19 @@ const {
 	DELETE_ALL_ITEMS_TITLE,
 	DELETE_ALL_ITEMS_DESCRIPTION,
 	DELETE_ITEM_DESCRIPTION,
-	CONFIRM_DELETE_ITEM_TITLE
+	CONFIRM_DELETE_ITEM_TITLE,
+	SEARCH_PLACEHOLDER,
 } = TEXT;
 
 const CartScreen = () => {
 	const { CartItemContext } = CartItemContextComponents;
-	const { shownItems, deleteItem, deleteAllItems } = useContext(CartItemContext);
+	const { shownItems, deleteItem, deleteAllItems, filterByText } = useContext(CartItemContext);
+
+	useEffect(() => {
+		return () => {
+			filterByText('');
+		};
+	}, [])
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
@@ -44,6 +51,7 @@ const CartScreen = () => {
 		Alert.alert(
 			DELETE_ALL_ITEMS_TITLE,
 			DELETE_ALL_ITEMS_DESCRIPTION, [
+				{text: CANCEL_TITLE, style: 'cancel'},
 				{text: DELETE_ALL_ITEMS_TITLE, onPress: deleteAllItems},
 			]
 		)
@@ -54,8 +62,10 @@ const CartScreen = () => {
 		{ title: DELETE_ALL_ITEMS_TITLE, onPress: onHandleDeleteAllItems, pressed: false },
 	];
 
-
 	return (<>
+		<View style={styles.search}>
+			<Search onChangeText={filterByText} placeHolder={SEARCH_PLACEHOLDER} />
+		</View>
 		<Buttons buttons={buttons} />
 		<Items
 			shownItems={shownItems}

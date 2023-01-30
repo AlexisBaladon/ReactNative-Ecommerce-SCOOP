@@ -12,6 +12,9 @@ const styles  =  StyleSheet.create({
         margin: 10,
         maxWidth: width*0.45,
     },
+    search: {
+        height: 60,
+    },
 });
     
 export default styles;

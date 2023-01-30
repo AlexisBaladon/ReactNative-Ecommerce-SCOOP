@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
 	text: {
 		color: MAIN_COLOR,
 		textAlign: 'center',
-		fontSize: 18,
+		fontSize: 16,
 	},
 });
 

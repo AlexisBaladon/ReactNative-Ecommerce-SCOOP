@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
         width: itemHeight*0.67, height: itemHeight,
         margin: 10,
     },
+    search: {
+        height: 60,
+    }
 });
 
 export { styles, itemHeight };

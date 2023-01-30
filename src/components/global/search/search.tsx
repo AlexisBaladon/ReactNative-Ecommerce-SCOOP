@@ -1,16 +1,14 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 import { View, TextInput, Image, TouchableHighlight } from 'react-native';
-import { CartItemContextComponents } from '../../../context';
 import styles from './search.styles';
 
 interface IProps {
 	placeHolder: string;
+	onChangeText: (text: string) => void;
 	defaultValue?: string;
 }
 
-const Search: React.FC<IProps> = ({ placeHolder, defaultValue = '' }) => {
-	const { CartItemContext } = CartItemContextComponents;
-	const { filterByText } = useContext(CartItemContext);
+const Search: React.FC<IProps> = ({ placeHolder, onChangeText, defaultValue = '' }) => {
 	const searchInputRef = useRef<TextInput>(null);
 
 	return (
@@ -21,7 +19,7 @@ const Search: React.FC<IProps> = ({ placeHolder, defaultValue = '' }) => {
 					style={styles.searchInput}
 					placeholder={placeHolder}
 					defaultValue={defaultValue}
-					onChangeText={filterByText}
+					onChangeText={onChangeText}
 					ref={searchInputRef}
 				/>
 			</View>

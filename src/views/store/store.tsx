@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { TEXT } from '../../constants/index';
-import { Buttons, Items } from '../../components';
+import { Buttons, Items, Search } from '../../components';
 import styles from './store.styles';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 
 const {
 	NO_ITEMS_MESSAGE,	
+	SEARCH_PLACEHOLDER,
 } = TEXT;
 
 const mockItems: DtItem[] = [
@@ -22,7 +23,7 @@ const mockItems: DtItem[] = [
 	{
 		id: "2",
 		title: 'Pollo con arroz',
-		description: 'Necesito comprar pollo con arroz',
+		description: 'Infaltable en tu dieta diaria',
 		priceDollars: 200,
 		imageURL: './food.jpg',
 		amount: 1,
@@ -30,7 +31,7 @@ const mockItems: DtItem[] = [
 	{
 		id: "3",
 		title: 'Botas',
-		description: 'Necesito comprar botas de forma urgente',
+		description: 'Un par de botas para la lluvia',
 		priceDollars: 300,
 		imageURL: './clothes.png',
 		amount: 1,
@@ -46,7 +47,7 @@ const mockItems: DtItem[] = [
 	{
 		id: "5",
 		title: 'Almohada',
-		description: 'Necesito comprar varias almohada',
+		description: 'Para dormir bien y descansar',
 		priceDollars: 300,
 		imageURL: 'https://picsum.photos/200/300',
 		amount: 5,
@@ -59,6 +60,13 @@ const StoreScreen: React.FC = () => {
 	useEffect(() => {
 	  setItems(mockItems);
 	}, [])
+
+	const filterByText = (text: string) => {
+		const filteredItems = mockItems.filter((item) => {
+			return item.title.toLowerCase().includes(text.toLowerCase());
+		});
+		setItems(filteredItems);
+	};
 
 	type TButton = { title: string; onPress(): void, pressed: boolean };
 	const buttons: Array<TButton> = [
@@ -74,6 +82,9 @@ const StoreScreen: React.FC = () => {
 	};
 
 	return (<>
+		<View style={styles.search}>
+			<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={filterByText} />
+		</View>
 		<Buttons buttons={buttons} />
 		<Items
 			shownItems={items}

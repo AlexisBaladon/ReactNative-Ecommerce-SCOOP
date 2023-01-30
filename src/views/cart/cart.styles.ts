@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 15,
 	},
+	search: {
+		height: 60,
+	}
 });
 
 export default styles;

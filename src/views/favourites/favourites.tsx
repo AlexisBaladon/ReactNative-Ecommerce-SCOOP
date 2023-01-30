@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Items, Buttons } from '../../components';
+import React, { useContext, useEffect } from 'react';
+import { Items, Buttons, Search } from '../../components';
 import { View, Alert } from 'react-native';
 import { styles } from './favourites.styles';
 import { TEXT } from '../../constants';
@@ -12,11 +12,18 @@ const {
 	DELETE_ALL_ITEMS_TITLE,
 	DELETE_ALL_ITEMS_DESCRIPTION,
 	CANCEL_TITLE,
+	SEARCH_PLACEHOLDER,
 } = TEXT;
 
 const FavouritesScreen: React.FC = () => {
 	const { FavouriteItemsContext } = FavouritesContextComponents;
-	const { shownItems, deleteAllItems } = useContext(FavouriteItemsContext);
+	const { shownItems, deleteAllItems, filterByText } = useContext(FavouriteItemsContext);
+
+	useEffect(() => {
+		return () => {
+			filterByText('');
+		};
+	}, [])
 
 	const onHandleDeleteAllItems = () => {
 		Alert.alert(
@@ -42,6 +49,9 @@ const FavouritesScreen: React.FC = () => {
 	};
 
 	return (<>
+		<View style={styles.search}>
+			<Search onChangeText={filterByText} placeHolder={SEARCH_PLACEHOLDER} />
+		</View>
 		<Buttons buttons={buttons} />
 		<Items
 			shownItems={shownItems}

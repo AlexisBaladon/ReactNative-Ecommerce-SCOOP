@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { View } from 'react-native';
 
 import { Fonts as fonts } from './assets';
-import { TEXT } from './constants';
-import { Search } from './components';
 import CustomText from './components/global/customText/customText';
 import styles from './styles';
 
@@ -20,10 +18,6 @@ enum Screen {
     CART,
     FAVOURITES,
 }
-
-const {
-    SEARCH_PLACEHOLDER,
-} = TEXT;
 
 const titles = ['Tienda', 'Carrito', 'Favoritos']
 
@@ -50,9 +44,6 @@ const App = () => {
                 <View style={styles.app}>
                     <View style={styles.header}>
                         <CustomText style={styles.title}>{title}</CustomText>
-                    </View>
-                    <View style={styles.search}>
-                        <Search placeHolder={SEARCH_PLACEHOLDER} />
                     </View>
                     <View style={styles.currentScreen}>
                         <CurrentScreen />

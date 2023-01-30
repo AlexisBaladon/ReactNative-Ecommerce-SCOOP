@@ -6,8 +6,8 @@ const HEADER_TITLE = 'Lista de productos';
 const CANCEL_TITLE = 'Cancelar';
 const CONFIRM_DELETE_ITEM_TITLE = 'Si, borrar';
 const DELETE_ITEM_TITLE = 'Borrar item';
-const DELETE_ITEM_DESCRIPTION = '¿Estás seguro/a que de que quieres borrar permanentemente este item?';
-const DELETE_ALL_ITEMS_DESCRIPTION = '¿Estás seguro/a de que quieres borrar permanentemente todos tus items?';
+const DELETE_ITEM_DESCRIPTION = '¿Estás seguro/a que de que quieres borrar este item?';
+const DELETE_ALL_ITEMS_DESCRIPTION = '¿Estás seguro/a de que quieres borrar todos tus items?';
 const DELETE_ALL_ITEMS_TITLE = 'Borrar todo';
 
 const TEXT = {
