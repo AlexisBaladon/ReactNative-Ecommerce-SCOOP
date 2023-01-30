@@ -49,7 +49,7 @@ const CartScreen = () => {
 		);
 	};
 
-	const handleDeleteItem = (id: string) => {
+	const handleDeleteItem = (id: DtItem['id']) => {
 		Alert.alert(
 			DELETE_ITEM_TITLE,
 			DELETE_ITEM_DESCRIPTION, [
