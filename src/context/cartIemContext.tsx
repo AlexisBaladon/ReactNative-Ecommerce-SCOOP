@@ -1,23 +1,23 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { DtItemCart } from '../interfaces';
 import DtItem from '../interfaces/dtItem';
 
 interface IContext {
-	shownItems: Array<DtItem>;
-	deleteItem: (itemId: DtItem['id']) => void;
+	shownItems: Array<DtItemCart>;
+	deleteItem: (itemId: DtItemCart['id']) => void;
 	addItem: (item: DtItemCart) => void;
-	updateCount: (itemId: DtItem['id'], count: number) => void;
-	isItemInCart: (id: DtItem['id']) => boolean;
+	updateCount: (itemId: DtItemCart['id'], count: number) => void;
+	isItemInCart: (id: DtItemCart['id']) => boolean;
 	deleteAllItems: () => void;
 	filterByText: (text: string) => void;
 }
 
 const CartItemContext = React.createContext<IContext>({
 	shownItems: [],
-	deleteItem: (itemId: DtItem['id']) => {},
+	deleteItem: (itemId: DtItemCart['id']) => {},
 	addItem: (item: DtItemCart) => {},
-	updateCount: (itemId: DtItem['id'], count: number) => {},
-	isItemInCart: (id: DtItem['id']) => false,
+	updateCount: (itemId: DtItemCart['id'], count: number) => {},
+	isItemInCart: (id: DtItemCart['id']) => false,
 	deleteAllItems: () => {},
 	filterByText: (text: string) => {},
 });
@@ -25,57 +25,55 @@ const CartItemContext = React.createContext<IContext>({
 
 const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [cartItems, setCartItems] = useState<Array<DtItemCart>>([]);
-	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
-	const filterRef = useRef<(item: DtItem) => boolean>((_) => true);
+	const [query, setQuery] = useState<string>('');
+	const filterRef = useRef<(item: DtItemCart) => boolean>((_) => true);
+
+	const shownItems = useMemo(() => {
+		console.log('MEMOEMOEMOEMEO',cartItems.filter(filterRef.current))
+		return cartItems.filter(filterRef.current);
+	}
+	, [cartItems, query]);
+
+	console.log('shownItems', shownItems);
 	
-	const deleteItem = (itemId: DtItem['id']) => {
-		const itemsWithoutDeleted = cartItems.filter((item) => item.id != itemId);
-		const shownItemsWithoutDeleted = shownItems.filter((item) => item.id != itemId);
-		setCartItems(itemsWithoutDeleted);
-		setShownItems(shownItemsWithoutDeleted);
+	const deleteItem = (itemId: DtItemCart['id']) => {
+		setCartItems(cartItems => {
+			return [...cartItems.filter((item) => item.id !== itemId)]
+		});
 	};
 
 	const addItem = (item: DtItemCart) => {
 		const newItems = [...cartItems, item];
-		const newShownItems = newItems.filter(filterRef.current);
 		setCartItems(newItems);
-		setShownItems(newShownItems);
 	};
 
-	const updateCount = (itemId: DtItem['id'], count: number) => {
-		const newItems = cartItems.map((item) => {
-			if (item.id === itemId) {
-				item.amount = count;
-			}
-			return item;
+	const updateCount = (itemId: DtItemCart['id'], count: number) => {
+		setCartItems((cartItems) => {
+			return cartItems.map((item) => {
+				if (item.id === itemId) {
+					item.amount = count;
+				}
+				return {...item};
+			});
 		});
-		const newShownItems = newItems.filter(filterRef.current);
-		setCartItems(newItems);
-		setShownItems(newShownItems);
 	};
 
 	const deleteAllItems = () => {
 		setCartItems([]);
-		setShownItems([]);
 	};
 
-	const isItemInCart = (id: DtItem['id']) => cartItems.some((item) => item.id === id);
-
-	const __filterItems = (filterFunction: (item: DtItem) => boolean) => {
-		const filteredItems = cartItems.filter(filterFunction)
-		setShownItems(filteredItems);
-		filterRef.current = filterFunction;
-	};
+	const isItemInCart = (id: DtItemCart['id']) => cartItems.some((item) => item.id === id);
 
 	const filterByText = (text: string) => {
-		const filterItemsSearch = (item: DtItem) => {
+		const filterItemsSearch = (item: DtItemCart) => {
 			return (
 				item.title.toLowerCase().includes(text.toLowerCase()) ||
 				item.description.toLowerCase().includes(text.toLowerCase()) ||
 				text === ''
 			);
 		};
-		__filterItems(filterItemsSearch);
+		filterRef.current = filterItemsSearch;
+		setQuery(text);
 	};
 
 	return (

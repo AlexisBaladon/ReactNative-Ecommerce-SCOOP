@@ -25,7 +25,6 @@ const ItemStoreInfo: React.FC<IProps> = ({item}) => {
     }
 
     return (
-        
         <View style={styles.priceContainer}>
             <CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
                 {`${item.priceDollars}${CURRENCY_SYMBOL}`}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import DtItem from '../interfaces/dtItem';
 
 interface IContext {
@@ -23,33 +23,26 @@ const FavouriteItemsContext = React.createContext<IContext>({
 
 const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [favouritesItems, setFavouritesItems] = useState<Array<DtItem>>([]);
-	const [shownItems, setShownItems] = useState<Array<DtItem>>([]);
+	const [query, setQuery] = useState<string>('');
 	const filterRef = useRef<(item: DtItem) => boolean>((_) => true);
 
+	const shownItems = useMemo(() => 
+		favouritesItems.filter(filterRef.current)
+	, [favouritesItems, query]);
+
 	const deleteItem = (itemId: DtItem['id']) => {
-		const itemsWithoutDeleted = favouritesItems.filter((item) => item.id != itemId);
-		const shownItemsWithoutDeleted = shownItems.filter((item) => item.id != itemId);
-		setFavouritesItems(itemsWithoutDeleted);
-		setShownItems(shownItemsWithoutDeleted);
+		const newItems = favouritesItems.filter((item) => item.id !== itemId);
+		setFavouritesItems(newItems);		
 	};
 
 	const addItem = (item: DtItem) => {
 		if (favouritesItems.some((favouriteItem) => favouriteItem.id === item.id)) return;
 		const newItems = [...favouritesItems, item];
-		const newShownItems = newItems.filter(filterRef.current);
 		setFavouritesItems(newItems);
-		setShownItems(newShownItems);
 	};
 
 	const deleteAllItems = () => {
 		setFavouritesItems([]);
-		setShownItems([]);
-	};
-
-	const __filterItems = (filterFunction: (item: DtItem) => boolean) => {
-		const filteredItems = favouritesItems.filter(filterFunction);
-		setShownItems(filteredItems);
-		filterRef.current = filterFunction;
 	};
 
 	const filterByText = (text: string) => {
@@ -60,7 +53,8 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 				text === ''
 			);
 		};
-		__filterItems(filterItemsSearch);
+		filterRef.current = filterItemsSearch;
+		setQuery(text);
 	};
 	
 	const itemExists = (itemId: DtItem['id']) => favouritesItems.some(item => item.id === itemId);

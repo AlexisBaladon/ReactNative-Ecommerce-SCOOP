@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginVertical: 10,
+		marginTop: 10,
+		marginBottom: 40,
 	},
 	items: {
 		flexDirection: 'column',
