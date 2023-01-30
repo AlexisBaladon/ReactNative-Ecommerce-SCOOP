@@ -24,13 +24,13 @@ const styles = StyleSheet.create({
 	},
 	itemPrice: {
 		color: MAIN_COLOR,
-		fontSize: 20,
+		fontSize: 19,
 	},
 	addToCartButton: {
 		backgroundColor: MAIN_COLOR,
 		marginBottom: 5, padding: 5,
 		borderRadius: 7.5,
-		width: 70, height: 30,
+		width: 60, height: 30,
 		position: 'absolute',
 		bottom: 0,
 		right: 0,

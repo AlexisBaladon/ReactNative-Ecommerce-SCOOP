@@ -8,7 +8,7 @@ const styles  =  StyleSheet.create({
 	
     item: {
         minHeight: 300,
-        width: itemHeight*0.6, height: itemHeight,
+        width: width*0.42, height: itemHeight,
         margin: 10,
         maxWidth: width*0.45,
     },

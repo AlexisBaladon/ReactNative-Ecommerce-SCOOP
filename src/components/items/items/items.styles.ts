@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
 	itemsContainer: {
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	itemsTwoColumns: {
-		padding: 10,
+		marginHorizontal: 10,
 	},
 	emptyListTextContainer: {
 		width: '100%',

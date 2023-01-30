@@ -1,6 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { DtItemCart } from '../interfaces';
-import DtItem from '../interfaces/dtItem';
 
 interface IContext {
 	shownItems: Array<DtItemCart>;

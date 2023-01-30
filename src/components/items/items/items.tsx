@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { DtItemCart } from '../../../interfaces';
 import DtItem from '../../../interfaces/dtItem';
 import CustomText from '../../global/customText/customText';
 import styles from './items.styles';

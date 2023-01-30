@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     item: {
         minHeight: 250,
         maxWidth: width*0.45,
-        width: itemHeight*0.67, height: itemHeight,
+        width: width*0.42, height: itemHeight,
         margin: 10,
     },
     search: {
