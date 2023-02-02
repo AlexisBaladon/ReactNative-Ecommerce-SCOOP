@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, Button, TouchableWithoutFeedback, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search } from '../../components';
 import styles from './store.styles';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 import { items } from '../../data';
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { Navbar } from '../../components';
 
 const {
 	NO_ITEMS_MESSAGE,	
 	SEARCH_PLACEHOLDER,
 } = TEXT;
 
-const StoreScreen: React.FC = () => {
+type StoreScreenNavigationProp = 
+	NativeStackScreenProps<RootStackParamList, 'Store'>;
+
+const StoreScreen: React.FC<StoreScreenNavigationProp> = ({navigation, route}) => {
 	const [storeItems, setStoreItems] = useState<DtItem[]>([]);
 
 	useEffect(() => {
@@ -33,11 +39,24 @@ const StoreScreen: React.FC = () => {
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
-			<View style={styles.item}>
+			<Pressable style={styles.item} onPress={() => handlePress(item.title)}>
 				<StoreItem item={item} selling={true} />
-			</View>
+			</Pressable>
 		);
 	};
+
+	const pages: (keyof RootStackParamList)[] = ['Store', 'Cart', 'Favourites'];
+	const names = ['Tienda', 'Carrito', 'Favoritos'];
+	const setChosenIcon = (index: number) => {
+		return navigation.navigate(pages[index], {
+			name: names[index],
+		});
+	}
+	const handlePress = (itemTitle: DtItem['title']) => {
+		navigation.navigate('Detail', {
+			name: itemTitle,
+		});
+	}
 
 	return (<>
 		<View style={styles.search}>
@@ -49,6 +68,10 @@ const StoreScreen: React.FC = () => {
 			noItemsMessage={NO_ITEMS_MESSAGE}
 			RenderItem={RenderItem}
 			numColumns={2}
+		/>
+		<Navbar 
+			chosenIcon={0} 
+			setChosenIcon={setChosenIcon}
 		/>
 	</>);
 };

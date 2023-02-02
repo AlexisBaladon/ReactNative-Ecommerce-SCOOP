@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     search: {
-        height: 60,
+        marginVertical: 15,
     }
 });
 

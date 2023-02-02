@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert } from 'react-native';
+import { View, Alert, Button } from 'react-native';
 import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { DtItem, DtItemCart } from '../../interfaces';
-import { Buttons, Item, Search } from '../../components';
+import { Buttons, Item, Navbar, Search } from '../../components';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../navigation/types';
 
 const {
 	CURRENCY_SYMBOL,
@@ -19,7 +21,9 @@ const {
 	SEARCH_PLACEHOLDER,
 } = TEXT;
 
-const CartScreen = () => {
+type CartScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Cart'>;
+
+const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const { CartItemContext } = CartItemContextComponents;
 	const { 
 		shownItems, 
@@ -84,6 +88,17 @@ const CartScreen = () => {
 			noItemsMessage={NO_ITEMS_MESSAGE}
 			RenderItem={RenderItem} 
 			numColumns={1}
+		/>
+		<Navbar 
+			chosenIcon={1} 
+			setChosenIcon={(index: number) => {
+					const pages: (keyof RootStackParamList)[] = ['Store', 'Cart', 'Favourites'];
+					const names = ['Tienda', 'Carrito', 'Favoritos'];
+					return navigation.navigate(pages[index], {
+						name: names[index],
+					});
+				}
+			}
 		/>
 	</>);
 };

@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window');
+const paddingBottom = 130;
 
 const styles = StyleSheet.create({
 	itemsContainer: {
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		marginTop: 10,
 		marginBottom: 40,
+		paddingBottom,
 	},
 	items: {
 		flexDirection: 'column',
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		alignItems: 'center',
 		justifyContent: 'center',
+		paddingBottom,
 	},
 	emptyListText: {
 		fontSize: 20,

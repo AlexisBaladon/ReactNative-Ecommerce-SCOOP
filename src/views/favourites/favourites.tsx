@@ -1,11 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { Items, Buttons, Search } from '../../components';
+import { Items, Buttons, Search, Navbar } from '../../components';
 import { View, Alert } from 'react-native';
 import { styles } from './favourites.styles';
 import { TEXT } from '../../constants';
 import { FavouritesContextComponents } from '../../context';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
+import { RootStackParamList } from '../../navigation/types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 
 const {
 	NO_ITEMS_MESSAGE,
@@ -15,7 +17,9 @@ const {
 	SEARCH_PLACEHOLDER,
 } = TEXT;
 
-const FavouritesScreen: React.FC = () => {
+type FavouritesScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Favourites'>;
+
+const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation}) => {
 	const { FavouriteItemsContext } = FavouritesContextComponents;
 	const { shownItems, deleteAllItems, filterByText } = useContext(FavouriteItemsContext);
 
@@ -58,6 +62,17 @@ const FavouritesScreen: React.FC = () => {
 			noItemsMessage={NO_ITEMS_MESSAGE} 
 			RenderItem={RenderItem} 
 			numColumns={2} 			
+		/>
+		<Navbar 
+			chosenIcon={2} 
+			setChosenIcon={(index: number) => {
+					const pages: (keyof RootStackParamList)[] = ['Store', 'Cart', 'Favourites'];
+					const names = ['Tienda', 'Carrito', 'Favoritos'];
+					return navigation.navigate(pages[index], {
+						name: names[index],
+					});
+				}
+			}
 		/>
 	</>);
 };

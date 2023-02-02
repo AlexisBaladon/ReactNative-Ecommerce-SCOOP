@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 	},
 	search: {
-		height: 60,
+        marginVertical: 15,
 	}
 });
 

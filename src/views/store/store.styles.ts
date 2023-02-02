@@ -13,7 +13,7 @@ const styles  =  StyleSheet.create({
         maxWidth: width*0.45,
     },
     search: {
-        height: 60,
+        marginVertical: 15,
     },
 });
     

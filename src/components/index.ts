@@ -6,6 +6,7 @@ export { default as Buttons } from './global/buttons/options/buttons/buttons';
 export { default as Header } from './global/header/header';
 export { default as Search } from './global/search/search';
 export { default as LikeableContainer } from './global/buttons/likeable/likeableContainer';
+export { default as Navbar } from './global/navbar/navbar';
 
 // Items
 export { default as Item } from './items/item/item';
