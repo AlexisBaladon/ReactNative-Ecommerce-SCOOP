@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		backgroundColor: LIGHT_COLOR,
 		borderRadius: 25,
+		width: '100%',
 	},
 	addDecButton: {
 		width: '100%',

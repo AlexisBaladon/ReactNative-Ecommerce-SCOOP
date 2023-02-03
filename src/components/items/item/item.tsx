@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, Image } from 'react-native';
 import { ImageHandler } from '../../../helpers';
 import { useCounter } from '../../../hooks';
@@ -8,10 +8,11 @@ import Counter from '../../global/buttons/counter/counter';
 import CustomText from '../../global/customText/customText';
 import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import { styles, buttonWidth } from './item.styles';
+import { DtItemCart } from '../../../interfaces';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface IProps {
-	item: DtItem;
-	amount: number;
+	item: DtItemCart;
 	deleteItem(itemId: DtItem['id']): void;
 	updateItemCounter(itemId: DtItem['id'], count: number): void;
 	currencySymbol: string;
@@ -21,7 +22,6 @@ interface IProps {
 
 const Item: React.FC<IProps> = ({
 	item,
-	amount,
 	deleteItem,
 	updateItemCounter,
 	currencySymbol,
@@ -29,31 +29,22 @@ const Item: React.FC<IProps> = ({
 	maxCount = 99,
 }) => {
 	const { getItemImage } = ImageHandler;
-	const [count, addToCounter, decToCounter] = useCounter(minCount, amount, maxCount);
+	const [count, countRef, addToCounter, decToCounter] = useCounter(minCount, item.amount, maxCount);
 	const imageSrc = getItemImage(item.imageURL);
-	const countRef = useRef(count);
 
 	useEffect(() => {
-	    return () => {
-		    updateItemCounter(item.id, countRef.current);
-	    }
-	}, [])
-	
-	const handleAddToCounter = () => {
-		addToCounter(1);
-		countRef.current += 1;
-	};
+		addToCounter(item.amount - countRef.current);
+	}, [item.amount]);
 
-	const handleDecToCounter = () => {
-		decToCounter(1);
-		countRef.current -= 1;
-	};
+	useFocusEffect(useCallback(() => {
+		return () => updateItemCounter(item.id, countRef.current);
+	}, [countRef.current]));
 
 	return (
 		<View style={styles.item}>
 			<View style={styles.imageContainer}>
 				<LikeableContainer item={item}>
-						<Image style={styles.itemImage} source={imageSrc} />
+					<Image style={styles.itemImage} source={imageSrc} />
 				</LikeableContainer>
 			</View>
 			<View style={styles.textContainer}>
@@ -79,9 +70,9 @@ const Item: React.FC<IProps> = ({
 					<Counter
 						addCharacter={'+'}
 						decCharacter={'-'}
-						addToCounter={handleAddToCounter}
+						addToCounter={() => addToCounter(1)}
 						count={count}
-						decToCounter={handleDecToCounter}
+						decToCounter={() => decToCounter(1)}
 					/>
 				</View>
 			</View>

@@ -3,6 +3,7 @@ import { DtItemCart } from '../interfaces';
 
 interface IContext {
 	shownItems: Array<DtItemCart>;
+	findItem: (id: DtItemCart['id']) => DtItemCart | undefined;
 	deleteItem: (itemId: DtItemCart['id']) => void;
 	addItem: (item: DtItemCart) => void;
 	updateCount: (itemId: DtItemCart['id'], count: number) => void;
@@ -13,6 +14,7 @@ interface IContext {
 
 const CartItemContext = React.createContext<IContext>({
 	shownItems: [],
+	findItem: (id: DtItemCart['id']) => undefined,
 	deleteItem: (itemId: DtItemCart['id']) => {},
 	addItem: (item: DtItemCart) => {},
 	updateCount: (itemId: DtItemCart['id'], count: number) => {},
@@ -32,6 +34,10 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 	}
 	, [cartItems, query]);
 	
+	const findItem = (id: DtItemCart['id']) => {
+		return cartItems.find((item) => item.id === id);
+	};
+
 	const deleteItem = (itemId: DtItemCart['id']) => {
 		setCartItems(cartItems => {
 			return [...cartItems.filter((item) => item.id !== itemId)]
@@ -47,6 +53,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		setCartItems((cartItems) => {
 			return cartItems.map((item) => {
 				if (item.id === itemId) {
+					console.log('actualizando item', count);
 					item.amount = count;
 				}
 				return {...item};
@@ -76,6 +83,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		<CartItemContext.Provider
 			value={{
 				shownItems,
+				findItem,
 				deleteItem,
 				addItem,
 				updateCount,

@@ -50,8 +50,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		return (
 			<Pressable style={styles.item} onPress={() => handlePress(item)}>
 				<Item 
-					item={item} 
-					amount={(item as DtItemCart).amount}
+					item={item as DtItemCart}
 					deleteItem={handleDeleteItem} 
 					currencySymbol={CURRENCY_SYMBOL} 
 					updateItemCounter={updateCount}

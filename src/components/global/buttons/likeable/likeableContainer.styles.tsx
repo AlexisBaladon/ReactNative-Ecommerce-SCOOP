@@ -3,7 +3,7 @@ import { COLORS } from '../../../../constants';
 
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
-const styles = StyleSheet.create({
+const createStyles = (width: number) => StyleSheet.create({
     absolute: {
         position: 'absolute',
         top: '4%',
@@ -18,15 +18,14 @@ const styles = StyleSheet.create({
         elevation: 1,
     },
     circle: {
-        width: 30,height: 30,
+        width,height: width,
         borderRadius: 25,
         tintColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
     },
     heart: {
-        width: 17.5,
-        height: 15,
+        width: width*0.6, height: width*0.55,
         tintColor: NEUTRAL_COLOR,
         position: 'absolute',
     },
@@ -35,4 +34,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default styles;
+export default createStyles;
