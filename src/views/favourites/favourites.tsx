@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { Items, Buttons, Search, Navbar } from '../../components';
-import { View, Alert } from 'react-native';
+import { View, Alert, Pressable } from 'react-native';
 import { styles } from './favourites.styles';
 import { TEXT } from '../../constants';
 import { FavouritesContextComponents } from '../../context';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
-import { RootStackParamList } from '../../navigation/types';
+import { NavbarParamList, RootStackParamList } from '../../navigation/types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 
 const {
@@ -44,11 +44,18 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 		{ title: DELETE_ALL_ITEMS_TITLE, onPress: onHandleDeleteAllItems, pressed: false },
 	];
 
+	const handlePress = (item: DtItem) => {
+		navigation.navigate('Detail', {
+			name: item.title,
+			item,
+		});
+	}
+
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
-			<View style={styles.item}>
+			<Pressable style={styles.item} onPress={() => handlePress(item)}>
 				<StoreItem item={item} selling={false} />
-			</View>
+			</Pressable>
 		);
 	};
 
@@ -66,7 +73,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 		<Navbar 
 			chosenIcon={2} 
 			setChosenIcon={(index: number) => {
-					const pages: (keyof RootStackParamList)[] = ['Store', 'Cart', 'Favourites'];
+					const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
 					const names = ['Tienda', 'Carrito', 'Favoritos'];
 					return navigation.navigate(pages[index], {
 						name: names[index],

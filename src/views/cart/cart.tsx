@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert, Button } from 'react-native';
+import { View, Alert, Pressable } from 'react-native';
 import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { DtItem, DtItemCart } from '../../interfaces';
 import { Buttons, Item, Navbar, Search } from '../../components';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../navigation/types';
+import { NavbarParamList, RootStackParamList } from '../../navigation/types';
 
 const {
 	CURRENCY_SYMBOL,
@@ -39,9 +39,16 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		};
 	}, [])
 
+	const handlePress = (item: DtItem) => {
+		navigation.navigate('Detail', {
+			name: item.title,
+			item,
+		});
+	}
+
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
-			<View style={styles.item}>
+			<Pressable style={styles.item} onPress={() => handlePress(item)}>
 				<Item 
 					item={item} 
 					amount={(item as DtItemCart).amount}
@@ -49,7 +56,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 					currencySymbol={CURRENCY_SYMBOL} 
 					updateItemCounter={updateCount}
 				/>
-			</View>
+			</Pressable>
 		);
 	};
 
@@ -92,7 +99,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		<Navbar 
 			chosenIcon={1} 
 			setChosenIcon={(index: number) => {
-					const pages: (keyof RootStackParamList)[] = ['Store', 'Cart', 'Favourites'];
+					const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
 					const names = ['Tienda', 'Carrito', 'Favoritos'];
 					return navigation.navigate(pages[index], {
 						name: names[index],

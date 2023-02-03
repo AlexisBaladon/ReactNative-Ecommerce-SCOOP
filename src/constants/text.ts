@@ -1,6 +1,7 @@
 const SEARCH_PLACEHOLDER = 'Buscar...';
 const NO_ITEMS_MESSAGE = 'No hay items que mostrar 😔';
 const ADD_BUTTON_MESSAGE = 'Agregar';
+const ADD_TO_CART_BUTTON_MESSAGE = 'Agregar al carrito';
 const CURRENCY_SYMBOL = '$';
 const HEADER_TITLE = 'Lista de productos';
 const CANCEL_TITLE = 'Cancelar';
@@ -14,6 +15,7 @@ const TEXT = {
 	SEARCH_PLACEHOLDER,
 	NO_ITEMS_MESSAGE,
 	ADD_BUTTON_MESSAGE,
+	ADD_TO_CART_BUTTON_MESSAGE,
 	CURRENCY_SYMBOL,
 	HEADER_TITLE,
 	CANCEL_TITLE,

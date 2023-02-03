@@ -6,7 +6,7 @@ import styles from './store.styles';
 import { DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 import { items } from '../../data';
-import { RootStackParamList } from '../../navigation/types';
+import { DetailParamList, NavbarParamList, RootStackParamList } from '../../navigation/types';
 import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { Navbar } from '../../components';
 
@@ -16,7 +16,7 @@ const {
 } = TEXT;
 
 type StoreScreenNavigationProp = 
-	NativeStackScreenProps<RootStackParamList, 'Store'>;
+	NativeStackScreenProps<RootStackParamList & DetailParamList, 'Store'>;
 
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({navigation, route}) => {
 	const [storeItems, setStoreItems] = useState<DtItem[]>([]);
@@ -39,22 +39,23 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({navigation, route}) =
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
-			<Pressable style={styles.item} onPress={() => handlePress(item.title)}>
+			<Pressable style={styles.item} onPress={() => handlePress(item)}>
 				<StoreItem item={item} selling={true} />
 			</Pressable>
 		);
 	};
 
-	const pages: (keyof RootStackParamList)[] = ['Store', 'Cart', 'Favourites'];
+	const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
 	const names = ['Tienda', 'Carrito', 'Favoritos'];
 	const setChosenIcon = (index: number) => {
 		return navigation.navigate(pages[index], {
 			name: names[index],
 		});
 	}
-	const handlePress = (itemTitle: DtItem['title']) => {
+	const handlePress = (item: DtItem) => {
 		navigation.navigate('Detail', {
-			name: itemTitle,
+			name: item.title,
+			item,
 		});
 	}
 

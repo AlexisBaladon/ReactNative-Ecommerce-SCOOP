@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
 import { StoreScreen, CartScreen, FavouritesScreen } from '../views'
 import { RootStackParamList } from './types'
-import DetailScreen from '../views/detail/ItemDetail'
+import DetailScreen from '../views/detail/detail'
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
