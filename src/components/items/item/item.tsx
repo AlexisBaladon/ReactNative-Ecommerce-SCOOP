@@ -9,7 +9,7 @@ import CustomText from '../../global/customText/customText';
 import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import { styles, buttonWidth } from './item.styles';
 import { DtItemCart } from '../../../interfaces';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 
 interface IProps {
 	item: DtItemCart;
@@ -29,16 +29,16 @@ const Item: React.FC<IProps> = ({
 	maxCount = 99,
 }) => {
 	const { getItemImage } = ImageHandler;
-	const [count, countRef, addToCounter, decToCounter] = useCounter(minCount, item.amount, maxCount);
+	const [count, countRef, addToCounter, resetCounter] = useCounter(minCount, item.amount, maxCount);
 	const imageSrc = getItemImage(item.imageURL);
 
 	useEffect(() => {
-		addToCounter(item.amount - countRef.current);
+		resetCounter(item.amount);
 	}, [item.amount]);
 
-	useFocusEffect(useCallback(() => {
-		return () => updateItemCounter(item.id, countRef.current);
-	}, [countRef.current]));
+	useEffect(() => {
+		updateItemCounter(item.id, countRef.current);
+	}, [count]);
 
 	return (
 		<View style={styles.item}>
@@ -72,7 +72,7 @@ const Item: React.FC<IProps> = ({
 						decCharacter={'-'}
 						addToCounter={() => addToCounter(1)}
 						count={count}
-						decToCounter={() => decToCounter(1)}
+						decToCounter={() => addToCounter(-1)}
 					/>
 				</View>
 			</View>

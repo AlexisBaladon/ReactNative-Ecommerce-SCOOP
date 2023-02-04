@@ -7,31 +7,19 @@ const useCounter = (minCount = 1, initialCount = 1, maxCount: number | null = nu
 
 	const addToCounter = (added: number) => {
 		if (maxCount && count + added > maxCount) forceUpdate();
+		else if (count + added < minCount) forceUpdate();
 		else {
 			counterRef.current += added;
-			console.log('counterRef en use', counterRef.current);
-			setCount(prevCount => {
-				return prevCount + added;
-			});
+			setCount(counterRef.current);
 		}
 	};
 
-	const decToCounter = (dec: number) => {
-		if (count - dec < minCount) forceUpdate();
-		else {
-			counterRef.current -= dec;
-			setCount(prevCount => {
-				return prevCount - dec;
-			});
-		}
+	const resetCounter = (value: number = minCount) => {
+		counterRef.current = value;
+		setCount(value);
 	};
 
-	const resetCounter = () => {
-		counterRef.current = minCount;
-		setCount(minCount);
-	};
-
-	return [count, counterRef, addToCounter, decToCounter, resetCounter] as const;
+	return [count, counterRef, addToCounter, resetCounter] as const;
 };
 
 export default useCounter;

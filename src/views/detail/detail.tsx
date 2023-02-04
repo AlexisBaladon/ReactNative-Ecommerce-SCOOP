@@ -16,16 +16,18 @@ type DetailScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'De
 const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation}) => {
 	const { item } = route.params;
 	const { CartItemContext } = CartItemContextComponents;
-	const { addItem, isItemInCart, updateCount, findItem } = useContext(CartItemContext);
-	const cartItem = useMemo(() => findItem(item.id), [item.id]);
-	const [count, countRef, addToCounter, decToCounter] = useCounter(1, cartItem?.amount || 1, 99);
+	const { addItem, isItemInCart, updateCount, findItem, cartItems } = useContext(CartItemContext);
+	const cartItem = useMemo(() => findItem(item.id), [cartItems]);
+	const [count, countRef, addToCounter, resetCounter] = useCounter(1, cartItem?.amount || 1, 99);
 	
-	useFocusEffect(useCallback(() => {
-		return () => {
-			if (!cartItem) return;
-			updateCount(cartItem.id, countRef.current);
-		}
-	}, []));
+	useEffect(() => {
+		resetCounter(cartItem?.amount)
+	}, [cartItem?.amount]);
+
+	useEffect(() => {
+		if (!cartItem) return;
+		updateCount(cartItem.id, countRef.current);
+	}, [count]);
 
 	const { getItemImage } = ImageHandler;
 	const image = getItemImage(item.imageURL);
@@ -53,7 +55,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation})
 						decCharacter={'-'} 
 						addToCounter={() => addToCounter(1)} 
 						count={count} 
-						decToCounter={() => decToCounter(1)} 
+						decToCounter={() => addToCounter(-1)} 
 					/>
 				</View>
 			</View>
@@ -61,8 +63,16 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation})
 				<View style={styles.bottomItem}>
 					<CustomText style={styles.price} textType='bold'>{item.priceDollars}{CURRENCY_SYMBOL}</CustomText>
 				</View>
-				<TouchableHighlight style={[styles.addButton, styles.bottomItem, itemInCart? styles.disabledButton:null]} onPress={handleAddItem} disabled={itemInCart}>
-					<CustomText style={styles.addButtonText} textType='bold'>{ADD_TO_CART_BUTTON_MESSAGE}</CustomText>
+				<TouchableHighlight 
+					style={[styles.addButton, styles.bottomItem, itemInCart? styles.disabledButton:null]} 
+					onPress={handleAddItem} 
+					disabled={itemInCart}>
+					<CustomText 
+						style={styles.addButtonText} 
+						textType='bold'
+					>
+						{ADD_TO_CART_BUTTON_MESSAGE}
+					</CustomText>
 				</TouchableHighlight>
 			</View>
 		</View>
@@ -83,7 +93,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation})
 import { COLORS } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { useCounter } from '../../hooks';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
 const styles = StyleSheet.create({

@@ -2,6 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { DtItemCart } from '../interfaces';
 
 interface IContext {
+	cartItems: Array<DtItemCart>;
 	shownItems: Array<DtItemCart>;
 	findItem: (id: DtItemCart['id']) => DtItemCart | undefined;
 	deleteItem: (itemId: DtItemCart['id']) => void;
@@ -13,6 +14,7 @@ interface IContext {
 }
 
 const CartItemContext = React.createContext<IContext>({
+	cartItems: [],
 	shownItems: [],
 	findItem: (id: DtItemCart['id']) => undefined,
 	deleteItem: (itemId: DtItemCart['id']) => {},
@@ -53,7 +55,6 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		setCartItems((cartItems) => {
 			return cartItems.map((item) => {
 				if (item.id === itemId) {
-					console.log('actualizando item', count);
 					item.amount = count;
 				}
 				return {...item};
@@ -82,6 +83,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 	return (
 		<CartItemContext.Provider
 			value={{
+				cartItems,
 				shownItems,
 				findItem,
 				deleteItem,
