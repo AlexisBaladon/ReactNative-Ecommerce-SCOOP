@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useCallback, useContext, useEffect, useMemo } from 'react'
+import React, { useContext, useEffect, useMemo } from 'react'
 import { Image, StyleSheet, TouchableHighlight, View } from 'react-native'
 import { LikeableContainer, Navbar, CustomText, Counter } from '../../components';
 import { ImageHandler } from '../../helpers';
@@ -61,7 +61,9 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation})
 			</View>
 			<View style={styles.bottomInfo}>
 				<View style={styles.bottomItem}>
-					<CustomText style={styles.price} textType='bold'>{item.priceDollars}{CURRENCY_SYMBOL}</CustomText>
+					<CustomText style={styles.price} textType='bold'>
+						{item.priceDollars * (cartItem?.amount || 1)}{CURRENCY_SYMBOL}
+					</CustomText>
 				</View>
 				<TouchableHighlight 
 					style={[styles.addButton, styles.bottomItem, itemInCart? styles.disabledButton:null]} 
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 	},
 	itemImage: {
-		width: '100%', height: 300,		
+		width: '100%', height: 300,
 	},
 	itemInfo: {
 		flex: 1,
@@ -149,10 +151,13 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 	topInfo: {
+		width: '80%',
 		display: 'flex',
 		flexDirection: 'column',
 	},
 	countContainer: {
+		display: 'flex',
+		justifyContent: 'center',
 		width: 40,
 	},
 });
