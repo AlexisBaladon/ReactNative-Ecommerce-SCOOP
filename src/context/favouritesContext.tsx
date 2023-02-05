@@ -26,13 +26,14 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 	const [query, setQuery] = useState<string>('');
 	const filterRef = useRef<(item: DtItem) => boolean>((_) => true);
 
-	const shownItems = useMemo(() => 
-		favouritesItems.filter(filterRef.current)
-	, [favouritesItems, query]);
+	const shownItems = useMemo(
+		() => favouritesItems.filter(filterRef.current),
+		[favouritesItems, query],
+	);
 
 	const deleteItem = (itemId: DtItem['id']) => {
 		const newItems = favouritesItems.filter((item) => item.id !== itemId);
-		setFavouritesItems(newItems);		
+		setFavouritesItems(newItems);
 	};
 
 	const addItem = (item: DtItem) => {
@@ -56,8 +57,8 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 		filterRef.current = filterItemsSearch;
 		setQuery(text);
 	};
-	
-	const itemExists = (itemId: DtItem['id']) => favouritesItems.some(item => item.id === itemId);
+
+	const itemExists = (itemId: DtItem['id']) => favouritesItems.some((item) => item.id === itemId);
 
 	return (
 		<FavouriteItemsContext.Provider

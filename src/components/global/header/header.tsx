@@ -10,7 +10,9 @@ interface IProps {
 const Header: React.FC<IProps> = ({ title }) => {
 	return (
 		<View style={styles.header}>
-			<CustomText style={styles.title} textType='bold'>{title}</CustomText>
+			<CustomText style={styles.title} textType="bold">
+				{title}
+			</CustomText>
 		</View>
 	);
 };

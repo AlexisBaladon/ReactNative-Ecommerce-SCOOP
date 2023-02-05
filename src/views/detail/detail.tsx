@@ -1,27 +1,24 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useContext, useEffect, useMemo } from 'react'
-import { Image, StyleSheet, TouchableHighlight, View } from 'react-native'
+import React, { useContext, useEffect, useMemo } from 'react';
+import { Image, StyleSheet, TouchableHighlight, View } from 'react-native';
 import { LikeableContainer, Navbar, CustomText, Counter } from '../../components';
 import { ImageHandler } from '../../helpers';
 import { NavbarParamList, RootStackParamList } from '../../navigation/types';
 import { TEXT } from '../../constants';
 
-const { 
-	CURRENCY_SYMBOL, 
-	ADD_TO_CART_BUTTON_MESSAGE,
-} = TEXT;
+const { CURRENCY_SYMBOL, ADD_TO_CART_BUTTON_MESSAGE } = TEXT;
 
 type DetailScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
-const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation}) => {
+const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation }) => {
 	const { item } = route.params;
 	const { CartItemContext } = CartItemContextComponents;
 	const { addItem, isItemInCart, updateCount, findItem, cartItems } = useContext(CartItemContext);
 	const cartItem = useMemo(() => findItem(item.id), [cartItems]);
 	const [count, countRef, addToCounter, resetCounter] = useCounter(1, cartItem?.amount || 1, 99);
-	
+
 	useEffect(() => {
-		resetCounter(cartItem?.amount)
+		resetCounter(cartItem?.amount);
 	}, [cartItem?.amount]);
 
 	useEffect(() => {
@@ -35,63 +32,69 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({route, navigation})
 
 	const handleAddItem = () => {
 		if (itemInCart) return;
-		addItem({...item, amount: count}); //TODO: Add amount to item
-	}
+		addItem({ ...item, amount: count }); //TODO: Add amount to item
+	};
 
-    return (<>
-	<View style={styles.itemDetail}>
-		<LikeableContainer item={item} width={50} >
-			<Image source={image} style={styles.itemImage} />
-		</LikeableContainer>
-		<View style={styles.itemInfo}>
-			<View style={styles.topInfoContainer}>
-				<View style={styles.topInfo}>
-					<CustomText textType='bold' style={styles.title}>{item.title}</CustomText>
-					<CustomText style={styles.description}>{item.description}</CustomText>
-				</View>
-				<View style={styles.countContainer}>
-					<Counter 
-						addCharacter={'+'} 
-						decCharacter={'-'} 
-						addToCounter={() => addToCounter(1)} 
-						count={count} 
-						decToCounter={() => addToCounter(-1)} 
-					/>
+	return (
+		<>
+			<View style={styles.itemDetail}>
+				<LikeableContainer item={item} width={50}>
+					<Image source={image} style={styles.itemImage} />
+				</LikeableContainer>
+				<View style={styles.itemInfo}>
+					<View style={styles.topInfoContainer}>
+						<View style={styles.topInfo}>
+							<CustomText textType="bold" style={styles.title}>
+								{item.title}
+							</CustomText>
+							<CustomText style={styles.description}>{item.description}</CustomText>
+						</View>
+						<View style={styles.countContainer}>
+							<Counter
+								addCharacter={'+'}
+								decCharacter={'-'}
+								addToCounter={() => addToCounter(1)}
+								count={count}
+								decToCounter={() => addToCounter(-1)}
+							/>
+						</View>
+					</View>
+					<View style={styles.bottomInfo}>
+						<View style={styles.bottomItem}>
+							<CustomText style={styles.price} textType="bold">
+								{item.priceDollars * (cartItem?.amount || 1)}
+								{CURRENCY_SYMBOL}
+							</CustomText>
+						</View>
+						<TouchableHighlight
+							style={[
+								styles.addButton,
+								styles.bottomItem,
+								itemInCart ? styles.disabledButton : null,
+							]}
+							onPress={handleAddItem}
+							disabled={itemInCart}
+						>
+							<CustomText style={styles.addButtonText} textType="bold">
+								{ADD_TO_CART_BUTTON_MESSAGE}
+							</CustomText>
+						</TouchableHighlight>
+					</View>
 				</View>
 			</View>
-			<View style={styles.bottomInfo}>
-				<View style={styles.bottomItem}>
-					<CustomText style={styles.price} textType='bold'>
-						{item.priceDollars * (cartItem?.amount || 1)}{CURRENCY_SYMBOL}
-					</CustomText>
-				</View>
-				<TouchableHighlight 
-					style={[styles.addButton, styles.bottomItem, itemInCart? styles.disabledButton:null]} 
-					onPress={handleAddItem} 
-					disabled={itemInCart}>
-					<CustomText 
-						style={styles.addButtonText} 
-						textType='bold'
-					>
-						{ADD_TO_CART_BUTTON_MESSAGE}
-					</CustomText>
-				</TouchableHighlight>
-			</View>
-		</View>
-    </View>
-        <Navbar 
-			chosenIcon={0} 
-			setChosenIcon={(index: number) => {
+			<Navbar
+				chosenIcon={0}
+				setChosenIcon={(index: number) => {
 					const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
 					const names = ['Tienda', 'Carrito', 'Favoritos'];
 					return navigation.navigate(pages[index], {
 						name: names[index],
 					});
-				}
-			}
-		/>
-    </>)
-}
+				}}
+			/>
+		</>
+	);
+};
 import { COLORS } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { useCounter } from '../../hooks';
@@ -104,7 +107,8 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 	},
 	itemImage: {
-		width: '100%', height: 300,
+		width: '100%',
+		height: 300,
 	},
 	itemInfo: {
 		flex: 1,
@@ -162,4 +166,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default DetailScreen;   
+export default DetailScreen;

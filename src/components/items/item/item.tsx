@@ -29,7 +29,11 @@ const Item: React.FC<IProps> = ({
 	maxCount = 99,
 }) => {
 	const { getItemImage } = ImageHandler;
-	const [count, countRef, addToCounter, resetCounter] = useCounter(minCount, item.amount, maxCount);
+	const [count, countRef, addToCounter, resetCounter] = useCounter(
+		minCount,
+		item.amount,
+		maxCount,
+	);
 	const imageSrc = getItemImage(item.imageURL);
 
 	useEffect(() => {
@@ -48,13 +52,23 @@ const Item: React.FC<IProps> = ({
 				</LikeableContainer>
 			</View>
 			<View style={styles.textContainer}>
-				<CustomText style={styles.itemTitle} textType='bold' numberOfLines={1} ellipsizeMode="tail">
+				<CustomText
+					style={styles.itemTitle}
+					textType="bold"
+					numberOfLines={1}
+					ellipsizeMode="tail"
+				>
 					{item.title}
 				</CustomText>
 				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
 					{item.description}
 				</CustomText>
-				<CustomText style={styles.itemPrice} textType='bold' numberOfLines={1} ellipsizeMode="tail">
+				<CustomText
+					style={styles.itemPrice}
+					textType="bold"
+					numberOfLines={1}
+					ellipsizeMode="tail"
+				>
 					{`${item.priceDollars * count} ${currencySymbol}`}
 				</CustomText>
 			</View>

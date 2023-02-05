@@ -10,20 +10,19 @@ import { DetailParamList, NavbarParamList, RootStackParamList } from '../../navi
 import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { Navbar } from '../../components';
 
-const {
-	NO_ITEMS_MESSAGE,	
-	SEARCH_PLACEHOLDER,
-} = TEXT;
+const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
-type StoreScreenNavigationProp = 
-	NativeStackScreenProps<RootStackParamList & DetailParamList, 'Store'>;
+type StoreScreenNavigationProp = NativeStackScreenProps<
+	RootStackParamList & DetailParamList,
+	'Store'
+>;
 
-const StoreScreen: React.FC<StoreScreenNavigationProp> = ({navigation, route}) => {
+const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
 	const [storeItems, setStoreItems] = useState<DtItem[]>([]);
 
 	useEffect(() => {
 		setStoreItems(items);
-	}, [])
+	}, []);
 
 	const filterByText = (text: string) => {
 		const filteredItems = items.filter((item) => {
@@ -32,10 +31,8 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({navigation, route}) =
 		setStoreItems(filteredItems);
 	};
 
-	type TButton = { title: string; onPress(): void, pressed: boolean };
-	const buttons: Array<TButton> = [
-		{ title: 'Todos', onPress: () => {}, pressed: true },
-	];
+	type TButton = { title: string; onPress(): void; pressed: boolean };
+	const buttons: Array<TButton> = [{ title: 'Todos', onPress: () => {}, pressed: true }];
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
@@ -51,30 +48,29 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({navigation, route}) =
 		return navigation.navigate(pages[index], {
 			name: names[index],
 		});
-	}
+	};
 	const handlePress = (item: DtItem) => {
 		navigation.navigate('Detail', {
 			name: item.title,
 			item,
 		});
-	}
+	};
 
-	return (<>
-		<View style={styles.search}>
-			<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={filterByText} />
-		</View>
-		<Buttons buttons={buttons} />
-		<Items
-			shownItems={storeItems}
-			noItemsMessage={NO_ITEMS_MESSAGE}
-			RenderItem={RenderItem}
-			numColumns={2}
-		/>
-		<Navbar 
-			chosenIcon={0} 
-			setChosenIcon={setChosenIcon}
-		/>
-	</>);
+	return (
+		<>
+			<View style={styles.search}>
+				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={filterByText} />
+			</View>
+			<Buttons buttons={buttons} />
+			<Items
+				shownItems={storeItems}
+				noItemsMessage={NO_ITEMS_MESSAGE}
+				RenderItem={RenderItem}
+				numColumns={2}
+			/>
+			<Navbar chosenIcon={0} setChosenIcon={setChosenIcon} />
+		</>
+	);
 };
 
 export default StoreScreen;

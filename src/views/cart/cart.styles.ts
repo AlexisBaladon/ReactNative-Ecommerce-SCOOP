@@ -8,7 +8,8 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
 	item: {
 		minHeight: 150,
-		height: height*0.2, width: width,
+		height: height * 0.2,
+		width: width,
 		paddingHorizontal: '6%',
 		marginVertical: 15,
 		borderColor: LIGHT_COLOR,
@@ -16,8 +17,8 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 	},
 	search: {
-        marginVertical: 15,
-	}
+		marginVertical: 15,
+	},
 });
 
 export default styles;

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		justifyContent: 'center',
 		height: headerHeight,
-        paddingTop: statusBarHeight,
+		paddingTop: statusBarHeight,
 	},
 	title: {
 		fontSize: 28,
@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
 	search: {
 		height: searchHeight,
 	},
-    currentScreen: {
-        height: height - headerHeight - searchHeight - navbarHeight + statusBarHeight,
-        paddingBottom: 15,
-    },
-    navbarContainer: {
-        height: navbarHeight,
-    }
+	currentScreen: {
+		height: height - headerHeight - searchHeight - navbarHeight + statusBarHeight,
+		paddingBottom: 15,
+	},
+	navbarContainer: {
+		height: navbarHeight,
+	},
 });
 
 export default styles;

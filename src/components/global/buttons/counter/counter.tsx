@@ -22,11 +22,17 @@ const Counter: React.FC<IProps> = ({
 		<>
 			<View style={styles.counter}>
 				<TouchableOpacity style={styles.addDecButton} onPress={() => addToCounter()}>
-					<CustomText textType={'bold'} style={styles.text}>{addCharacter}</CustomText>
+					<CustomText textType={'bold'} style={styles.text}>
+						{addCharacter}
+					</CustomText>
 				</TouchableOpacity>
-					<CustomText textType={'bold'} style={styles.text}>{count}</CustomText>
+				<CustomText textType={'bold'} style={styles.text}>
+					{count}
+				</CustomText>
 				<TouchableOpacity style={styles.addDecButton} onPress={() => decToCounter()}>
-					<CustomText textType={'bold'} style={styles.text}>{decCharacter}</CustomText>
+					<CustomText textType={'bold'} style={styles.text}>
+						{decCharacter}
+					</CustomText>
 				</TouchableOpacity>
 			</View>
 		</>

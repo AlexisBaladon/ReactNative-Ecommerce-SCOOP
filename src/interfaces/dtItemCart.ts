@@ -1,7 +1,7 @@
-import DtItem from "./dtItem";
+import DtItem from './dtItem';
 
 interface DtItemCart extends DtItem {
-    amount: number;
+	amount: number;
 }
 
 export default DtItemCart;

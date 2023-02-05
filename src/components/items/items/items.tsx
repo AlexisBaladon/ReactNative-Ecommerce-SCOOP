@@ -6,17 +6,12 @@ import styles from './items.styles';
 
 interface IProps {
 	shownItems: DtItem[];
-	RenderItem: React.FC<{item: DtItem}>;
+	RenderItem: React.FC<{ item: DtItem }>;
 	numColumns: number;
 	noItemsMessage: string;
 }
 
-const Items: React.FC<IProps> = ({
-	shownItems,
-	RenderItem,
-	numColumns,
-	noItemsMessage, 
-}) => {
+const Items: React.FC<IProps> = ({ shownItems, RenderItem, numColumns, noItemsMessage }) => {
 	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
 
 	return (

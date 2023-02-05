@@ -19,7 +19,7 @@ const {
 
 type FavouritesScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Favourites'>;
 
-const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation}) => {
+const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation }) => {
 	const { FavouriteItemsContext } = FavouritesContextComponents;
 	const { shownItems, deleteAllItems, filterByText } = useContext(FavouriteItemsContext);
 
@@ -27,19 +27,16 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 		return () => {
 			filterByText('');
 		};
-	}, [])
+	}, []);
 
 	const onHandleDeleteAllItems = () => {
-		Alert.alert(
-			DELETE_ALL_ITEMS_TITLE,
-			DELETE_ALL_ITEMS_DESCRIPTION, [
-				{text: CANCEL_TITLE, style: 'cancel'},
-				{text: DELETE_ALL_ITEMS_TITLE, onPress: deleteAllItems},
-			]
-		)
-	}
+		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
+			{ text: CANCEL_TITLE, style: 'cancel' },
+			{ text: DELETE_ALL_ITEMS_TITLE, onPress: deleteAllItems },
+		]);
+	};
 
-	type TButton = { title: string; onPress(): void, pressed: boolean };
+	type TButton = { title: string; onPress(): void; pressed: boolean };
 	const buttons: Array<TButton> = [
 		{ title: DELETE_ALL_ITEMS_TITLE, onPress: onHandleDeleteAllItems, pressed: false },
 	];
@@ -49,7 +46,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 			name: item.title,
 			item,
 		});
-	}
+	};
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
@@ -59,29 +56,30 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 		);
 	};
 
-	return (<>
-		<View style={styles.search}>
-			<Search onChangeText={filterByText} placeHolder={SEARCH_PLACEHOLDER} />
-		</View>
-		<Buttons buttons={buttons} />
-		<Items
-			shownItems={shownItems}
-			noItemsMessage={NO_ITEMS_MESSAGE} 
-			RenderItem={RenderItem} 
-			numColumns={2} 			
-		/>
-		<Navbar 
-			chosenIcon={2} 
-			setChosenIcon={(index: number) => {
+	return (
+		<>
+			<View style={styles.search}>
+				<Search onChangeText={filterByText} placeHolder={SEARCH_PLACEHOLDER} />
+			</View>
+			<Buttons buttons={buttons} />
+			<Items
+				shownItems={shownItems}
+				noItemsMessage={NO_ITEMS_MESSAGE}
+				RenderItem={RenderItem}
+				numColumns={2}
+			/>
+			<Navbar
+				chosenIcon={2}
+				setChosenIcon={(index: number) => {
 					const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
 					const names = ['Tienda', 'Carrito', 'Favoritos'];
 					return navigation.navigate(pages[index], {
 						name: names[index],
 					});
-				}
-			}
-		/>
-	</>);
+				}}
+			/>
+		</>
+	);
 };
 
 export default FavouritesScreen;

@@ -1,10 +1,9 @@
-import { StyleSheet } from "react-native";
-import { COLORS } from "../../../constants";
+import { StyleSheet } from 'react-native';
+import { COLORS } from '../../../constants';
 
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
 const styles = StyleSheet.create({
-    
 	addToCartButtonDisabled: {
 		backgroundColor: NEUTRAL_COLOR,
 	},
@@ -16,7 +15,8 @@ const styles = StyleSheet.create({
 	priceContainer: {
 		position: 'absolute',
 		bottom: 0,
-		right: 0, left: 0,
+		right: 0,
+		left: 0,
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
@@ -28,9 +28,11 @@ const styles = StyleSheet.create({
 	},
 	addToCartButton: {
 		backgroundColor: MAIN_COLOR,
-		marginBottom: 5, padding: 5,
+		marginBottom: 5,
+		padding: 5,
 		borderRadius: 7.5,
-		width: 60, height: 30,
+		width: 60,
+		height: 30,
 		position: 'absolute',
 		bottom: 0,
 		right: 0,

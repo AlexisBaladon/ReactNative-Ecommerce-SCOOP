@@ -4,15 +4,16 @@ const { width } = Dimensions.get('window');
 const itemHeight = 260;
 
 const styles = StyleSheet.create({
-    item: {
-        minHeight: 250,
-        maxWidth: width*0.45,
-        width: width*0.42, height: itemHeight,
-        margin: 10,
-    },
-    search: {
-        marginVertical: 15,
-    }
+	item: {
+		minHeight: 250,
+		maxWidth: width * 0.45,
+		width: width * 0.42,
+		height: itemHeight,
+		margin: 10,
+	},
+	search: {
+		marginVertical: 15,
+	},
 });
 
 export { styles, itemHeight };

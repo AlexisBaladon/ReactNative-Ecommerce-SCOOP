@@ -25,7 +25,6 @@ const CartItemContext = React.createContext<IContext>({
 	filterByText: (text: string) => {},
 });
 
-
 const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 	const [cartItems, setCartItems] = useState<Array<DtItemCart>>([]);
 	const [query, setQuery] = useState<string>('');
@@ -33,16 +32,15 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 
 	const shownItems = useMemo(() => {
 		return cartItems.filter(filterRef.current);
-	}
-	, [cartItems, query]);
-	
+	}, [cartItems, query]);
+
 	const findItem = (id: DtItemCart['id']) => {
 		return cartItems.find((item) => item.id === id);
 	};
 
 	const deleteItem = (itemId: DtItemCart['id']) => {
-		setCartItems(cartItems => {
-			return [...cartItems.filter((item) => item.id !== itemId)]
+		setCartItems((cartItems) => {
+			return [...cartItems.filter((item) => item.id !== itemId)];
 		});
 	};
 
@@ -57,7 +55,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 				if (item.id === itemId) {
 					item.amount = count;
 				}
-				return {...item};
+				return { ...item };
 			});
 		});
 	};

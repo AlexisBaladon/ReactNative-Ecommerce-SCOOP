@@ -4,7 +4,7 @@ import Button from '../button/button';
 import styles from './buttons.styles';
 
 interface IProps {
-	buttons: Array<{ title: string; onPress: () => void, pressed: boolean }>;
+	buttons: Array<{ title: string; onPress: () => void; pressed: boolean }>;
 }
 
 const Buttons: React.FC<IProps> = ({ buttons }) => {
