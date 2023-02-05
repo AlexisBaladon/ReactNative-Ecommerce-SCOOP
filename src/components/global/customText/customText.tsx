@@ -15,7 +15,7 @@ const CustomText: React.FC<CustomTextProps> = (props) => {
 		['italic', styles.italic],
 	]);
 
-	const textStyle = textStyles.get(props?.textType || 'regular');
+	const textStyle = textStyles.get(props?.textType !== undefined? props.textType : 'regular');
 	const propsStyle = { ...props.style, ...textStyle };
 
 	return (

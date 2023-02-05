@@ -4,10 +4,10 @@ import { View, Alert, Pressable } from 'react-native';
 import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
-import { DtItem, DtItemCart } from '../../interfaces';
+import { type DtItem, type DtItemCart } from '../../interfaces';
 import { Buttons, Item, Navbar, Search } from '../../components';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { NavbarParamList, RootStackParamList } from '../../navigation/types';
+import { type NativeStackScreenProps } from '@react-navigation/native-stack';
+import { type NavbarParamList, type RootStackParamList } from '../../navigation/types';
 
 const {
 	CURRENCY_SYMBOL,
@@ -34,7 +34,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		};
 	}, []);
 
-	const handlePress = (item: DtItem) => {
+	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
 			item,
@@ -43,7 +43,12 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
-			<Pressable style={styles.item} onPress={() => handlePress(item)}>
+			<Pressable
+				style={styles.item}
+				onPress={() => {
+					handlePress(item);
+				}}
+			>
 				<Item
 					item={item as DtItemCart}
 					deleteItem={handleDeleteItem}
@@ -54,22 +59,31 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		);
 	};
 
-	const handleDeleteItem = (id: DtItem['id']) => {
+	const handleDeleteItem = (id: DtItem['id']): void => {
 		Alert.alert(DELETE_ITEM_TITLE, DELETE_ITEM_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
-			{ text: CONFIRM_DELETE_ITEM_TITLE, onPress: () => deleteItem(id) },
+			{
+				text: CONFIRM_DELETE_ITEM_TITLE,
+				onPress: () => {
+					deleteItem(id);
+				},
+			},
 		]);
 	};
 
-	const onHandleDeleteAllItems = () => {
+	const onHandleDeleteAllItems = (): void => {
 		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
 			{ text: DELETE_ALL_ITEMS_TITLE, onPress: deleteAllItems },
 		]);
 	};
 
-	type TButton = { title: string; onPress(): void; pressed: boolean };
-	const buttons: Array<TButton> = [
+	interface TButton {
+		title: string;
+		onPress: () => void;
+		pressed: boolean;
+	}
+	const buttons: TButton[] = [
 		{ title: DELETE_ALL_ITEMS_TITLE, onPress: onHandleDeleteAllItems, pressed: false },
 	];
 
@@ -88,9 +102,9 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			<Navbar
 				chosenIcon={1}
 				setChosenIcon={(index: number) => {
-					const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
+					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
 					const names = ['Tienda', 'Carrito', 'Favoritos'];
-					return navigation.navigate(pages[index], {
+					navigation.navigate(pages[index], {
 						name: names[index],
 					});
 				}}

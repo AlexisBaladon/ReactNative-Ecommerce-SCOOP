@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import DtItem from '../../../interfaces/dtItem';
+import type DtItem from '../../../interfaces/dtItem';
 import CustomText from '../../global/customText/customText';
 import styles from './items.styles';
 
@@ -16,7 +16,7 @@ const Items: React.FC<IProps> = ({ shownItems, RenderItem, numColumns, noItemsMe
 
 	return (
 		<>
-			{!shownItems.length && (
+			{shownItems.length === 0 && (
 				<View style={styles.emptyListTextContainer}>
 					<CustomText style={styles.emptyListText}>{noItemsMessage}</CustomText>
 				</View>

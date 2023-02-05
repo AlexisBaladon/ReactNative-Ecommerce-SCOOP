@@ -21,7 +21,12 @@ const Counter: React.FC<IProps> = ({
 	return (
 		<>
 			<View style={styles.counter}>
-				<TouchableOpacity style={styles.addDecButton} onPress={() => addToCounter()}>
+				<TouchableOpacity
+					style={styles.addDecButton}
+					onPress={() => {
+						addToCounter();
+					}}
+				>
 					<CustomText textType={'bold'} style={styles.text}>
 						{addCharacter}
 					</CustomText>
@@ -29,7 +34,12 @@ const Counter: React.FC<IProps> = ({
 				<CustomText textType={'bold'} style={styles.text}>
 					{count}
 				</CustomText>
-				<TouchableOpacity style={styles.addDecButton} onPress={() => decToCounter()}>
+				<TouchableOpacity
+					style={styles.addDecButton}
+					onPress={() => {
+						decToCounter();
+					}}
+				>
 					<CustomText textType={'bold'} style={styles.text}>
 						{decCharacter}
 					</CustomText>

@@ -1,4 +1,4 @@
-import DtItem from './dtItem';
+import type DtItem from './dtItem';
 
 interface DtItemCart extends DtItem {
 	amount: number;

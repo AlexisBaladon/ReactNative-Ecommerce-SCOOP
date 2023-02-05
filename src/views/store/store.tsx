@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Button, TouchableWithoutFeedback, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
-import { Buttons, Items, Search } from '../../components';
+import { Buttons, Items, Search, Navbar } from '../../components';
 import styles from './store.styles';
-import { DtItem } from '../../interfaces';
+import { type DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 import { items } from '../../data';
-import { DetailParamList, NavbarParamList, RootStackParamList } from '../../navigation/types';
-import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import { Navbar } from '../../components';
+import {
+	type DetailParamList,
+	type NavbarParamList,
+	type RootStackParamList,
+} from '../../navigation/types';
+import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 
 const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
@@ -24,32 +27,41 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 		setStoreItems(items);
 	}, []);
 
-	const filterByText = (text: string) => {
+	const filterByText = (text: string): void => {
 		const filteredItems = items.filter((item) => {
 			return item.title.toLowerCase().includes(text.toLowerCase());
 		});
 		setStoreItems(filteredItems);
 	};
 
-	type TButton = { title: string; onPress(): void; pressed: boolean };
-	const buttons: Array<TButton> = [{ title: 'Todos', onPress: () => {}, pressed: true }];
+	interface TButton {
+		title: string;
+		onPress: () => void;
+		pressed: boolean;
+	}
+	const buttons: TButton[] = [{ title: 'Todos', onPress: () => {}, pressed: true }];
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
-			<Pressable style={styles.item} onPress={() => handlePress(item)}>
+			<Pressable
+				style={styles.item}
+				onPress={() => {
+					handlePress(item);
+				}}
+			>
 				<StoreItem item={item} selling={true} />
 			</Pressable>
 		);
 	};
 
-	const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
+	const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
 	const names = ['Tienda', 'Carrito', 'Favoritos'];
-	const setChosenIcon = (index: number) => {
-		return navigation.navigate(pages[index], {
+	const setChosenIcon = (index: number): void => {
+		navigation.navigate(pages[index], {
 			name: names[index],
 		});
 	};
-	const handlePress = (item: DtItem) => {
+	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
 			item,

@@ -3,7 +3,7 @@ import { COLORS } from '../../../../../constants';
 
 const { MAIN_COLOR, LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 
-const styles = (isSelected: boolean) =>
+const styles = (isSelected: boolean): StyleSheet.NamedStyles<any> =>
 	StyleSheet.create({
 		button: {
 			backgroundColor: isSelected ? MAIN_COLOR : 'white',

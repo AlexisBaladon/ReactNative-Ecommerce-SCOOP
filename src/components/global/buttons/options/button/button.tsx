@@ -1,12 +1,12 @@
 import React from 'react';
-import { Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
+import { TouchableOpacity, type GestureResponderEvent } from 'react-native';
 import CustomText from '../../../customText/customText';
 import styles from './button.styles';
 
 interface IProps {
 	title: string;
 	isSelected: boolean;
-	onPress(event: GestureResponderEvent): void;
+	onPress: (event: GestureResponderEvent) => void;
 }
 
 const Button: React.FC<IProps> = ({ title, isSelected, onPress }) => {

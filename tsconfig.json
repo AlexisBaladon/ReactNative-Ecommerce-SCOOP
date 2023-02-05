@@ -3,9 +3,7 @@
 	"compilerOptions": {
 		"strict": true
 	},
-	"parserOptions": {
-		"project": "./tsconfig.json"
-	},
-	"include": ["babel.config.js"],
+	"include": ["src", "./index.tsx"],
+	"exclude": ["node_modules", "babel.config.js"],
 	"plugins": ["@typescript-eslint"]
 }

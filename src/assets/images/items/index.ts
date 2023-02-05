@@ -1,11 +1,11 @@
-import { ImageSourcePropType } from 'react-native';
+import { type ImageSourcePropType } from 'react-native';
 
 interface ItemImage {
 	id: string;
 	src: ImageSourcePropType | undefined;
 }
 
-const itemImages: Array<ItemImage> = [
+const itemImages: ItemImage[] = [
 	{ id: './default.jpg', src: require('./default.jpg') },
 	{ id: './books.jpg', src: require('./books.jpg') },
 	{ id: './clothes.png', src: require('./clothes.jpg') },

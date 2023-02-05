@@ -1,4 +1,4 @@
-import { DtItem } from '../interfaces';
+import { type DtItem } from '../interfaces';
 
 const mockItems: DtItem[] = [
 	{

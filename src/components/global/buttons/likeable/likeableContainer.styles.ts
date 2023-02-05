@@ -3,7 +3,7 @@ import { COLORS } from '../../../../constants';
 
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
-const createStyles = (width: number) =>
+const createStyles = (width: number): StyleSheet.NamedStyles<any> =>
 	StyleSheet.create({
 		absolute: {
 			position: 'absolute',

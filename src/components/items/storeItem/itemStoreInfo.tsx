@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, TouchableHighlight } from 'react-native';
 import { CartItemContextComponents } from '../../../context';
-import { DtItem } from '../../../interfaces';
+import { type DtItem } from '../../../interfaces';
 import CustomText from '../../global/customText/customText';
 import { TEXT } from '../../../constants';
 
@@ -20,7 +20,7 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 	const isInCart = isItemInCart(item.id);
 	const addToCartButtonStyle = isInCart ? styles.addToCartButtonDisabled : {};
 
-	const handleOnAddToCart = () => {
+	const handleOnAddToCart = (): void => {
 		if (!isInCart) addItem({ ...item, amount: 1 });
 	};
 

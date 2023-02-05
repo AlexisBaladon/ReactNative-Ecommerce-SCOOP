@@ -1,9 +1,9 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { DtItemCart } from '../interfaces';
+import { type DtItemCart } from '../interfaces';
 
 interface IContext {
-	cartItems: Array<DtItemCart>;
-	shownItems: Array<DtItemCart>;
+	cartItems: DtItemCart[];
+	shownItems: DtItemCart[];
 	findItem: (id: DtItemCart['id']) => DtItemCart | undefined;
 	deleteItem: (itemId: DtItemCart['id']) => void;
 	addItem: (item: DtItemCart) => void;
@@ -26,7 +26,7 @@ const CartItemContext = React.createContext<IContext>({
 });
 
 const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
-	const [cartItems, setCartItems] = useState<Array<DtItemCart>>([]);
+	const [cartItems, setCartItems] = useState<DtItemCart[]>([]);
 	const [query, setQuery] = useState<string>('');
 	const filterRef = useRef<(item: DtItemCart) => boolean>((_) => true);
 
@@ -34,22 +34,22 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		return cartItems.filter(filterRef.current);
 	}, [cartItems, query]);
 
-	const findItem = (id: DtItemCart['id']) => {
+	const findItem = (id: DtItemCart['id']): DtItemCart | undefined => {
 		return cartItems.find((item) => item.id === id);
 	};
 
-	const deleteItem = (itemId: DtItemCart['id']) => {
+	const deleteItem = (itemId: DtItemCart['id']): void => {
 		setCartItems((cartItems) => {
 			return [...cartItems.filter((item) => item.id !== itemId)];
 		});
 	};
 
-	const addItem = (item: DtItemCart) => {
+	const addItem = (item: DtItemCart): void => {
 		const newItems = [...cartItems, item];
 		setCartItems(newItems);
 	};
 
-	const updateCount = (itemId: DtItemCart['id'], count: number) => {
+	const updateCount = (itemId: DtItemCart['id'], count: number): void => {
 		setCartItems((cartItems) => {
 			return cartItems.map((item) => {
 				if (item.id === itemId) {
@@ -60,14 +60,15 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 		});
 	};
 
-	const deleteAllItems = () => {
+	const deleteAllItems = (): void => {
 		setCartItems([]);
 	};
 
-	const isItemInCart = (id: DtItemCart['id']) => cartItems.some((item) => item.id === id);
+	const isItemInCart = (id: DtItemCart['id']): boolean =>
+		cartItems.some((item) => item.id === id);
 
-	const filterByText = (text: string) => {
-		const filterItemsSearch = (item: DtItemCart) => {
+	const filterByText = (text: string): void => {
+		const filterItemsSearch = (item: DtItemCart): boolean => {
 			return (
 				item.title.toLowerCase().includes(text.toLowerCase()) ||
 				item.description.toLowerCase().includes(text.toLowerCase()) ||

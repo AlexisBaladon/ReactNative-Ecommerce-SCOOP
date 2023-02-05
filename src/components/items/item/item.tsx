@@ -1,20 +1,19 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, Image } from 'react-native';
 import { ImageHandler } from '../../../helpers';
 import { useCounter } from '../../../hooks';
-import DtItem from '../../../interfaces/dtItem';
+import type DtItem from '../../../interfaces/dtItem';
 import CloseButton from '../../global/buttons/closeButton/closeButton';
 import Counter from '../../global/buttons/counter/counter';
 import CustomText from '../../global/customText/customText';
 import LikeableContainer from '../../global/buttons/likeable/likeableContainer';
 import { styles, buttonWidth } from './item.styles';
-import { DtItemCart } from '../../../interfaces';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { type DtItemCart } from '../../../interfaces';
 
 interface IProps {
 	item: DtItemCart;
-	deleteItem(itemId: DtItem['id']): void;
-	updateItemCounter(itemId: DtItem['id'], count: number): void;
+	deleteItem: (itemId: DtItem['id']) => void;
+	updateItemCounter: (itemId: DtItem['id'], count: number) => void;
 	currencySymbol: string;
 	minCount?: number;
 	maxCount?: number;
@@ -75,7 +74,9 @@ const Item: React.FC<IProps> = ({
 			<View style={styles.buttonContainer}>
 				<View>
 					<CloseButton
-						onPress={() => deleteItem(item.id)}
+						onPress={() => {
+							deleteItem(item.id);
+						}}
 						height={buttonWidth}
 						width={buttonWidth}
 					/>
@@ -84,9 +85,13 @@ const Item: React.FC<IProps> = ({
 					<Counter
 						addCharacter={'+'}
 						decCharacter={'-'}
-						addToCounter={() => addToCounter(1)}
+						addToCounter={() => {
+							addToCounter(1);
+						}}
 						count={count}
-						decToCounter={() => addToCounter(-1)}
+						decToCounter={() => {
+							addToCounter(-1);
+						}}
 					/>
 				</View>
 			</View>

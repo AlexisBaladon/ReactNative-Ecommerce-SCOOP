@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableWithoutFeedback } from 'react-native';
 
+import { COLORS } from '../../../constants';
+
 const iconsImages = [require('./home.png'), require('./cart.png'), require('./liked.png')];
 
 interface IProps {
@@ -12,11 +14,16 @@ const Navbar: React.FC<IProps> = ({ chosenIcon, setChosenIcon }) => {
 	return (
 		<View style={styles.navbar}>
 			{iconsImages.map((icon, i) => {
-				const middleIconIndex = (iconsImages.length / 2) >> 0; //Rounds down to nearest integer
+				const middleIconIndex = (iconsImages.length / 2) >> 0; // Rounds down to nearest integer
 				const chosenIconStyle = i === chosenIcon ? styles.chosenIcon : {};
 				const mainIconStyle = i === middleIconIndex ? styles.mainIcon : {};
 				return (
-					<TouchableWithoutFeedback onPress={() => setChosenIcon(i)} key={i}>
+					<TouchableWithoutFeedback
+						onPress={() => {
+							setChosenIcon(i);
+						}}
+						key={i}
+					>
 						<Image
 							key={i}
 							source={icon}
@@ -28,8 +35,6 @@ const Navbar: React.FC<IProps> = ({ chosenIcon, setChosenIcon }) => {
 		</View>
 	);
 };
-
-import { COLORS } from '../../../constants';
 
 const iconWidth = 9;
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;

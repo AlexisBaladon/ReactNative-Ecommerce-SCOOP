@@ -1,10 +1,12 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import React, { useContext, useEffect, useMemo } from 'react';
 import { Image, StyleSheet, TouchableHighlight, View } from 'react-native';
 import { LikeableContainer, Navbar, CustomText, Counter } from '../../components';
 import { ImageHandler } from '../../helpers';
-import { NavbarParamList, RootStackParamList } from '../../navigation/types';
-import { TEXT } from '../../constants';
+import { type NavbarParamList, type RootStackParamList } from '../../navigation/types';
+import { TEXT, COLORS } from '../../constants';
+import { CartItemContextComponents } from '../../context';
+import { useCounter } from '../../hooks';
 
 const { CURRENCY_SYMBOL, ADD_TO_CART_BUTTON_MESSAGE } = TEXT;
 
@@ -15,14 +17,18 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 	const { CartItemContext } = CartItemContextComponents;
 	const { addItem, isItemInCart, updateCount, findItem, cartItems } = useContext(CartItemContext);
 	const cartItem = useMemo(() => findItem(item.id), [cartItems]);
-	const [count, countRef, addToCounter, resetCounter] = useCounter(1, cartItem?.amount || 1, 99);
+	const [count, countRef, addToCounter, resetCounter] = useCounter(
+		1,
+		cartItem !== undefined ? cartItem.amount : 1,
+		99,
+	);
 
 	useEffect(() => {
 		resetCounter(cartItem?.amount);
 	}, [cartItem?.amount]);
 
 	useEffect(() => {
-		if (!cartItem) return;
+		if (cartItem == null) return;
 		updateCount(cartItem.id, countRef.current);
 	}, [count]);
 
@@ -30,9 +36,9 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 	const image = getItemImage(item.imageURL);
 	const itemInCart = isItemInCart(item.id);
 
-	const handleAddItem = () => {
+	const handleAddItem = (): void => {
 		if (itemInCart) return;
-		addItem({ ...item, amount: count }); //TODO: Add amount to item
+		addItem({ ...item, amount: count }); // TODO: Add amount to item
 	};
 
 	return (
@@ -53,16 +59,20 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 							<Counter
 								addCharacter={'+'}
 								decCharacter={'-'}
-								addToCounter={() => addToCounter(1)}
+								addToCounter={() => {
+									addToCounter(1);
+								}}
 								count={count}
-								decToCounter={() => addToCounter(-1)}
+								decToCounter={() => {
+									addToCounter(-1);
+								}}
 							/>
 						</View>
 					</View>
 					<View style={styles.bottomInfo}>
 						<View style={styles.bottomItem}>
 							<CustomText style={styles.price} textType="bold">
-								{item.priceDollars * (cartItem?.amount || 1)}
+								{item.priceDollars * (cartItem !== undefined ? cartItem.amount : 1)}
 								{CURRENCY_SYMBOL}
 							</CustomText>
 						</View>
@@ -85,9 +95,9 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 			<Navbar
 				chosenIcon={0}
 				setChosenIcon={(index: number) => {
-					const pages: (keyof NavbarParamList)[] = ['Store', 'Cart', 'Favourites'];
+					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
 					const names = ['Tienda', 'Carrito', 'Favoritos'];
-					return navigation.navigate(pages[index], {
+					navigation.navigate(pages[index], {
 						name: names[index],
 					});
 				}}
@@ -95,10 +105,6 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 		</>
 	);
 };
-import { COLORS } from '../../constants';
-import { CartItemContextComponents } from '../../context';
-import { useCounter } from '../../hooks';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
 const styles = StyleSheet.create({
