@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { View, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search, Navbar } from '../../components';
@@ -22,17 +22,23 @@ type StoreScreenNavigationProp = NativeStackScreenProps<
 
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
 	const [storeItems, setStoreItems] = useState<DtItem[]>([]);
+	const [searchText, setSearchText] = useState<string>('');
+
+	const filterByText = (item: DtItem): boolean => {
+		return (
+			item.title.toLowerCase().includes(searchText.toLowerCase()) ||
+			item.description.toLowerCase().includes(searchText.toLowerCase()) ||
+			searchText === ''
+		);
+	};
+
+	const shownItems = useMemo(() => {
+		return storeItems.filter(filterByText);
+	}, [searchText, storeItems]);
 
 	useEffect(() => {
 		setStoreItems(items);
 	}, []);
-
-	const filterByText = (text: string): void => {
-		const filteredItems = items.filter((item) => {
-			return item.title.toLowerCase().includes(text.toLowerCase());
-		});
-		setStoreItems(filteredItems);
-	};
 
 	interface TButton {
 		title: string;
@@ -71,11 +77,11 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 	return (
 		<>
 			<View style={styles.search}>
-				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={filterByText} />
+				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={setSearchText} />
 			</View>
 			<Buttons buttons={buttons} />
 			<Items
-				shownItems={storeItems}
+				shownItems={shownItems}
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={2}
