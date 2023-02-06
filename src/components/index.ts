@@ -16,5 +16,8 @@ export { default as Navbar } from './global/navbar/navbar';
 export { default as Item } from './items/item/item';
 export { default as Items } from './items/items/items';
 
+// Onboarding
+export { default as OnboardingTemplate } from './onboarding/onboardingTemplate';
+
 // Custom
 export { default as CustomText } from './global/customText/customText';

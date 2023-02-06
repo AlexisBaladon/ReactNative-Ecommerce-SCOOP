@@ -5,7 +5,7 @@ type NavParams = {
 	name: string;
 };
 
-type OnboardingParams = {
+export type OnboardingParams = {
 	animation: StackAnimationTypes | undefined;
 	headerShown: boolean | undefined;
 };
