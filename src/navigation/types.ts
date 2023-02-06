@@ -1,13 +1,18 @@
 import { type DtItem } from '../interfaces';
 
+type NavParams = {
+	name: string,
+}
+
 export type NavbarParamList = {
-	Cart: { name: string };
-	Favourites: { name: string };
-	Store: { name: string };
+	Cart: NavParams;
+	Favourites: NavParams;
+	Store: NavParams;
+	Onboarding: NavParams;
 }
 
 export type DetailParamList = {
-	Detail: { name: string; item: DtItem };
+	Detail: NavParams & { item: DtItem };
 }
 
 export type RootStackParamList = NavbarParamList & DetailParamList;

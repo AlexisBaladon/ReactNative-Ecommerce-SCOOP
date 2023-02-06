@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StoreScreen, CartScreen, FavouritesScreen } from '../views';
 import { type RootStackParamList } from './types';
 import DetailScreen from '../views/detail/detail';
+import OnboardingScreen from '../views/onboarding/onboarding';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -12,8 +13,9 @@ const StoreNavigation: React.FC = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator
-				initialRouteName="Store"
+				initialRouteName="Onboarding"
 				screenOptions={{
+					// animation: 'slide_from_right',
 					headerStyle: {
 						backgroundColor: 'white',
 					},
@@ -24,6 +26,13 @@ const StoreNavigation: React.FC = () => {
 					title: 'Tienda',
 				}}
 			>
+				<Stack.Screen
+					name="Onboarding"
+					component={OnboardingScreen}
+					options={({ route }) => ({
+						title: route.params?.name,
+					})}
+				/>
 				<Stack.Screen
 					name="Store"
 					component={StoreScreen}
