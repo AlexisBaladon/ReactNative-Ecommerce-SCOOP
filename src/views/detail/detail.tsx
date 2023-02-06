@@ -52,10 +52,12 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 					<View style={styles.itemInfo}>
 						<View style={styles.topInfoContainer}>
 							<View style={styles.topInfo}>
-								<CustomText textType="bold" style={styles.title}>
+								<CustomText textType="bold" size="big" style={styles.title}>
 									{item.title}
 								</CustomText>
-								<CustomText style={styles.description}>{item.description}</CustomText>
+								<CustomText size="medium" style={styles.description}>
+									{item.description}
+								</CustomText>
 							</View>
 							<View style={styles.countContainer}>
 								<Counter
@@ -73,8 +75,9 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 						</View>
 						<View style={styles.bottomInfo}>
 							<View style={styles.bottomItem}>
-								<CustomText style={styles.price} textType="bold">
-									{item.priceDollars * (cartItem !== undefined ? cartItem.amount : 1)}
+								<CustomText size="big" textType="bold" style={styles.price}>
+									{item.priceDollars *
+										(cartItem !== undefined ? cartItem.amount : 1)}
 									{CURRENCY_SYMBOL}
 								</CustomText>
 							</View>
@@ -87,7 +90,11 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 								onPress={handleAddItem}
 								disabled={itemInCart}
 							>
-								<CustomText style={styles.addButtonText} textType="bold">
+								<CustomText
+									size="small"
+									textType="bold"
+									style={styles.addButtonText}
+								>
 									{ADD_TO_CART_BUTTON_MESSAGE}
 								</CustomText>
 							</TouchableHighlight>

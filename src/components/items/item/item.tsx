@@ -53,13 +53,19 @@ const Item: React.FC<IProps> = ({
 			<View style={styles.textContainer}>
 				<CustomText
 					style={styles.itemTitle}
+					size="medium"
 					textType="bold"
 					numberOfLines={1}
 					ellipsizeMode="tail"
 				>
 					{item.title}
 				</CustomText>
-				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
+				<CustomText
+					size="small"
+					style={styles.itemDescription}
+					numberOfLines={2}
+					ellipsizeMode="tail"
+				>
 					{item.description}
 				</CustomText>
 				<CustomText

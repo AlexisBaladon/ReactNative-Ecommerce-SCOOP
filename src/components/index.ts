@@ -10,7 +10,7 @@ export { default as Slider } from './global/slider/slider';
 export { default as Header } from './global/header/header';
 export { default as Search } from './global/search/search';
 export { default as LikeableContainer } from './global/buttons/likeable/likeableContainer';
-export { default as Navbar } from './global/navbar/navbar'; 
+export { default as Navbar } from './global/navbar/navbar';
 
 // Items
 export { default as Item } from './items/item/item';

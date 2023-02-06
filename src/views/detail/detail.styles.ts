@@ -4,29 +4,25 @@ import { COLORS } from '../../constants';
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
 
 export default StyleSheet.create({
-    itemDetailScroll: {
-        flex: 1,
-        display: 'flex',
-        position: 'relative',
-        backgroundColor: 'white',
-        marginBottom: 60,
-    },
-	itemDetail: {
+	itemDetailScroll: {
+		flex: 1,
+		display: 'flex',
+		position: 'relative',
+		backgroundColor: 'white',
+		marginBottom: 60,
 	},
+	itemDetail: {},
 	itemImage: {
 		width: '100%',
 		height: 300,
 	},
 	itemInfo: {
 		flex: 1,
-        position: 'relative',
+		position: 'relative',
 		padding: 20,
 	},
-	title: {
-		fontSize: 30,
-	},
+	title: {},
 	description: {
-		fontSize: 15,
 		color: NEUTRAL_COLOR,
 	},
 	bottomInfo: {
@@ -36,11 +32,9 @@ export default StyleSheet.create({
 		alignItems: 'flex-end',
 		paddingTop: '45%',
 	},
-	bottomItem: {
-	},
+	bottomItem: {},
 	price: {
 		width: '100%',
-		fontSize: 30,
 		color: MAIN_COLOR,
 	},
 	addButton: {
@@ -70,4 +64,3 @@ export default StyleSheet.create({
 		width: 40,
 	},
 });
-

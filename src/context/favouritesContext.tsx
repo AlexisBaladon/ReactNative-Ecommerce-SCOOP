@@ -58,7 +58,8 @@ const FavouriteItemsContextProvider: React.FC<React.PropsWithChildren> = ({ chil
 		setQuery(text);
 	};
 
-	const itemExists = (itemId: DtItem['id']): boolean => favouritesItems.some((item) => item.id === itemId);
+	const itemExists = (itemId: DtItem['id']): boolean =>
+		favouritesItems.some((item) => item.id === itemId);
 
 	return (
 		<FavouriteItemsContext.Provider

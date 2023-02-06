@@ -27,7 +27,7 @@ const Counter: React.FC<IProps> = ({
 						addToCounter();
 					}}
 				>
-					<CustomText textType={'bold'} style={styles.text}>
+					<CustomText size="small" textType={'bold'} style={styles.text}>
 						{addCharacter}
 					</CustomText>
 				</TouchableOpacity>
@@ -40,7 +40,7 @@ const Counter: React.FC<IProps> = ({
 						decToCounter();
 					}}
 				>
-					<CustomText textType={'bold'} style={styles.text}>
+					<CustomText size="small" textType={'bold'} style={styles.text}>
 						{decCharacter}
 					</CustomText>
 				</TouchableOpacity>

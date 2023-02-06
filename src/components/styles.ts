@@ -1,6 +1,6 @@
 import { Dimensions, StatusBar, StyleSheet } from 'react-native';
 
-import { COLORS } from './constants';
+import { COLORS } from '../constants';
 
 const { BACKGROUND_COLOR } = COLORS;
 const { width, height } = Dimensions.get('window');
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
 		paddingTop: statusBarHeight,
 	},
 	title: {
-		fontSize: 28,
 		textAlign: 'center',
 	},
 	search: {

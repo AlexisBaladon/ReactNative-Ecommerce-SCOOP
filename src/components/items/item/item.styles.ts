@@ -51,9 +51,7 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'column',
 	},
-	itemTitle: {
-		fontSize: 22,
-	},
+	itemTitle: {},
 	itemDescription: {
 		color: NEUTRAL_COLOR,
 	},
@@ -61,8 +59,6 @@ const styles = StyleSheet.create({
 		position: 'absolute',
 		bottom: 0,
 		color: MAIN_COLOR,
-
-		fontSize: 20,
 	},
 	buttonContainer: {
 		width: '10%',

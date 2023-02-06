@@ -4,7 +4,7 @@ import { Text, StyleSheet } from 'react-native';
 type CustomTextProps = {
 	children: React.ReactNode;
 	textType?: 'regular' | 'bold' | 'light' | 'italic';
-	size?: 'small' | 'medium' | 'big';
+	size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'big';
 	style?: object;
 } & Text['props'];
 
@@ -17,13 +17,15 @@ const CustomText: React.FC<CustomTextProps> = (props) => {
 	]);
 
 	const sizeStyles = new Map([
+		['xx-small', styles.xxSmall],
+		['x-small', styles.xSmall],
 		['small', styles.small],
 		['medium', styles.medium],
 		['big', styles.big],
 	]);
 
-	const sizeStyle = sizeStyles.get(props?.size !== undefined? props.size : 'medium');
-	const textStyle = textStyles.get(props?.textType !== undefined? props.textType : 'regular');
+	const sizeStyle = sizeStyles.get(props?.size !== undefined ? props.size : 'medium');
+	const textStyle = textStyles.get(props?.textType !== undefined ? props.textType : 'regular');
 	const propsStyle = { ...props.style, ...textStyle };
 
 	return (
@@ -54,6 +56,12 @@ const styles = StyleSheet.create({
 	},
 	small: {
 		fontSize: 14,
+	},
+	xSmall: {
+		fontSize: 12,
+	},
+	xxSmall: {
+		fontSize: 10,
 	},
 });
 

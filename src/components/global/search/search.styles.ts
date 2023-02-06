@@ -39,8 +39,6 @@ const styles = StyleSheet.create({
 		height: '100%',
 		marginVertical: 2.5,
 		marginLeft: 12.5,
-
-		fontSize: 17.5,
 	},
 	magnifyingGlass: {
 		height: 28,

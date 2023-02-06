@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
 	},
 	addToCartButtonText: {
 		color: 'white',
-		fontSize: 10,
 		textAlign: 'center',
 	},
 	priceContainer: {
@@ -24,7 +23,6 @@ const styles = StyleSheet.create({
 	},
 	itemPrice: {
 		color: MAIN_COLOR,
-		fontSize: 19,
 	},
 	addToCartButton: {
 		backgroundColor: MAIN_COLOR,

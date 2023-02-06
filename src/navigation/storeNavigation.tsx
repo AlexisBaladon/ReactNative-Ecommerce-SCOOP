@@ -5,7 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StoreScreen, CartScreen, FavouritesScreen } from '../views';
 import { type RootStackParamList } from './types';
 import DetailScreen from '../views/detail/detail';
-import { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3} from '../views/onboarding/onboarding';
+import {
+	OnboardingScreen1,
+	OnboardingScreen2,
+	OnboardingScreen3,
+} from '../views/onboarding/onboarding';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -40,7 +44,6 @@ const StoreNavigation: React.FC = () => {
 						animation: route.params?.animation,
 						headerShown: route.params?.headerShown,
 					})}
-					
 				/>
 				<Stack.Screen
 					name="Onboarding3"

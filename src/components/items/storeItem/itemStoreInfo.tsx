@@ -42,6 +42,7 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 				<CustomText
 					style={styles.addToCartButtonText}
 					textType="bold"
+					size="xx-small"
 					numberOfLines={1}
 					ellipsizeMode="tail"
 				>

@@ -34,9 +34,7 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'column',
 	},
-	itemTitle: {
-		fontSize: 20,
-	},
+	itemTitle: {},
 	itemDescription: {
 		color: NEUTRAL_COLOR,
 	},

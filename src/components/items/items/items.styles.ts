@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
 		paddingBottom,
 	},
 	emptyListText: {
-		fontSize: 20,
 		textAlign: 'center',
 		color: 'gray',
 	},

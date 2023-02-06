@@ -14,7 +14,9 @@ const Button: React.FC<IProps> = ({ title, isSelected, onPress }) => {
 
 	return (
 		<TouchableOpacity style={customStyles.button} onPress={onPress}>
-			<CustomText style={customStyles.text}>{title}</CustomText>
+			<CustomText size="small" style={customStyles.text}>
+				{title}
+			</CustomText>
 		</TouchableOpacity>
 	);
 };

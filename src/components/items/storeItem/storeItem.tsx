@@ -28,12 +28,18 @@ const StoreItem: React.FC<IProps> = ({ item, selling }) => {
 				<CustomText
 					style={styles.itemTitle}
 					textType="bold"
+					size="medium"
 					numberOfLines={1}
 					ellipsizeMode="tail"
 				>
 					{item.title}
 				</CustomText>
-				<CustomText style={styles.itemDescription} numberOfLines={2} ellipsizeMode="tail">
+				<CustomText
+					size="small"
+					style={styles.itemDescription}
+					numberOfLines={2}
+					ellipsizeMode="tail"
+				>
 					{item.description}
 				</CustomText>
 				<AddToCart />

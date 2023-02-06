@@ -20,7 +20,6 @@ const styles = (isSelected: boolean): StyleSheet.NamedStyles<any> =>
 		},
 		text: {
 			color: isSelected ? LIGHT_COLOR : NEUTRAL_COLOR,
-			fontSize: 12,
 		},
 	});
 
