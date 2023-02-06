@@ -1,5 +1,5 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Image, ScrollView, TouchableHighlight, View } from 'react-native';
 import { LikeableContainer, Navbar, CustomText, Counter } from '../../components';
 import { ImageHandler } from '../../helpers';
@@ -16,8 +16,8 @@ type DetailScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'De
 const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation }) => {
 	const { item } = route.params;
 	const { CartItemContext } = CartItemContextComponents;
-	const { addItem, isItemInCart, updateCount, findItem, cartItems } = useContext(CartItemContext);
-	const cartItem = useMemo(() => findItem(item.id), [cartItems]);
+	const { addItem, isItemInCart, updateCount, findItem } = useContext(CartItemContext);
+	const cartItem = findItem(item.id);
 	const [count, countRef, addToCounter, resetCounter] = useCounter(
 		1,
 		cartItem !== undefined ? cartItem.amount : 1,
@@ -66,7 +66,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 									addToCounter={() => {
 										addToCounter(1);
 									}}
-									count={count}
+									count={cartItem?.amount??count}
 									decToCounter={() => {
 										addToCounter(-1);
 									}}
@@ -76,8 +76,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 						<View style={styles.bottomInfo}>
 							<View style={styles.bottomItem}>
 								<CustomText size="big" textType="bold" style={styles.price}>
-									{item.priceDollars *
-										(cartItem !== undefined ? cartItem.amount : 1)}
+									{item.priceDollars * (cartItem?.amount??count)}
 									{CURRENCY_SYMBOL}
 								</CustomText>
 							</View>

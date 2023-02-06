@@ -40,7 +40,7 @@ const CartItemContextProvider: React.FC<React.PropsWithChildren> = ({ children }
 
 	const deleteItem = (itemId: DtItemCart['id']): void => {
 		setCartItems((cartItems) => {
-			return [...cartItems.filter((item) => item.id !== itemId)];
+			return cartItems.filter((item) => item.id !== itemId);
 		});
 	};
 
