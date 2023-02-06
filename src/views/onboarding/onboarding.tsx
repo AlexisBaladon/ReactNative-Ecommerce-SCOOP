@@ -9,7 +9,8 @@ interface IProps {
     titleMessage: string;
     description: string;
     currentIndex: number;
-    setCurrentIndex: (index: number) => void;
+    navigatePrev: () => void;
+    navigateNext: () => void;
     imageSrc: ImageSourcePropType | undefined;
     sliderWidth: number;
     sliderLength: number;
@@ -22,7 +23,7 @@ const imagesSrc: Array<ImageSourcePropType | undefined> = [
     require('./onboarding3.png'),
 ];
 
-const OnboardingTemplate: React.FC<IProps> = ({titleMessage, description, currentIndex, setCurrentIndex, imageSrc, sliderWidth, sliderLength, buttonWidth}) => {
+const OnboardingTemplate: React.FC<IProps> = ({titleMessage, description, currentIndex, navigatePrev, navigateNext, imageSrc, sliderWidth, sliderLength, buttonWidth}) => {
     return (<View style={styles.onboarding}>
         <View style={styles.background}>
             <Image style={styles.image} source={imageSrc} />
@@ -39,8 +40,8 @@ const OnboardingTemplate: React.FC<IProps> = ({titleMessage, description, curren
                     />
                 </View>
                 <View style={styles.advanceButtons}>
-                    <AdvanceButton onPress={()=>{}} direction='left' width={buttonWidth}/>
-                    <AdvanceButton onPress={()=>{}} direction='right' width={buttonWidth} active={true}/>
+                    <AdvanceButton onPress={navigatePrev} direction='left' width={buttonWidth}/>
+                    <AdvanceButton onPress={navigateNext} direction='right' width={buttonWidth} active={true}/>
                 </View>
             </View>
         </View>
@@ -48,40 +49,55 @@ const OnboardingTemplate: React.FC<IProps> = ({titleMessage, description, curren
     );
 };
 
-type OnboardingScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding'>;
+type OnboardingScreen1NavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding1'>;
+type OnboardingScreen2NavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding2'>;
+type OnboardingScreen3NavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding3'>;
 
-const OnboardingScreen: React.FC<OnboardingScreenNavigationProp> = () => {        
-    return (<>
-        <OnboardingTemplate 
-            titleMessage='¡Bienvenido a la app!'
-            description='En esta app podrás buscar y encontrar los mejores productos de la tienda'
-            currentIndex={0} 
-            setCurrentIndex={() => { } } 
-            sliderWidth={130}
-            sliderLength={3} 
-            buttonWidth={50}
-            imageSrc={imagesSrc[0]} 
-        />
-        {/* <OnboardingTemplate 
-            titleMessage='titleMessage'
-            description='description'
-            currentIndex={0} 
-            setCurrentIndex={() => { } } 
-            sliderLength={3} 
-            buttonWidth={40}
-            imageSrc={imagesSrc[1]} 
-        />
-        <OnboardingTemplate 
-            titleMessage='titleMessage'
-            description='description'
-            currentIndex={0} 
-            setCurrentIndex={() => { } } 
-            sliderLength={3}
-            buttonWidth={40} 
-            imageSrc={imagesSrc[2]} 
-        /> */}
-    </>);
+const onboardingScreens = [0,1,2].map((index) => {
+    return function getOnboardingScreen(navigatePrev: () => void, navigateNext: () => void) {
+        return <OnboardingTemplate
+                key={index}
+                titleMessage='¡Bienvenido a la app!'
+                description='En esta app podrás buscar y encontrar los mejores productos de la tienda'
+                currentIndex={index} 
+                navigatePrev={navigatePrev}
+                navigateNext={navigateNext}
+                sliderWidth={130}
+                sliderLength={3} 
+                buttonWidth={50}
+                imageSrc={imagesSrc[index]} 
+    />}
+});
+
+const OnboardingScreen1: React.FC<OnboardingScreen1NavigationProp> = ({ navigation }) => {
+    const navigateNext = (): void => {
+        navigation.navigate('Onboarding2', { animation: 'slide_from_right', headerShown: false });
+    };
+    const navigatePrev = (): void => {};
+        
+    return onboardingScreens[0](navigatePrev, navigateNext);
 };
 
+const OnboardingScreen2: React.FC<OnboardingScreen2NavigationProp> = ({ navigation }) => {
+    const navigateNext = (): void => {
+        navigation.navigate('Onboarding3', { animation: 'slide_from_right', headerShown: false });
+    };
+    const navigatePrev = (): void => {
+        navigation.navigate('Onboarding1', { animation: 'slide_from_left', headerShown: false });
+    };
 
-export default OnboardingScreen;
+    return onboardingScreens[1](navigatePrev, navigateNext);
+};
+
+const OnboardingScreen3: React.FC<OnboardingScreen3NavigationProp> = ({ navigation }) => {
+    const navigateNext = (): void => {
+        navigation.navigate('Store', { name: 'Tienda' });
+    };
+    const navigatePrev = (): void => {
+        navigation.navigate('Onboarding2', { animation: 'slide_from_left', headerShown: false });
+    };
+
+    return onboardingScreens[2](navigatePrev, navigateNext);
+};
+
+export { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3 };

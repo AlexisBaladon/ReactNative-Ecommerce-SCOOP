@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StoreScreen, CartScreen, FavouritesScreen } from '../views';
 import { type RootStackParamList } from './types';
 import DetailScreen from '../views/detail/detail';
-import OnboardingScreen from '../views/onboarding/onboarding';
+import { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3} from '../views/onboarding/onboarding';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -13,9 +13,8 @@ const StoreNavigation: React.FC = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator
-				initialRouteName="Onboarding"
+				initialRouteName="Onboarding1"
 				screenOptions={{
-					// animation: 'slide_from_right',
 					headerStyle: {
 						backgroundColor: 'white',
 					},
@@ -27,10 +26,28 @@ const StoreNavigation: React.FC = () => {
 				}}
 			>
 				<Stack.Screen
-					name="Onboarding"
-					component={OnboardingScreen}
+					name="Onboarding1"
+					component={OnboardingScreen1}
 					options={({ route }) => ({
-						title: route.params?.name,
+						animation: route.params?.animation,
+						headerShown: route.params?.headerShown,
+					})}
+				/>
+				<Stack.Screen
+					name="Onboarding2"
+					component={OnboardingScreen2}
+					options={({ route }) => ({
+						animation: route.params?.animation,
+						headerShown: route.params?.headerShown,
+					})}
+					
+				/>
+				<Stack.Screen
+					name="Onboarding3"
+					component={OnboardingScreen3}
+					options={({ route }) => ({
+						animation: route.params?.animation,
+						headerShown: route.params?.headerShown,
 					})}
 				/>
 				<Stack.Screen
