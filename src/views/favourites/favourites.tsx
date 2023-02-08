@@ -77,16 +77,6 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 				RenderItem={RenderItem}
 				numColumns={2}
 			/>
-			{/* <Navbar
-				chosenIcon={2}
-				setChosenIcon={(index: number) => {
-					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
-					const names = ['Tienda', 'Carrito', 'Favoritos'];
-					navigation.navigate(pages[index], {
-						name: names[index],
-					});
-				}}
-			/> */}
 		</>
 	);
 };

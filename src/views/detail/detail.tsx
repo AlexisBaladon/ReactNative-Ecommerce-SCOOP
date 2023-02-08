@@ -52,7 +52,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 					<View style={styles.itemInfo}>
 						<View style={styles.topInfoContainer}>
 							<View style={styles.topInfo}>
-								<CustomText textType="bold" size="big" style={styles.title}>
+								<CustomText textType="bold" size="big">
 									{item.title}
 								</CustomText>
 								<CustomText size="medium" style={styles.description}>
@@ -74,7 +74,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 							</View>
 						</View>
 						<View style={styles.bottomInfo}>
-							<View style={styles.bottomItem}>
+							<View>
 								<CustomText size="big" textType="bold" style={styles.price}>
 									{item.priceDollars * (cartItem?.amount??count)}
 									{CURRENCY_SYMBOL}
@@ -83,7 +83,6 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 							<TouchableHighlight
 								style={[
 									styles.addButton,
-									styles.bottomItem,
 									itemInCart ? styles.disabledButton : null,
 								]}
 								onPress={handleAddItem}
@@ -101,16 +100,6 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 					</View>
 				</View>
 			</ScrollView>
-			{/* <Navbar
-				chosenIcon={0}
-				setChosenIcon={(index: number) => {
-					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
-					const names = ['Tienda', 'Carrito', 'Favoritos'];
-					navigation.navigate(pages[index], {
-						name: names[index],
-					});
-				}}
-			/> */}
 		</>
 	);
 };

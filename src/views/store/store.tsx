@@ -52,14 +52,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 			</Pressable>
 		);
 	};
-
-	// const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
-	// const names = ['Tienda', 'Carrito', 'Favoritos'];
-	// const setChosenIcon = (index: number): void => {
-	// 	navigation.navigate(pages[index], {
-	// 		name: names[index],
-	// 	});
-	// };
+	
 	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
@@ -79,7 +72,6 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				RenderItem={RenderItem}
 				numColumns={2}
 			/>
-			{/* <Navbar chosenIcon={0} setChosenIcon={setChosenIcon} /> */}
 		</>
 	);
 };

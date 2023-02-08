@@ -1,0 +1,73 @@
+import React from 'react'
+import { Image } from 'react-native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import type { RootBottomTabParamList } from '../types/tabs.types'
+import StoreNavigator from '../storeNavigation';
+import CartNavigator from '../cartNavigation';
+import FavouritesNavigator from '../favouritesNavigation';
+import { NavigationContainer } from '@react-navigation/native';
+import styles from './tabs.styles';
+
+const BottomTab = createBottomTabNavigator<RootBottomTabParamList>();
+
+const iconsImages = {
+    home: require('./home.png'), 
+    cart: require('./cart.png'), 
+    favourites: require('./liked.png')
+};
+
+const TabsNavigator: React.FC = () => {
+  return (
+	<NavigationContainer independent={true}>
+        <BottomTab.Navigator
+            initialRouteName="StoreTab"
+            screenOptions={{ 
+                headerShown: false, 
+                tabBarStyle: styles.tabBar, 
+            }}
+        >
+            <BottomTab.Screen
+                name="StoreTab"
+                component={StoreNavigator}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+							source={iconsImages.home}
+							style={[styles.icon, focused && styles.chosenIcon]}
+						/>
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="CartTab"
+                component={CartNavigator}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+							source={iconsImages.cart}
+							style={[styles.icon, focused && styles.chosenIcon]}
+						/>
+                    ),
+                }}
+            />
+            <BottomTab.Screen
+                name="FavouritesTab"
+                component={FavouritesNavigator}
+                options={{
+                    title: '',
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+							source={iconsImages.favourites}
+							style={[styles.icon, focused && styles.chosenIcon]}
+						/>
+                    ),
+                }}
+            />
+        </BottomTab.Navigator>
+    </NavigationContainer>
+  )
+}
+
+export default TabsNavigator

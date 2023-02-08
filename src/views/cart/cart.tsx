@@ -99,16 +99,6 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				RenderItem={RenderItem}
 				numColumns={1}
 			/>
-			{/* <Navbar
-				chosenIcon={1}
-				setChosenIcon={(index: number) => {
-					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
-					const names = ['Tienda', 'Carrito', 'Favoritos'];
-					navigation.navigate(pages[index], {
-						name: names[index],
-					});
-				}}
-			/> */}
 		</>
 	);
 };

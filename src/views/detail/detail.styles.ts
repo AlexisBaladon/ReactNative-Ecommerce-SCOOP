@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { COLORS } from '../../constants';
 
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
+const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
 	itemDetailScroll: {
@@ -20,7 +21,6 @@ export default StyleSheet.create({
 		position: 'relative',
 		padding: 20,
 	},
-	title: {},
 	description: {
 		color: NEUTRAL_COLOR,
 	},
@@ -29,14 +29,14 @@ export default StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'flex-end',
-		paddingTop: '45%',
+		paddingTop: '55%',
 	},
-	bottomItem: {},
 	price: {
 		width: '100%',
 		color: MAIN_COLOR,
 	},
 	addButton: {
+		width: width*0.6,
 		backgroundColor: MAIN_COLOR,
 		padding: 20,
 		borderRadius: 10,
@@ -46,6 +46,7 @@ export default StyleSheet.create({
 	},
 	addButtonText: {
 		color: 'white',
+		textAlign: 'center',
 	},
 	topInfoContainer: {
 		display: 'flex',
