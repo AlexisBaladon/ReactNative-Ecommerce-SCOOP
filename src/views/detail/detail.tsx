@@ -39,7 +39,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 
 	const handleAddItem = (): void => {
 		if (itemInCart) return;
-		addItem({ ...item, amount: count }); // TODO: Add amount to item
+		addItem({ ...item, amount: count });
 	};
 
 	return (

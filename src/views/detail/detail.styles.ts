@@ -9,7 +9,6 @@ export default StyleSheet.create({
 		display: 'flex',
 		position: 'relative',
 		backgroundColor: 'white',
-		marginBottom: 60,
 	},
 	itemDetail: {},
 	itemImage: {

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const paddingBottom = 130;
+const paddingBottom = 65;
 
 const styles = StyleSheet.create({
 	itemsContainer: {
