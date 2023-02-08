@@ -1,24 +1,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { View, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
-import { Buttons, Items, Search, Navbar } from '../../components';
+import { Buttons, Items, Search } from '../../components';
 import styles from './store.styles';
 import { type DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 import { items } from '../../data';
-import {
-	type DetailParamList,
-	type NavbarParamList,
-	type RootStackParamList,
-} from '../../navigation/types';
+import { type StoreParamList } from '../../navigation/types/store.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 
 const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
-type StoreScreenNavigationProp = NativeStackScreenProps<
-	RootStackParamList & DetailParamList,
-	'Store'
->;
+type StoreScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Store'>;
 
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
 	const [storeItems, setStoreItems] = useState<DtItem[]>([]);
@@ -60,13 +53,13 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 		);
 	};
 
-	const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
-	const names = ['Tienda', 'Carrito', 'Favoritos'];
-	const setChosenIcon = (index: number): void => {
-		navigation.navigate(pages[index], {
-			name: names[index],
-		});
-	};
+	// const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
+	// const names = ['Tienda', 'Carrito', 'Favoritos'];
+	// const setChosenIcon = (index: number): void => {
+	// 	navigation.navigate(pages[index], {
+	// 		name: names[index],
+	// 	});
+	// };
 	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
@@ -86,7 +79,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				RenderItem={RenderItem}
 				numColumns={2}
 			/>
-			<Navbar chosenIcon={0} setChosenIcon={setChosenIcon} />
+			{/* <Navbar chosenIcon={0} setChosenIcon={setChosenIcon} /> */}
 		</>
 	);
 };

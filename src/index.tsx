@@ -1,7 +1,7 @@
 import { useFonts } from 'expo-font';
 import { Fonts as fonts } from './assets';
 import { CartItemContextComponents, FavouritesContextComponents } from './context';
-import StoreNavigation from './navigation/storeNavigation';
+import OnboardingNavigator from './navigation/onboardingNavigation';
 
 const App = (): React.ReactElement => {
 	const [loaded] = useFonts(fonts);
@@ -13,7 +13,7 @@ const App = (): React.ReactElement => {
 	return (
 		<CartItemContextProvider>
 			<FavouriteItemsContextProvider>
-				<StoreNavigation />
+				<OnboardingNavigator />
 			</FavouriteItemsContextProvider>
 		</CartItemContextProvider>
 	);

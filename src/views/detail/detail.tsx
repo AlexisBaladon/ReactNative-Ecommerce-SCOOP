@@ -1,9 +1,9 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import React, { useContext, useEffect } from 'react';
 import { Image, ScrollView, TouchableHighlight, View } from 'react-native';
-import { LikeableContainer, Navbar, CustomText, Counter } from '../../components';
+import { LikeableContainer, CustomText, Counter } from '../../components';
 import { ImageHandler } from '../../helpers';
-import { type NavbarParamList, type RootStackParamList } from '../../navigation/types';
+import { type StoreParamList } from '../../navigation/types/store.types';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { useCounter } from '../../hooks';
@@ -11,7 +11,7 @@ import styles from './detail.styles';
 
 const { CURRENCY_SYMBOL, ADD_TO_CART_BUTTON_MESSAGE } = TEXT;
 
-type DetailScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Detail'>;
+type DetailScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Detail'>;
 
 const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation }) => {
 	const { item } = route.params;
@@ -101,7 +101,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 					</View>
 				</View>
 			</ScrollView>
-			<Navbar
+			{/* <Navbar
 				chosenIcon={0}
 				setChosenIcon={(index: number) => {
 					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
@@ -110,7 +110,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 						name: names[index],
 					});
 				}}
-			/>
+			/> */}
 		</>
 	);
 };

@@ -5,9 +5,9 @@ import styles from './cart.styles';
 import { TEXT } from '../../constants';
 import { CartItemContextComponents } from '../../context';
 import { type DtItem, type DtItemCart } from '../../interfaces';
-import { Buttons, Item, Navbar, Search } from '../../components';
+import { Buttons, Item, Search } from '../../components';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack';
-import { type NavbarParamList, type RootStackParamList } from '../../navigation/types';
+import { type CartParamList } from '../../navigation/types/cart.types';
 
 const {
 	CURRENCY_SYMBOL,
@@ -21,7 +21,7 @@ const {
 	SEARCH_PLACEHOLDER,
 } = TEXT;
 
-type CartScreenNavigationProp = NativeStackScreenProps<RootStackParamList, 'Cart'>;
+type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 
 const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const { CartItemContext } = CartItemContextComponents;
@@ -99,7 +99,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				RenderItem={RenderItem}
 				numColumns={1}
 			/>
-			<Navbar
+			{/* <Navbar
 				chosenIcon={1}
 				setChosenIcon={(index: number) => {
 					const pages: Array<keyof NavbarParamList> = ['Store', 'Cart', 'Favourites'];
@@ -108,7 +108,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 						name: names[index],
 					});
 				}}
-			/>
+			/> */}
 		</>
 	);
 };

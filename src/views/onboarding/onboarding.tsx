@@ -1,6 +1,6 @@
 import React from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { OnboardingParams, RootStackParamList } from '../../navigation/types';
+import type { OnboardingParams, OnboardingParamList } from '../../navigation/types/onboarding.types';
 import { OnboardingTemplate } from '../../components';
 import type { ImageSourcePropType } from 'react-native';
 
@@ -10,9 +10,9 @@ const imagesSrc: Array<ImageSourcePropType | undefined> = [
 	require('./onboarding3.png'),
 ];
 
-type OnboardingScreen1NavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding1'>;
-type OnboardingScreen2NavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding2'>;
-type OnboardingScreen3NavigationProp = NativeStackScreenProps<RootStackParamList, 'Onboarding3'>;
+type OnboardingScreen1NavigationProp = NativeStackScreenProps<OnboardingParamList, 'Onboarding1'>;
+type OnboardingScreen2NavigationProp = NativeStackScreenProps<OnboardingParamList, 'Onboarding2'>;
+type OnboardingScreen3NavigationProp = NativeStackScreenProps<OnboardingParamList, 'Onboarding3'>;
 
 const onboardingScreens = [0, 1, 2].map((index) => {
 	return function getOnboardingScreen(navigatePrev: () => void, navigateNext: () => void) {
@@ -48,9 +48,9 @@ const OnboardingScreen2: React.FC<OnboardingScreen2NavigationProp> = ({ navigati
 };
 
 const OnboardingScreen3: React.FC<OnboardingScreen3NavigationProp> = ({ navigation }) => {
-	const navigateNext = (): void => { navigation.navigate('Store', { name: 'Tienda' }); };
+	const navigateNext = (): void => { navigation.navigate('Home', { name: 'Tienda' }); };
 	const navigatePrev = (): void => { navigation.navigate('Onboarding2', navProps); };
 	return onboardingScreens[2](navigatePrev, navigateNext);
 };
 
-export { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3 };
+export default { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3 };
