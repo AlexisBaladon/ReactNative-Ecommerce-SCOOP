@@ -24,6 +24,9 @@ const createStyles = (width: number): any =>
 		activeIcon: {
 			tintColor: 'white',
 		},
+		pressedButton: {
+			opacity: 0.5,
+		},
 	});
 
 export default createStyles;

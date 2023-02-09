@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
 	image: {
 		width: width * 0.75,
 		height: height * 0.4,
+		resizeMode: 'contain',
 	},
 	bottomInfo: {
 		position: 'relative',

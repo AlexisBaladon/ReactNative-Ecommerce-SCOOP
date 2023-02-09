@@ -2,9 +2,9 @@ import React from 'react'
 import { Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import type { RootBottomTabParamList } from '../types/tabs.types'
-import StoreNavigator from '../storeNavigation';
-import CartNavigator from '../cartNavigation';
-import FavouritesNavigator from '../favouritesNavigation';
+import StoreNavigator from '../stacks/storeNavigation';
+import CartNavigator from '../stacks/cartNavigation';
+import FavouritesNavigator from '../stacks/favouritesNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import styles from './tabs.styles';
 
