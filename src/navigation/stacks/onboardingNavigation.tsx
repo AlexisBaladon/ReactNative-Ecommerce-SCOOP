@@ -19,8 +19,8 @@ const OnboardingNavigator: React.FC = () => {
                     name="Onboarding1"
                     component={OnboardingScreen1}
                     options={({ route }) => ({
-                        animation: route.params?.animation,
-                        headerShown: route.params?.headerShown,
+                        animation: route.params?.animation ?? 'slide_from_right',
+                        headerShown: route.params?.headerShown ?? false,
                     })}
                 />
                 <Stack.Screen

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Image } from 'react-native';
 import { ImageHandler } from '../../../helpers';
-import { useCounter } from '../../../hooks';
 import type DtItem from '../../../interfaces/dtItem';
 import CloseButton from '../../global/buttons/closeButton/closeButton';
 import Counter from '../../global/buttons/counter/counter';
@@ -27,21 +26,9 @@ const Item: React.FC<IProps> = ({
 	minCount = 1,
 	maxCount = 99,
 }) => {
+	const count = item.amount;
 	const { getItemImage } = ImageHandler;
-	const [count, countRef, addToCounter, resetCounter] = useCounter(
-		minCount,
-		item.amount,
-		maxCount,
-	);
 	const imageSrc = getItemImage(item.imageURL);
-
-	useEffect(() => {
-		resetCounter(item.amount);
-	}, [item.amount]);
-
-	useEffect(() => {
-		updateItemCounter(item.id, countRef.current);
-	}, [count]);
 
 	return (
 		<View style={styles.item}>
@@ -91,13 +78,9 @@ const Item: React.FC<IProps> = ({
 					<Counter
 						addCharacter={'+'}
 						decCharacter={'-'}
-						addToCounter={() => {
-							addToCounter(1);
-						}}
+						addToCounter={() => {updateItemCounter(item.id, count + 1)}}
 						count={count}
-						decToCounter={() => {
-							addToCounter(-1);
-						}}
+						decToCounter={() => {updateItemCounter(item.id, count - 1)}}
 					/>
 				</View>
 			</View>

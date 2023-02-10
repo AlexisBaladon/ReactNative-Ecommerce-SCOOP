@@ -1,20 +1,21 @@
-import { type DtItem } from "../../interfaces";
-import { type CartActionTypes } from '../types/cart.types';
+import { BUSINESS } from "../../constants";
+import { items } from "../../data";
+import type { DtItemCart } from "../../interfaces";
+import type { CartActions } from '../types';
 
 export interface StoreState {
-    items: DtItem[],
+    items: DtItemCart[],
 }
 
 const initialState: StoreState = {
     items: [],
 };
 
-const cartReducer = (
-    state: StoreState = initialState, 
-    action: { type: CartActionTypes, itemId?: DtItem['id'] }
-): StoreState => {
-    let item: DtItem | undefined;
-    if (action.itemId !== undefined) { item = state.items.find(item => item.id === action.itemId) };
+const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
+
+const cartReducer = (state: StoreState = initialState, action: CartActions): StoreState => {
+    const foundItem = items.find(item => item.id === action.itemId);
+    const item = foundItem === undefined ? undefined : { ...foundItem, amount: action.counter ?? 1 };
     switch (action.type) {
         case 'ADD_ITEM_CART':
             return {
@@ -30,6 +31,19 @@ const cartReducer = (
             return {
                 ...state,
                 items: [],
+            };
+        case 'UPDATE_COUNTER_CART':
+            return {
+                ...state,
+                items: state.items.map(
+                    item => item.id !== action.itemId ? item: { 
+                        ...item, 
+                        amount: action.counter === undefined ? item.amount :
+                            action.counter < MIN_ITEMS_IN_CART ? MIN_ITEMS_IN_CART :
+                            action.counter > MAX_ITEMS_IN_CART ? MAX_ITEMS_IN_CART :
+                            action.counter
+                    }
+                ),
             };
         default:
             return state;

@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View, TouchableHighlight } from 'react-native';
-import { CartItemContextComponents } from '../../../context';
 import { type DtItem } from '../../../interfaces';
 import CustomText from '../../global/customText/customText';
 import { TEXT } from '../../../constants';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { addItemCart} from '../../../store/actions';
+import type { StoreState } from '../../../store';
 import styles from './itemStoreInfo.styles';
 
 interface IProps {
@@ -14,14 +15,15 @@ interface IProps {
 const { ADD_BUTTON_MESSAGE, CURRENCY_SYMBOL } = TEXT;
 
 const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
-	const { CartItemContext } = CartItemContextComponents;
-	const { addItem, isItemInCart } = useContext(CartItemContext);
-
-	const isInCart = isItemInCart(item.id);
+	const dispatch = useDispatch();
+	
+	const isInCart: boolean = useSelector((state: StoreState) => state.cart.items.some((cartItem: DtItem) => cartItem.id === item.id));
 	const addToCartButtonStyle = isInCart ? styles.addToCartButtonDisabled : {};
 
 	const handleOnAddToCart = (): void => {
-		if (!isInCart) addItem({ ...item, amount: 1 });
+		if (!isInCart) {
+			dispatch(addItemCart(item.id));
+		}
 	};
 
 	return (

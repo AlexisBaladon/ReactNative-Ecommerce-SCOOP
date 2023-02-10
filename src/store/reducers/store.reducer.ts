@@ -25,6 +25,7 @@ const storeReducer = (state: StoreState = initialState, action: any): StoreState
                 ...state,
                 filterCondition: action.query,
             };
+            
         default:
             return state;
     }

@@ -1,46 +1,50 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { Image, ScrollView, TouchableHighlight, View } from 'react-native';
 import { LikeableContainer, CustomText, Counter } from '../../components';
 import { ImageHandler } from '../../helpers';
 import { type StoreParamList } from '../../navigation/types/store.types';
-import { TEXT } from '../../constants';
-import { CartItemContextComponents } from '../../context';
-import { useCounter } from '../../hooks';
+import { TEXT, BUSINESS } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './detail.styles';
+import { addItemCart, updateCounterCart } from '../../store/actions';
+import type { StoreState } from '../../store';
+import { useCounter } from '../../hooks';
 
 const { CURRENCY_SYMBOL, ADD_TO_CART_BUTTON_MESSAGE } = TEXT;
+const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
 
 type DetailScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Detail'>;
 
 const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation }) => {
+	const dispatch = useDispatch();
 	const { item } = route.params;
-	const { CartItemContext } = CartItemContextComponents;
-	const { addItem, isItemInCart, updateCount, findItem } = useContext(CartItemContext);
-	const cartItem = findItem(item.id);
-	const [count, countRef, addToCounter, resetCounter] = useCounter(
-		1,
-		cartItem !== undefined ? cartItem.amount : 1,
-		99,
-	);
+	const cartItem = useSelector((state: StoreState) => state.cart.items.find((cartItem) => cartItem.id === item.id));
+	const itemInCart = cartItem !== undefined;
+	const { count, resetCounter } = useCounter(MIN_ITEMS_IN_CART, cartItem?.amount , MAX_ITEMS_IN_CART);
+	
+	const handleUpdateCount = (count: number): void => {
+		resetCounter(count);
+		if (!itemInCart) return;
+		dispatch(updateCounterCart(item.id, count)); // TODO: after component is no longer focused
+	};
 
-	useEffect(() => {
-		resetCounter(cartItem?.amount);
-	}, [cartItem?.amount]);
+	const handleAddCount = (): void => {
+		handleUpdateCount(cartItem?.amount !== undefined ? cartItem.amount + 1 : count + 1);
+	};
 
-	useEffect(() => {
-		if (cartItem == null) return;
-		updateCount(cartItem.id, countRef.current);
-	}, [count]);
-
-	const { getItemImage } = ImageHandler;
-	const image = getItemImage(item.imageURL);
-	const itemInCart = isItemInCart(item.id);
+	const handleDecCount = (): void => {
+		handleUpdateCount(cartItem?.amount !== undefined ? cartItem.amount - 1 : count - 1);
+	};
 
 	const handleAddItem = (): void => {
 		if (itemInCart) return;
-		addItem({ ...item, amount: count });
+		dispatch(addItemCart(item.id, count));
 	};
+
+	const { getItemImage } = ImageHandler;
+	const image = getItemImage(item.imageURL);
+
 
 	return (
 		<>
@@ -63,13 +67,9 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 								<Counter
 									addCharacter={'+'}
 									decCharacter={'-'}
-									addToCounter={() => {
-										addToCounter(1);
-									}}
+									addToCounter={handleAddCount}
 									count={cartItem?.amount??count}
-									decToCounter={() => {
-										addToCounter(-1);
-									}}
+									decToCounter={handleDecCount}
 								/>
 							</View>
 						</View>
