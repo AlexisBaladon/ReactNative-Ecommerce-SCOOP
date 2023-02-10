@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { OnboardingScreens } from '../views';
-import { type OnboardingParamList } from './types/onboarding.types';
-import TabsNavigator from './tabs/tabs';
+import { OnboardingScreens } from '../../views';
+import { type OnboardingParamList } from '../types/onboarding.types';
+import TabsNavigator from '../tabs/tabs';
 import { NavigationContainer } from '@react-navigation/native';
 const { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3 } = OnboardingScreens;
 

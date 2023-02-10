@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { StoreScreen, DetailScreen } from '../views';
-import { type StoreParamList } from './types/store.types';
+import { StoreScreen, DetailScreen } from '../../views';
+import { type StoreParamList } from '../types/store.types';
 
 const Stack = createNativeStackNavigator<StoreParamList>();
 

@@ -24,7 +24,7 @@ const onboardingScreens = [0, 1, 2].map((index) => {
 				currentIndex={index}
 				navigatePrev={navigatePrev}
 				navigateNext={navigateNext}
-				sliderWidth={130}
+				sliderWidth={110}
 				sliderLength={3}
 				buttonWidth={50}
 				imageSrc={imagesSrc[index]}

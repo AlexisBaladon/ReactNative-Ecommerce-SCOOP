@@ -3,7 +3,7 @@ import { Fonts as fonts } from './assets';
 import { CartItemContextComponents, FavouritesContextComponents } from './context';
 import { Provider } from 'react-redux';
 import store from './store';
-import OnboardingNavigator from './navigation/onboardingNavigation';
+import { OnboardingNavigation } from './navigation/stacks';
 
 const App = (): React.ReactElement => {
 	const [loaded] = useFonts(fonts);
@@ -16,7 +16,7 @@ const App = (): React.ReactElement => {
 		<Provider store={store}>
 			<CartItemContextProvider>
 				<FavouriteItemsContextProvider>
-					<OnboardingNavigator />
+					<OnboardingNavigation />
 				</FavouriteItemsContextProvider>
 			</CartItemContextProvider>
 		</Provider>

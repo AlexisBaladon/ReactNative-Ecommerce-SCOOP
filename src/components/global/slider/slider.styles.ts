@@ -14,7 +14,7 @@ const createStyles = (sliderWidth: number): any =>
 		slice: {
 			borderRadius: sliderWidth * 0.8,
 			width: sliderWidth * 0.3,
-			height: sliderWidth * 0.08,
+			height: sliderWidth * 0.06,
 			backgroundColor: LIGHT_COLOR,
 			margin: sliderWidth * 0.03,
 		},

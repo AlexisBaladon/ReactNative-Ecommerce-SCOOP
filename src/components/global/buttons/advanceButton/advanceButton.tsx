@@ -27,7 +27,13 @@ const AdvanceButton: React.FC<IProps> = ({
 }) => {
 	const styles = createStyles(width);
 	return (
-		<Pressable onPress={onPress} style={[styles.container, active && styles.activeButton]}>
+		<Pressable 
+			onPress={onPress} 
+			style= {({pressed}) => [
+				styles.container, active && styles.activeButton,
+				pressed && styles.pressedButton
+			]}
+		>
 			<Image
 				style={[styles.icon, degreesRotated.get(direction), active && styles.activeIcon]}
 				source={require('./arrow.png')}
