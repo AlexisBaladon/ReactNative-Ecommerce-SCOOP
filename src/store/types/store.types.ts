@@ -1,0 +1,4 @@
+export const storeTypes = {
+    GET_ITEMS_STORE: 'GET_ITEMS_STORE',
+    FILTER_ITEMS_STORE: 'FILTER_ITEMS_STORE',
+};

@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Image, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
-import { FavouritesContextComponents } from '../../../../context';
+import { useDispatch, useSelector } from 'react-redux';
 import { type DtItem } from '../../../../interfaces';
 import createStyles from './likeableContainer.styles';
+import { type StoreState } from '../../../../store';
+import { addItemFavourites, removeItemFavourites } from '../../../../store/actions';
 
 interface IProps {
 	children: React.ReactNode;
@@ -11,17 +13,25 @@ interface IProps {
 }
 
 const LikeableContainer: React.FC<IProps> = ({ children, item, width = 30 }) => {
-	const { FavouriteItemsContext } = FavouritesContextComponents;
+	const dispatch = useDispatch();
+	const itemExists: boolean = useSelector((state: StoreState) => state.favourites.items).some(
+		(it: DtItem) => it.id === item.id
+	);
 
-	const { addItem, deleteItem, itemExists } = useContext(FavouriteItemsContext);
+	const handleLike = (item: DtItem): void => {
+		dispatch(addItemFavourites(item.id));
+	};
+
+	const handleRemoveLike = (item: DtItem): void => {
+		dispatch(removeItemFavourites(item.id));
+	};
 
 	const handlePressHeart = (): void => {
-		itemExists(item.id) ? deleteItem(item.id) : addItem(item);
+		itemExists ? handleRemoveLike(item) : handleLike(item);
 	};
 
 	const styles = createStyles(width);
-	const existsItem = itemExists(item.id);
-	const heartStyle = existsItem ? styles.likedHeart : StyleSheet.create({});
+	const heartStyle = itemExists ? styles.likedHeart : StyleSheet.create({});
 
 	return (
 		<>

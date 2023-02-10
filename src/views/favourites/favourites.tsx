@@ -1,13 +1,16 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Items, Buttons, Search } from '../../components';
 import { View, Alert, Pressable } from 'react-native';
 import { styles } from './favourites.styles';
 import { TEXT } from '../../constants';
-import { FavouritesContextComponents } from '../../context';
 import { type DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
+import { useSelector, useDispatch } from 'react-redux';
 import { type FavouritesParamList } from '../../navigation/types/favourites.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { removeAllItemsFavourites } from '../../store/actions/favourites.action';
+import type { StoreState } from '../../store';
+import { filterItemFunction } from '../../helpers/itemFilter';
 
 const {
 	NO_ITEMS_MESSAGE,
@@ -20,19 +23,25 @@ const {
 type FavouritesScreenNavigationProp = NativeStackScreenProps<FavouritesParamList, 'Favourites'>;
 
 const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation }) => {
-	const { FavouriteItemsContext } = FavouritesContextComponents;
-	const { shownItems, deleteAllItems, filterByText } = useContext(FavouriteItemsContext);
+	const dispatch = useDispatch();
+	const items: DtItem[] = useSelector((state: StoreState) => state.favourites.items);
+	const [query, setQuery] = useState(''); // TODO: useFilter custom hook
+	const shownItems = useMemo(() => items.filter(filterItemFunction(query)), [items, query]);
+
+	const handleDeleteAllItems = (): void => {
+		dispatch(removeAllItemsFavourites());
+	};
 
 	useEffect(() => {
 		return () => {
-			filterByText('');
+			setQuery('');
 		};
 	}, []);
 
 	const onHandleDeleteAllItems = (): void => {
 		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
-			{ text: DELETE_ALL_ITEMS_TITLE, onPress: deleteAllItems },
+			{ text: DELETE_ALL_ITEMS_TITLE, onPress: handleDeleteAllItems },
 		]);
 	};
 
@@ -68,7 +77,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 	return (
 		<>
 			<View style={styles.search}>
-				<Search onChangeText={filterByText} placeHolder={SEARCH_PLACEHOLDER} />
+				<Search onChangeText={setQuery} placeHolder={SEARCH_PLACEHOLDER} />
 			</View>
 			<Buttons buttons={buttons} />
 			<Items

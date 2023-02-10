@@ -1,15 +1,29 @@
 import { type DtItem } from "../../interfaces";
+import { items } from "../../data";
 
-const initialState = {
-    items: [],
+interface StoreState {
+    items: DtItem[],
+    filterCondition: string | null,
+    selectedItem: DtItem | null,
+}
+
+const initialState: StoreState = {
+    items,
+    filterCondition: null,
+    selectedItem: null,
 };
 
-const storeReducer = (state = initialState, action: any): DtItem[] => {
+const storeReducer = (state: StoreState = initialState, action: any): StoreState => {
     switch (action.type) {
-        case 'STORE_ITEMS':
+        case 'SELECT_ITEM':
             return {
                 ...state,
-                items: action.payload,
+                selectedItem: state.items.find(item => item.id === action.itemId) ?? null,
+            };
+        case 'FILTER_ITEMS':
+            return {
+                ...state,
+                filterCondition: action.query,
             };
         default:
             return state;

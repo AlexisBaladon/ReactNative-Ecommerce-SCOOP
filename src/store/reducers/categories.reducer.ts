@@ -1,13 +1,24 @@
-const initialState = {
-    categories: [],
+interface CategoryActions {
+    type: 'STORE_CATEGORIES', 
+    categories: string[] 
 };
 
-const categoriesReducer = (state = initialState, action: any): string[] => {
+interface StoreState {
+    categories: string[],
+    selected: string | null,
+};
+
+const initialState = {
+    categories: [],
+    selected: null,
+};
+
+const categoriesReducer = (state = initialState, action: CategoryActions): string[] => {
     switch (action.type) {
         case 'STORE_CATEGORIES':
             return {
                 ...state,
-                categories: action.payload,
+                categories: action.categories,
             };
         default:
             return state;

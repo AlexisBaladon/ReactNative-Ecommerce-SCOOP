@@ -1,32 +1,35 @@
 import { createStore, combineReducers } from 'redux';
 
-import CategoryReducer from './reducers/category';
-import ProductReducer from './reducers/product';
+import { FavouritesReducer } from './reducers';
+import type { FavouritesState } from './types';
+
+export interface StoreState {
+    favourites: FavouritesState,
+}
 
 const rootReducer = combineReducers({
-    category: CategoryReducer,
-    product: ProductReducer
+    favourites: FavouritesReducer,
 });
 
 export default createStore(rootReducer);
 
-//in app
+// in app
 
-import { Provider } from 'react-redux';
+// import { Provider } from 'react-redux';
 
-const App = () => {
-    return (
-        <Provider store={store}>
-            <AppNavigator />
-        </Provider>
-    )
-}
+// const App = () => {
+//     return (
+//         <Provider store={store}>
+//             <AppNavigator />
+//         </Provider>
+//     )
+// }
 
-//in consumers
+// //in consumers
 
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 
-const dispatch = useDispatch();
-const categories = useSelector(state => state.category.categories);
+// const dispatch = useDispatch();
+// const categories = useSelector(state => state.category.categories);
 
-dispatch({ type: 'STORE_CATEGORIES', payload: categories });
+// dispatch({ type: 'STORE_CATEGORIES', payload: categories });
