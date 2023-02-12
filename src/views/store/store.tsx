@@ -1,37 +1,27 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search } from '../../components';
 import styles from './store.styles';
 import { type DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
-import { items } from '../../data';
 import { type StoreParamList } from '../../navigation/types/store.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
+import { useSelector } from 'react-redux';
+import type { ReduxStoreState } from '../../store';
+import { filterItemFunction } from '../../helpers/itemFilter';
 
 const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
 type StoreScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Store'>;
 
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
-	const [storeItems, setStoreItems] = useState<DtItem[]>([]);
 	const [searchText, setSearchText] = useState<string>('');
-
-	const filterByText = (item: DtItem): boolean => {
-		return (
-			item.title.toLowerCase().includes(searchText.toLowerCase()) ||
-			item.description.toLowerCase().includes(searchText.toLowerCase()) ||
-			searchText === ''
-		);
-	};
+	const items = useSelector((state: ReduxStoreState) => state.store.items);
 
 	const shownItems = useMemo(() => {
-		return storeItems.filter(filterByText);
-	}, [searchText, storeItems]);
-
-	useEffect(() => {
-		setStoreItems(items);
-	}, []);
+		return items.filter(filterItemFunction(searchText));
+	}, [searchText, items]);
 
 	interface TButton {
 		title: string;

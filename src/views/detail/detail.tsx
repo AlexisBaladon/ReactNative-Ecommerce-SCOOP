@@ -8,7 +8,7 @@ import { TEXT, BUSINESS } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './detail.styles';
 import { addItemCart, updateCounterCart } from '../../store/actions';
-import type { StoreState } from '../../store';
+import type { ReduxStoreState } from '../../store';
 import { useCounter } from '../../hooks';
 
 const { CURRENCY_SYMBOL, ADD_TO_CART_BUTTON_MESSAGE } = TEXT;
@@ -19,7 +19,7 @@ type DetailScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Detail
 const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation }) => {
 	const dispatch = useDispatch();
 	const { item } = route.params;
-	const cartItem = useSelector((state: StoreState) => state.cart.items.find((cartItem) => cartItem.id === item.id));
+	const cartItem = useSelector((state: ReduxStoreState) => state.cart.items.find((cartItem) => cartItem.id === item.id));
 	const itemInCart = cartItem !== undefined;
 	const { count, resetCounter } = useCounter(MIN_ITEMS_IN_CART, cartItem?.amount , MAX_ITEMS_IN_CART);
 	

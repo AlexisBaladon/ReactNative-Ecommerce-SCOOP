@@ -10,7 +10,7 @@ import { type CartParamList } from '../../navigation/types/cart.types';
 import { updateCounterCart, removeItemCart, removeAllItemsCart } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterItemFunction } from '../../helpers/itemFilter';
-import type { StoreState } from '../../store';
+import type { ReduxStoreState } from '../../store';
 
 const {
 	CURRENCY_SYMBOL,
@@ -29,7 +29,7 @@ type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const dispatch = useDispatch();
 	const [query, setQuery] = useState('');
-	const items = useSelector((state: StoreState) => state.cart.items);
+	const items = useSelector((state: ReduxStoreState) => state.cart.items);
 	const shownItems = useMemo(() => (items.filter(filterItemFunction(query))), [query, items])
 
 	useEffect(() => {

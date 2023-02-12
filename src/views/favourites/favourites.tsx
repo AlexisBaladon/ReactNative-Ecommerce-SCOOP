@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { type FavouritesParamList } from '../../navigation/types/favourites.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { removeAllItemsFavourites } from '../../store/actions/favourites.action';
-import type { StoreState } from '../../store';
+import type { ReduxStoreState } from '../../store';
 import { filterItemFunction } from '../../helpers/itemFilter';
 
 const {
@@ -24,7 +24,7 @@ type FavouritesScreenNavigationProp = NativeStackScreenProps<FavouritesParamList
 
 const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation }) => {
 	const dispatch = useDispatch();
-	const items: DtItem[] = useSelector((state: StoreState) => state.favourites.items);
+	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.favourites.items);
 	const [query, setQuery] = useState(''); // TODO: useFilter custom hook
 	const shownItems = useMemo(() => items.filter(filterItemFunction(query)), [items, query]);
 

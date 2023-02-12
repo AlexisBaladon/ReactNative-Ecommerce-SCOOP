@@ -5,7 +5,7 @@ import CustomText from '../../global/customText/customText';
 import { TEXT } from '../../../constants';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItemCart} from '../../../store/actions';
-import type { StoreState } from '../../../store';
+import type { ReduxStoreState } from '../../../store';
 import styles from './itemStoreInfo.styles';
 
 interface IProps {
@@ -17,7 +17,7 @@ const { ADD_BUTTON_MESSAGE, CURRENCY_SYMBOL } = TEXT;
 const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 	const dispatch = useDispatch();
 	
-	const isInCart: boolean = useSelector((state: StoreState) => state.cart.items.some((cartItem: DtItem) => cartItem.id === item.id));
+	const isInCart: boolean = useSelector((state: ReduxStoreState) => state.cart.items.some((cartItem: DtItem) => cartItem.id === item.id));
 	const addToCartButtonStyle = isInCart ? styles.addToCartButtonDisabled : {};
 
 	const handleOnAddToCart = (): void => {

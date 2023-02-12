@@ -1,4 +1,12 @@
+import { type DtItem } from "../../interfaces";
+
 export const storeTypes = {
-    GET_ITEMS_STORE: 'GET_ITEMS_STORE',
-    FILTER_ITEMS_STORE: 'FILTER_ITEMS_STORE',
 };
+
+export interface StoreState {
+    items: DtItem[],
+}
+
+export interface StoreActions {
+    itemId?: DtItem['id'],
+}

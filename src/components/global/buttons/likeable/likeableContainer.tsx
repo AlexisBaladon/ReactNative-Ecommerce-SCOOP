@@ -3,7 +3,7 @@ import { Image, TouchableWithoutFeedback, View, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { type DtItem } from '../../../../interfaces';
 import createStyles from './likeableContainer.styles';
-import { type StoreState } from '../../../../store';
+import { type ReduxStoreState } from '../../../../store';
 import { addItemFavourites, removeItemFavourites } from '../../../../store/actions';
 
 interface IProps {
@@ -14,7 +14,7 @@ interface IProps {
 
 const LikeableContainer: React.FC<IProps> = ({ children, item, width = 30 }) => {
 	const dispatch = useDispatch();
-	const itemExists: boolean = useSelector((state: StoreState) => state.favourites.items).some(
+	const itemExists: boolean = useSelector((state: ReduxStoreState) => state.favourites.items).some(
 		(it: DtItem) => it.id === item.id
 	);
 
