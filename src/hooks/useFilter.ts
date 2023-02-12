@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useDeferredValue } from 'react';
 import { type FilterableItem, filterItemFunction } from '../helpers/itemFilter';
 
 function useFilter<T extends FilterableItem>(
@@ -10,11 +10,12 @@ function useFilter<T extends FilterableItem>(
     filteredItems: T[],
 } {
 	const [query, setQuery] = useState(initialQuery);
+    const deferredQuery = useDeferredValue(query);
 
 	const filteredItems: T[] = useMemo(() => {
-        if (query === '') return items;
-        return items.filter(filterItemFunction<T>(query));
-    }, [query, items]);
+        if (deferredQuery === '') return items;
+        return items.filter(filterItemFunction<T>(deferredQuery));
+    }, [deferredQuery, items]);
 
     const filterText = (query: string): void => {
         setQuery(query);
