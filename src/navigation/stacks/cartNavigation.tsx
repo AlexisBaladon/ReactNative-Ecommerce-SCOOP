@@ -10,7 +10,6 @@ const StoreNavigator: React.FC = () => {
         <Stack.Navigator
             initialRouteName="Cart"
             screenOptions={{
-                title: 'Carrito',
                 headerStyle: { backgroundColor: 'white' },
                 headerTitleAlign: 'center',
                 headerTitleStyle: { fontWeight: 'bold' },
@@ -19,9 +18,9 @@ const StoreNavigator: React.FC = () => {
             <Stack.Screen
                 name="Cart"
                 component={CartScreen}
-                options={({ route }) => ({
-                    title: route.params?.name,
-                })}
+                options={{
+                    title: 'Carrito',
+                }}
             />
         </Stack.Navigator>
 	);

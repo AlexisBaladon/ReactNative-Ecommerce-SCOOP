@@ -11,7 +11,6 @@ const StoreNavigator: React.FC = () => {
 		<Stack.Navigator
 			initialRouteName="Store"
 			screenOptions={{
-				title: 'Tienda',
 				headerStyle: { backgroundColor: 'white' },
 				headerTitleStyle: { fontWeight: 'bold' },
 				headerTitleAlign: 'center',
@@ -20,9 +19,9 @@ const StoreNavigator: React.FC = () => {
 			<Stack.Screen
 				name="Store"
 				component={StoreScreen}
-				options={({ route }) => ({
-					title: route.params?.name,
-				})}
+				options={{
+					title: 'Tienda',
+				}}
 			/>
 			<Stack.Screen
 				name="Detail"

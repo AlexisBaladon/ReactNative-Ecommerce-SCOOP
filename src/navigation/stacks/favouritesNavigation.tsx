@@ -11,7 +11,6 @@ const StoreNavigator: React.FC = () => {
         <Stack.Navigator
             initialRouteName="Favourites"
             screenOptions={{
-                title: 'Favoritos',
                 headerStyle: { backgroundColor: 'white' },
                 headerTitleAlign: 'center',
                 headerTitleStyle: { fontWeight: 'bold' },
@@ -20,9 +19,9 @@ const StoreNavigator: React.FC = () => {
             <Stack.Screen
                 name="Favourites"
                 component={FavouritesScreen}
-                options={({ route }) => ({
-                    title: route.params?.name,
-                })}
+                options={{
+                    title: 'Favoritos',
+                }}
             />
         </Stack.Navigator>
 	);
