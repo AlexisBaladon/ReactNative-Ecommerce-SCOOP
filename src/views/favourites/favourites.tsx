@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Items, Buttons, Search } from '../../components';
 import { View, Alert, Pressable } from 'react-native';
 import { styles } from './favourites.styles';
@@ -10,7 +10,7 @@ import { type FavouritesParamList } from '../../navigation/types/favourites.type
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { removeAllItemsFavourites } from '../../store/actions/favourites.action';
 import type { ReduxStoreState } from '../../store';
-import { filterItemFunction } from '../../helpers/itemFilter';
+import useFilter from '../../hooks/useFilter';
 
 const {
 	NO_ITEMS_MESSAGE,
@@ -25,8 +25,7 @@ type FavouritesScreenNavigationProp = NativeStackScreenProps<FavouritesParamList
 const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation }) => {
 	const dispatch = useDispatch();
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.favourites.items);
-	const [query, setQuery] = useState(''); // TODO: useFilter custom hook
-	const shownItems = useMemo(() => items.filter(filterItemFunction(query)), [items, query]);
+	const { filterText, filteredItems } = useFilter(items);
 
 	const handleDeleteAllItems = (): void => {
 		dispatch(removeAllItemsFavourites());
@@ -34,7 +33,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 
 	useEffect(() => {
 		return () => {
-			setQuery('');
+			filterText('');
 		};
 	}, []);
 
@@ -77,11 +76,11 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 	return (
 		<>
 			<View style={styles.search}>
-				<Search onChangeText={setQuery} placeHolder={SEARCH_PLACEHOLDER} />
+				<Search onChangeText={filterText} placeHolder={SEARCH_PLACEHOLDER} />
 			</View>
 			<Buttons buttons={buttons} />
 			<Items
-				shownItems={shownItems}
+				shownItems={filteredItems}
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={2}

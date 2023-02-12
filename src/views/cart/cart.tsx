@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import Items from '../../components/items/items/items';
 import { View, Alert, Pressable } from 'react-native';
 import styles from './cart.styles';
@@ -9,8 +9,8 @@ import { type NativeStackScreenProps } from '@react-navigation/native-stack';
 import { type CartParamList } from '../../navigation/types/cart.types';
 import { updateCounterCart, removeItemCart, removeAllItemsCart } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterItemFunction } from '../../helpers/itemFilter';
 import type { ReduxStoreState } from '../../store';
+import useFilter from '../../hooks/useFilter';
 
 const {
 	CURRENCY_SYMBOL,
@@ -28,13 +28,12 @@ type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 
 const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const dispatch = useDispatch();
-	const [query, setQuery] = useState('');
 	const items = useSelector((state: ReduxStoreState) => state.cart.items);
-	const shownItems = useMemo(() => (items.filter(filterItemFunction(query))), [query, items])
+	const { filterText, filteredItems } = useFilter(items);
 
 	useEffect(() => {
 		return () => {
-			setQuery('');
+			filterText('');
 		};
 	}, []);
 
@@ -101,11 +100,11 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 	return (
 		<>
 			<View style={styles.search}>
-				<Search onChangeText={setQuery} placeHolder={SEARCH_PLACEHOLDER} />
+				<Search onChangeText={filterText} placeHolder={SEARCH_PLACEHOLDER} />
 			</View>
 			<Buttons buttons={buttons} />
 			<Items
-				shownItems={shownItems}
+				shownItems={filteredItems}
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={1}
