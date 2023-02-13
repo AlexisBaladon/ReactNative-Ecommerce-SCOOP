@@ -20,6 +20,8 @@ const createStyles = (spaceFromBottom: number = 0): any => StyleSheet.create({
 		marginVertical: 15,
 	},
 	orderDescription: {
+		padding: 15,
+		paddingBottom: 5,
 	},
 	buttons: {
 		display: 'flex',
@@ -27,7 +29,7 @@ const createStyles = (spaceFromBottom: number = 0): any => StyleSheet.create({
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
 		height: height * 0.075,
-		bottom: spaceFromBottom + 10,
+		bottom: spaceFromBottom - 5,
 	},
 	button: {
 		height: '100%',
@@ -39,12 +41,18 @@ const createStyles = (spaceFromBottom: number = 0): any => StyleSheet.create({
 
 	},
     checkoutButton: {
-		width: width * 0.6,
+		width: width * 0.7,
         backgroundColor: MAIN_COLOR,
     },
 	deleteButton: {
-		width: width * 0.25,
+		width: width * 0.15,
 		backgroundColor: '#f00000',
+	},
+	deleteIcon: {
+		tintColor: '#fff',
+		width: 35,
+		height: 35,
+
 	},
     buttonText: {
         color: LIGHT_COLOR,

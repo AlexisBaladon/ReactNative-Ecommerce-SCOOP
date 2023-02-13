@@ -10,10 +10,11 @@ interface IProps {
 	numColumns: number;
 	noItemsMessage: string;
 	heightPercentage?: number;
+	paddingBottom?: number;
 }
 
-const Items: React.FC<IProps> = ({ shownItems, RenderItem, numColumns, noItemsMessage, heightPercentage }) => {
-	const styles = createStyles(heightPercentage);
+const Items: React.FC<IProps> = ({ shownItems, RenderItem, numColumns, noItemsMessage, heightPercentage, paddingBottom }) => {
+	const styles = createStyles(heightPercentage, paddingBottom);
 	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
 
 	return (

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert, Pressable, TouchableHighlight } from 'react-native';
+import { View, Alert, Pressable, Image, TouchableHighlight } from 'react-native';
 import createStyles from './cart.styles';
 import { TEXT } from '../../constants';
 import { type DtItem, type DtItemCart } from '../../interfaces';
@@ -93,7 +93,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 
 	return (
 		<>
-			<View style={[styles.orderDescription,{padding: 15}]}>
+			<View style={[styles.orderDescription]}>
 				<OrderDescription
 					totalItems={items.length}
 					subtotal={subtotal}
@@ -108,10 +108,11 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				RenderItem={RenderItem}
 				numColumns={1}
 				heightPercentage={60}
+				paddingBottom={35}
 			/>
 			<View style={styles.buttons}>
 				<TouchableHighlight onPress={handleDeleteAllItems} style={[styles.deleteButton, styles.button]}>
-					<CustomText textType='bold' style={styles.buttonText}>Vaciar</CustomText>
+					<Image source={require('./delete.png')} style={styles.deleteIcon} />
 				</TouchableHighlight>
 				<TouchableHighlight style={[styles.checkoutButton, styles.button]}>
 					<CustomText textType='bold' style={styles.buttonText}>{CONFIRM_ORDER_TITLE}</CustomText>
