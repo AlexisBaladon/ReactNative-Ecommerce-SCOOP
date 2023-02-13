@@ -2,6 +2,7 @@ import type { DtItemCart } from "../../interfaces";
 
 export interface CartState {
     items: DtItemCart[],
+    subtotal: number,
 }
 
 export type CartActionTypes = 

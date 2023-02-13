@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert, Pressable } from 'react-native';
-import styles from './cart.styles';
+import { View, Alert, Pressable, TouchableHighlight } from 'react-native';
+import createStyles from './cart.styles';
 import { TEXT } from '../../constants';
 import { type DtItem, type DtItemCart } from '../../interfaces';
-import { Buttons, Item, Search } from '../../components';
+import { CustomText, Item, OrderDescription } from '../../components';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack';
 import { type CartParamList } from '../../navigation/types/cart.types';
 import { updateCounterCart, removeItemCart, removeAllItemsCart } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
 import useFilter from '../../hooks/useFilter';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 const {
 	CURRENCY_SYMBOL,
@@ -21,7 +22,7 @@ const {
 	DELETE_ALL_ITEMS_DESCRIPTION,
 	DELETE_ITEM_DESCRIPTION,
 	CONFIRM_DELETE_ITEM_TITLE,
-	SEARCH_PLACEHOLDER,
+	CONFIRM_ORDER_TITLE,
 } = TEXT;
 
 type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
@@ -29,7 +30,10 @@ type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const dispatch = useDispatch();
 	const items = useSelector((state: ReduxStoreState) => state.cart.items);
+	const subtotal = useSelector((state: ReduxStoreState) => state.cart.subtotal);
 	const { filterText, filteredItems } = useFilter(items);
+	const tabBarHeight = useBottomTabBarHeight();
+	const styles = createStyles(tabBarHeight);
 
 	useEffect(() => {
 		return () => {
@@ -67,16 +71,6 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			{ text: DELETE_ALL_ITEMS_TITLE, onPress: () => dispatch(removeAllItemsCart()) },
 		]);
 	};
-
-	interface TButton {
-		title: string;
-		onPress: () => void;
-		pressed: boolean;
-	}
-
-	const buttons: TButton[] = [
-		{ title: DELETE_ALL_ITEMS_TITLE, onPress: handleDeleteAllItems, pressed: false },
-	];
 	
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
@@ -99,16 +93,31 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 
 	return (
 		<>
-			<View style={styles.search}>
-				<Search onChangeText={filterText} placeHolder={SEARCH_PLACEHOLDER} />
+			<View style={[styles.orderDescription,{padding: 15}]}>
+				<OrderDescription
+					totalItems={items.length}
+					subtotal={subtotal}
+					discountPercentage={25}
+					carriage={25}
+					currencySymbol={CURRENCY_SYMBOL}
+				/>
 			</View>
-			<Buttons buttons={buttons} />
 			<Items
 				shownItems={filteredItems}
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={1}
+				heightPercentage={60}
 			/>
+			<View style={styles.buttons}>
+				<TouchableHighlight onPress={handleDeleteAllItems} style={[styles.deleteButton, styles.button]}>
+					<CustomText textType='bold' style={styles.buttonText}>Vaciar</CustomText>
+				</TouchableHighlight>
+				<TouchableHighlight style={[styles.checkoutButton, styles.button]}>
+					<CustomText textType='bold' style={styles.buttonText}>{CONFIRM_ORDER_TITLE}</CustomText>
+				</TouchableHighlight>
+
+			</View>
 		</>
 	);
 };

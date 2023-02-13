@@ -5,10 +5,12 @@ import type { CartActions } from '../types';
 
 export interface StoreState {
     items: DtItemCart[],
+    subtotal: number,
 }
 
 const initialState: StoreState = {
     items: [],
+    subtotal: 0,
 };
 
 const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
@@ -21,17 +23,16 @@ const cartReducer = (state: StoreState = initialState, action: CartActions): Sto
             return {
                 ...state,
                 items: item === undefined ? state.items : [...state.items, item],
+                subtotal: item === undefined ? state.subtotal : state.subtotal + item.priceDollars,
             };
         case 'REMOVE_ITEM_CART':
             return {
                 ...state,
                 items: action.itemId === undefined ? state.items : state.items.filter(item => item.id !== action.itemId),
+                subtotal: action.itemId === undefined ? state.subtotal : state.subtotal - (state.items.find(item => item.id === action.itemId)?.priceDollars ?? 0),
             };
         case 'REMOVE_ALL_ITEMS_CART':
-            return {
-                ...state,
-                items: [],
-            };
+            return initialState;
         case 'UPDATE_COUNTER_CART':
             return {
                 ...state,
@@ -43,6 +44,11 @@ const cartReducer = (state: StoreState = initialState, action: CartActions): Sto
                             action.counter > MAX_ITEMS_IN_CART ? MAX_ITEMS_IN_CART :
                             action.counter
                     }
+                ),
+                subtotal: state.items.reduce(
+                    (subtotal, item) => item.id !== action.itemId ? subtotal : 
+                        subtotal + (action.counter === undefined ? item.amount : action.counter) * item.priceDollars,
+                    0
                 ),
             };
         default:

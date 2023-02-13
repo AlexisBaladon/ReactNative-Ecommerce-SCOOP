@@ -6,6 +6,9 @@ export { default as Button } from './global/buttons/options/button/button';
 export { default as Buttons } from './global/buttons/options/buttons/buttons';
 export { default as Slider } from './global/slider/slider';
 
+// Cart
+export { default as OrderDescription } from './cart/orderDescription';
+
 // Main page
 export { default as Header } from './global/header/header';
 export { default as Search } from './global/search/search';

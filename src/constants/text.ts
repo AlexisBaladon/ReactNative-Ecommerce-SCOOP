@@ -10,6 +10,7 @@ const DELETE_ITEM_TITLE = 'Borrar item';
 const DELETE_ITEM_DESCRIPTION = '¿Estás seguro/a que de que quieres borrar este item?';
 const DELETE_ALL_ITEMS_DESCRIPTION = '¿Estás seguro/a de que quieres borrar todos tus items?';
 const DELETE_ALL_ITEMS_TITLE = 'Borrar todo';
+const CONFIRM_ORDER_TITLE = 'Confirmar orden';
 
 const TEXT = {
 	SEARCH_PLACEHOLDER,
@@ -20,6 +21,7 @@ const TEXT = {
 	HEADER_TITLE,
 	CANCEL_TITLE,
 	CONFIRM_DELETE_ITEM_TITLE,
+	CONFIRM_ORDER_TITLE,
 	DELETE_ITEM_TITLE,
 	DELETE_ITEM_DESCRIPTION,
 	DELETE_ALL_ITEMS_DESCRIPTION,

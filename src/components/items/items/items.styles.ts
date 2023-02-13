@@ -2,13 +2,13 @@ import { StyleSheet } from 'react-native';
 
 const paddingBottom = 65;
 
-const styles = StyleSheet.create({
+const createStyles = (heightPercentage: number = 100): any => StyleSheet.create({
 	itemsContainer: {
 		width: '100%',
+		height: `${heightPercentage}%`,
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'center',
-		alignItems: 'center',
 		marginTop: 10,
 		marginBottom: 40,
 		paddingBottom,
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default styles;
+export default createStyles;
