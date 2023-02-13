@@ -7,4 +7,5 @@ export type CartParams = {
 export type CartParamList = {
     Cart: CartParams;
     Detail: CartParams & { item: DtItem };
+    Checkout: CartParams;
 }

@@ -41,10 +41,16 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		};
 	}, []);
 
-	const handlePress = (item: DtItem): void => {
+	const handlePressItem = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
 			item,
+		});
+	};
+
+	const handleCheckout = (): void => {
+		navigation.navigate('Checkout', {
+			name: 'Confirmar compra',
 		});
 	};
 
@@ -77,7 +83,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			<Pressable
 				style={styles.item}
 				onPress={() => {
-					handlePress(item);
+					handlePressItem(item);
 				}}
 			>
 				<Item
@@ -114,7 +120,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				<TouchableHighlight onPress={handleDeleteAllItems} style={[styles.deleteButton, styles.button]}>
 					<Image source={require('./delete.png')} style={styles.deleteIcon} />
 				</TouchableHighlight>
-				<TouchableHighlight style={[styles.checkoutButton, styles.button]}>
+				<TouchableHighlight onPress={handleCheckout} style={[styles.checkoutButton, styles.button]}>
 					<CustomText textType='bold' style={styles.buttonText}>{CONFIRM_ORDER_TITLE}</CustomText>
 				</TouchableHighlight>
 

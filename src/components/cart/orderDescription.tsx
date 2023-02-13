@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import styles from './orderDescription.styles';
 import CustomText from '../global/customText/customText';
+import Line from '../global/line/line';
 
 interface IProps {
     totalItems: number;
@@ -37,13 +38,7 @@ const OrderDescription: React.FC<IProps> = ({
             <CustomText size='small'>Envío:</CustomText>
             <CustomText size='small' style={styles.value}>{carriage === 0? 'Gratis' : `${carriage}${currencySymbol}`}</CustomText>
         </View>
-        <View
-        style={{
-            borderBottomColor: 'black',
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            width: '100%',
-        }}
-        />
+        <Line />
         <View style={styles.titleValue}>
             <CustomText textType='bold'>Total:</CustomText>
             <View style={styles.priceDiscountRow}>

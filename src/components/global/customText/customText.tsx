@@ -4,8 +4,8 @@ import { Text, StyleSheet } from 'react-native';
 type CustomTextProps = {
 	children: React.ReactNode;
 	textType?: 'regular' | 'bold' | 'light' | 'italic';
-	size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'big';
-	style?: object;
+	size?: 'xx-small' | 'x-small' | 'small' | 'medium' | 'big' | 'x-big' | 'xx-big';
+	style?: object | object[];
 } & Text['props'];
 
 const CustomText: React.FC<CustomTextProps> = (props) => {
@@ -22,14 +22,20 @@ const CustomText: React.FC<CustomTextProps> = (props) => {
 		['small', styles.small],
 		['medium', styles.medium],
 		['big', styles.big],
+		['x-big', styles.xBig],
+		['xx-big', styles.xxBig],
 	]);
 
 	const sizeStyle = sizeStyles.get(props?.size !== undefined ? props.size : 'medium');
 	const textStyle = textStyles.get(props?.textType !== undefined ? props.textType : 'regular');
-	const propsStyle = { ...props.style, ...textStyle };
+	let originalStyle = props.style !== undefined ? props.style : {};
+	if (Array.isArray(originalStyle)) {
+		originalStyle = originalStyle.flat();
+	}
+	originalStyle = { ...originalStyle, ...textStyle };
 
 	return (
-		<Text {...props} style={[propsStyle, sizeStyle]}>
+		<Text {...props} style={[originalStyle, sizeStyle]}>
 			{props.children}
 		</Text>
 	);
@@ -47,6 +53,12 @@ const styles = StyleSheet.create({
 	},
 	italic: {
 		fontFamily: 'Poppins-Italic',
+	},
+	xxBig: {
+		fontSize: 48,
+	},
+	xBig: {
+		fontSize: 36,
 	},
 	big: {
 		fontSize: 24,

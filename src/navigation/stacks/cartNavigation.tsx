@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { CartScreen } from '../../views';
+import { CartScreen, CheckoutScreen } from '../../views';
 import { type CartParamList } from '../types/cart.types';
 
 const Stack = createNativeStackNavigator<CartParamList>();
@@ -20,6 +20,13 @@ const StoreNavigator: React.FC = () => {
                 component={CartScreen}
                 options={{
                     title: 'Carrito',
+                }}
+            />
+            <Stack.Screen
+                name="Checkout"
+                component={CheckoutScreen}
+                options={{
+                    title: 'Confirmar compra',
                 }}
             />
         </Stack.Navigator>
