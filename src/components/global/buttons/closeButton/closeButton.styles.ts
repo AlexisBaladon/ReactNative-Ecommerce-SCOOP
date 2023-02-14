@@ -17,6 +17,7 @@ const getStyles = (height: number, width: number): StyleSheet.NamedStyles<any> =
 			width: width / 2,
 			height: height / 2,
 			tintColor: MAIN_COLOR,
+
 		},
 	});
 

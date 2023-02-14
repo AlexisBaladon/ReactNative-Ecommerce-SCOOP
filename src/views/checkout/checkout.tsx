@@ -1,108 +1,132 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import React, { useRef } from 'react';
 import { Image, ScrollView, TextInput, TouchableHighlight, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './checkout.styles';
 import type { ReduxStoreState } from '../../store';
 import type { CartParamList } from '../../navigation/types/cart.types';
-import { Buttons, CustomText, Line } from '../../components';
-import { COLORS } from '../../constants';
+import { CustomText, Line } from '../../components';
+import { COLORS, TEXT } from '../../constants';
+import { useKeyboardListener } from '../../hooks';
 
-const { LIGHT_COLOR } = COLORS;
+const { LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
+const { CURRENCY_SYMBOL, BRAND_NAME, PRICE_TITLE, getPriceDiscountTitle } = TEXT;
 
 type CheckoutScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Checkout'>;
 
 const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigation }) => {
-	const dispatch = useDispatch();
-	const cartItems = useSelector((state: ReduxStoreState) => state.cart.items);
+	const handleKeyboardDidShow = (): void => {
+		buttonContainerRef?.current?.setNativeProps({ style: {opacity: 0} });
+	};
+	
+	const handleKeyboardDidHide = (): void => {
+		buttonContainerRef?.current?.setNativeProps({ style: {opacity: 1} });
+	};
+	
+	useKeyboardListener(handleKeyboardDidShow, handleKeyboardDidHide);
+	const totalPrice = useSelector((state: ReduxStoreState) => state.cart.total);
+	const discountPercentage = useSelector((state: ReduxStoreState) => state.cart.discountPercentage);
 
 	const locationRef = useRef<TextInput>(null);
 	const phoneRef = useRef<TextInput>(null);
 	const postalCodeRef = useRef<TextInput>(null);
+	const buttonContainerRef = useRef<View>(null);
 
-	return (
+	const handleOnFocus = (ref: React.RefObject<TextInput>): void => {
+		ref?.current?.setNativeProps({ style: styles.pressedinput });
+	};
+
+	const handleOnBlur = (ref: React.RefObject<TextInput>): void => {
+		ref?.current?.setNativeProps({ style: styles.input });
+	};
+
+	return (<>
 		<View style={styles.screen}>
 			<ScrollView style={styles.itemCheckoutScroll}>
 				<View style={styles.costData}>
 					<View style={styles.brand}>
 						<Image source={require('./cart.png')} style={styles.storeIcon} />
 						<CustomText size='big' textType='bold' style={styles.text}>
-							Tienda
+							{BRAND_NAME}
 						</CustomText>
 					</View>
-					<CustomText size='medium' style={styles.text}>
-						Precio
+					<CustomText size='small' style={{...styles.text, ...styles.priceTitle}}>
+						{PRICE_TITLE}
 					</CustomText>
 					<CustomText size='x-big' textType='bold' style={styles.text}>
-						5000$
+						{totalPrice} {CURRENCY_SYMBOL}
 					</CustomText>
-					<Line color={LIGHT_COLOR} height={3}/>
-					<CustomText size='small' style={styles.text}>
-						Precio con descuento del 10%
+					<Line color={LIGHT_COLOR} height={2}/>
+					<CustomText size='small' style={{...styles.text, ...styles.costDataDescription}}>
+						{getPriceDiscountTitle(discountPercentage)}
 					</CustomText>
 				</View>
 				<View style={styles.form}>
-					<CustomText size='big' textType='bold'>
-						Método de pago
-					</CustomText>
-					<Buttons buttons={[
-						{
-							title: 'Efectivo',
-							onPress: () => {},
-							pressed: true,
-						},
-						{
-							title: 'Paypal',
-							onPress: () => {},
-							pressed: false,
-						},
-						{
-							title: 'Transferencia',
-							onPress: () => {},
-							pressed: false,
-						},
-					]} />
-					<CustomText size='medium'>
-						Ubicación
-					</CustomText>
-					<TextInput
-						style={styles.input}
-						placeholder='Calle, número, piso, puerta'
-						ref={locationRef}
-						onFocus={() => locationRef?.current?.setNativeProps({ style: styles.pressedinput })}
-						onBlur={() => locationRef?.current?.setNativeProps({ style: styles.input })}
-					/>
-					<CustomText size='medium'>
-						Teléfono
-					</CustomText>
-					<TextInput
-						style={styles.input}
-						placeholder='Teléfono'
-						ref={phoneRef}
-						onFocus={() => phoneRef?.current?.setNativeProps({ style: styles.pressedinput })}
-						onBlur={() => phoneRef?.current?.setNativeProps({ style: styles.input })}
-					/>
-					<CustomText size='medium'>
-						Código postal
-					</CustomText>
-					<TextInput
-						style={styles.input}
-						placeholder='Código postal'
-						ref={postalCodeRef}
-						onFocus={() => postalCodeRef?.current?.setNativeProps({ style: styles.pressedinput })}
-						onBlur={() => postalCodeRef?.current?.setNativeProps({ style: styles.input })}
-					/>
+					<View style={styles.formItem}>
+						<CustomText>
+							Método de pago
+						</CustomText>
+						<TouchableHighlight style={styles.paymentButton} onPress={() => {}}>
+							<CustomText size='small' style={styles.text}>
+								Efectivo
+							</CustomText>
+						</TouchableHighlight>
+					</View>
+					<View style={styles.formItem}>
+						<CustomText size='medium'>
+							Ubicación
+						</CustomText>
+						<TextInput
+							style={styles.input}
+							placeholder='Calle, número, piso, puerta'
+							placeholderTextColor={NEUTRAL_COLOR}
+							ref={locationRef}
+							onFocus={() => {handleOnFocus(locationRef)}}
+							onBlur={() => {handleOnBlur(locationRef)}}
+						/>
+					</View>
+					<View style={styles.formItem}>
+						<CustomText size='medium'>
+							Teléfono
+						</CustomText>
+						<TextInput
+							style={styles.input}
+							placeholderTextColor={NEUTRAL_COLOR}
+							placeholder='Teléfono'
+							ref={phoneRef}
+							onFocus={() => {handleOnFocus(phoneRef)}}
+							onBlur={() => {handleOnBlur(phoneRef)}}
+						/>
+					</View>
+					<View style={styles.formItem}>
+						<CustomText size='medium'>
+							Código postal
+						</CustomText>
+						<TextInput
+							style={styles.input}
+							placeholderTextColor={NEUTRAL_COLOR}
+							placeholder='Código postal'
+							ref={postalCodeRef}
+							onFocus={() => {handleOnFocus(postalCodeRef)}}
+							onBlur={() => {handleOnBlur(postalCodeRef)}}
+						/>
+					</View>
 				</View>
 			</ScrollView>
-			<View style={{}}>
-				<TouchableHighlight style={styles.checkoutButton} onPress={() => {}}>
-					<CustomText style={styles.text}>
+			<View style={styles.buttonContainer}
+				ref={buttonContainerRef}
+			>
+				<TouchableHighlight 
+					style={styles.checkoutButton}
+					onPress={() => {}}
+				>
+					<CustomText textType='bold' style={styles.text}>
 						Confirmar compra
 					</CustomText>
 				</TouchableHighlight>
 			</View>
 		</View>
-	);
+	</>);
 };
 
 export default CheckoutScreen;

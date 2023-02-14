@@ -9,7 +9,7 @@ export default StyleSheet.create({
         height: 65,
         paddingTop: 10,
         borderTopEndRadius: 20,
-        borderTopStartRadius: 20
+        borderTopStartRadius: 20,
     },
     icon: {
 		tintColor: NEUTRAL_COLOR,

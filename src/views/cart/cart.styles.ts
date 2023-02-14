@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { COLORS } from '../../constants/index';
 
-const { LIGHT_COLOR, MAIN_COLOR } = COLORS;
+const { LIGHT_COLOR, MAIN_COLOR, RED } = COLORS;
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,20 +33,27 @@ const createStyles = (spaceFromBottom: number = 0): any => StyleSheet.create({
 	},
 	button: {
 		height: '100%',
-        borderRadius: 5,
+        borderRadius: 8,
         alignItems: 'center',
         justifyContent: 'center',
 		justifySelf: 'center',
 		alignSelf: 'center',
 
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 2,
+		elevation: 3,
 	},
     checkoutButton: {
+		borderRadius: 15,
 		width: width * 0.7,
         backgroundColor: MAIN_COLOR,
     },
 	deleteButton: {
+		borderRadius: 15,
 		width: width * 0.15,
-		backgroundColor: '#f00000',
+		backgroundColor: RED,
 	},
 	deleteIcon: {
 		tintColor: '#fff',

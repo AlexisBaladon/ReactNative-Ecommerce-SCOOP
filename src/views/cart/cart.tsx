@@ -30,7 +30,11 @@ type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const dispatch = useDispatch();
 	const items = useSelector((state: ReduxStoreState) => state.cart.items);
+	const totalItems = useSelector((state: ReduxStoreState) => state.cart.totalItems);
 	const subtotal = useSelector((state: ReduxStoreState) => state.cart.subtotal);
+	const carriage = useSelector((state: ReduxStoreState) => state.cart.carriage);
+	const total = useSelector((state: ReduxStoreState) => state.cart.total);
+	const discountPercentage = useSelector((state: ReduxStoreState) => state.cart.discountPercentage);
 	const { filterText, filteredItems } = useFilter(items);
 	const tabBarHeight = useBottomTabBarHeight();
 	const styles = createStyles(tabBarHeight);
@@ -101,10 +105,11 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		<>
 			<View style={[styles.orderDescription]}>
 				<OrderDescription
-					totalItems={items.length}
+					totalItems={totalItems}
 					subtotal={subtotal}
-					discountPercentage={25}
-					carriage={25}
+					total={total}
+					discountPercentage={discountPercentage}
+					carriage={carriage}
 					currencySymbol={CURRENCY_SYMBOL}
 				/>
 			</View>

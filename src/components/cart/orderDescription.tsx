@@ -7,6 +7,7 @@ import Line from '../global/line/line';
 interface IProps {
     totalItems: number;
     subtotal: number;
+    total: number;
     discountPercentage: number;
     carriage: number;
     currencySymbol: string;
@@ -15,17 +16,12 @@ interface IProps {
 const OrderDescription: React.FC<IProps> = ({ 
     totalItems,
     subtotal,
+    total,
     discountPercentage,
     carriage,
     currencySymbol
 }) => {
-    let totalPrice = 0;
-    if (totalItems > 0) {
-        totalPrice = subtotal + carriage;
-        totalPrice = totalPrice - (totalPrice * discountPercentage / 100);
-        totalPrice = totalItems > 0 ? totalPrice : totalPrice;
-        totalPrice = Number(totalPrice.toFixed(2));
-    }
+    const totalPrice = Number(total.toFixed(2));
     return (<>
         <View style={styles.OrderDescription}>
             <View style={styles.titleValue}>
@@ -45,7 +41,7 @@ const OrderDescription: React.FC<IProps> = ({
                 <CustomText textType='bold'>Total:</CustomText>
                 <View style={styles.priceDiscountRow}>
                     <CustomText style={styles.value}> {(discountPercentage > 0 && totalItems > 0) ? `(-${discountPercentage}%)` : ''} </CustomText>
-                    <CustomText textType='bold' style={styles.totalValue}> {totalPrice} {currencySymbol}</CustomText>
+                    <CustomText textType='bold' style={styles.totalValue}> {totalPrice}{currencySymbol}</CustomText>
                 </View>
             </View>
         </View>

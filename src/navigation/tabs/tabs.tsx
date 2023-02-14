@@ -24,6 +24,7 @@ const TabsNavigator: React.FC = () => {
             screenOptions={{ 
                 headerShown: false, 
                 tabBarStyle: styles.tabBar, 
+                tabBarHideOnKeyboard: true,
             }}
         >
             <BottomTab.Screen
