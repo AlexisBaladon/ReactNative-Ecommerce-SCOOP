@@ -13,6 +13,13 @@ const initialState: StoreState = {
     subtotal: 0,
 };
 
+const getUpdatedCounter = (counter: number | undefined): number => {
+    if (counter === undefined) return 0;
+    if (counter < MIN_ITEMS_IN_CART) return MIN_ITEMS_IN_CART;
+    if (counter > MAX_ITEMS_IN_CART) return MAX_ITEMS_IN_CART;
+    return counter;
+}
+
 const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
 
 const cartReducer = (state: StoreState = initialState, action: CartActions): StoreState => {
@@ -39,15 +46,16 @@ const cartReducer = (state: StoreState = initialState, action: CartActions): Sto
                 items: state.items.map(
                     item => item.id !== action.itemId ? item: { 
                         ...item, 
-                        amount: action.counter === undefined ? item.amount :
-                            action.counter < MIN_ITEMS_IN_CART ? MIN_ITEMS_IN_CART :
-                            action.counter > MAX_ITEMS_IN_CART ? MAX_ITEMS_IN_CART :
-                            action.counter
+                        amount: getUpdatedCounter(action.counter)
                     }
                 ),
                 subtotal: state.items.reduce(
-                    (subtotal, item) => item.id !== action.itemId ? subtotal : 
-                        subtotal + (action.counter === undefined ? item.amount : action.counter) * item.priceDollars,
+                    (subtotal, item) => {
+                        if (item.id === action.itemId) {
+                            return subtotal + (item.priceDollars * getUpdatedCounter(action.counter));
+                        }
+                        return subtotal + (item.priceDollars * item.amount);
+                    },
                     0
                 ),
             };
