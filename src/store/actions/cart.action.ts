@@ -12,3 +12,5 @@ export const removeAllItemsCart: () => CartActions =
 
 export const updateCounterCart: (itemId: DtItem['id'], counter: number) => CartActions =
     (itemId, counter) => ({ type: 'UPDATE_COUNTER_CART', itemId, counter });
+
+    

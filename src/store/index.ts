@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 import { FavouritesReducer, CartReducer, StoreReducer } from './reducers';
 import type { FavouritesState, CartState, StoreState } from './types';
@@ -15,4 +16,4 @@ const rootReducer = combineReducers({
     favourites: FavouritesReducer,
 });
 
-export default createStore(rootReducer);
+export default createStore(rootReducer, applyMiddleware(thunk));
