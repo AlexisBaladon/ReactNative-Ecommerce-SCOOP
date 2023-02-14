@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert, Pressable, Image, TouchableHighlight } from 'react-native';
+import { View, Alert, Pressable, Image, TouchableHighlight, Dimensions } from 'react-native';
 import createStyles from './cart.styles';
 import { TEXT } from '../../constants';
 import { type DtItem, type DtItemCart } from '../../interfaces';
@@ -24,6 +24,8 @@ const {
 	CONFIRM_DELETE_ITEM_TITLE,
 	CONFIRM_ORDER_TITLE,
 } = TEXT;
+
+const { height } = Dimensions.get('window');
 
 type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 
@@ -118,7 +120,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={1}
-				heightPercentage={60}
+				heightPercentage={height * 0.07}
 				paddingBottom={35}
 			/>
 			<View style={styles.buttons}>
