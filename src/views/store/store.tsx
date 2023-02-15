@@ -42,7 +42,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 			</Pressable>
 		);
 	};
-	
+
 	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
@@ -55,7 +55,9 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 			<View style={styles.search}>
 				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={setSearchText} />
 			</View>
-			<Buttons buttons={buttons} />
+			<View style={styles.options}>
+				<Buttons buttons={buttons} />
+			</View>
 			<Items
 				shownItems={shownItems}
 				noItemsMessage={NO_ITEMS_MESSAGE}

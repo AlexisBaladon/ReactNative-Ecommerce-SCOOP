@@ -6,27 +6,27 @@ import Slider from '../global/slider/slider';
 import styles from './onboarding.styles';
 
 interface IProps {
-    titleMessage: string;
-    description: string;
-    currentIndex: number;
-    navigatePrev: () => void;
-    navigateNext: () => void;
-    imageSrc: ImageSourcePropType | undefined;
-    sliderWidth: number;
-    sliderLength: number;
-    buttonWidth: number;
+	titleMessage: string;
+	description: string;
+	currentIndex: number;
+	navigatePrev: () => void;
+	navigateNext: () => void;
+	imageSrc: ImageSourcePropType | undefined;
+	sliderWidth: number;
+	sliderLength: number;
+	buttonWidth: number;
 }
 
 const OnboardingTemplate: React.FC<IProps> = ({
-    titleMessage,
-    description,
-    currentIndex,
-    navigatePrev,
-    navigateNext,
-    imageSrc,
-    sliderWidth,
-    sliderLength,
-    buttonWidth,
+	titleMessage,
+	description,
+	currentIndex,
+	navigatePrev,
+	navigateNext,
+	imageSrc,
+	sliderWidth,
+	sliderLength,
+	buttonWidth,
 }) => {
 	return (
 		<View style={styles.onboarding}>

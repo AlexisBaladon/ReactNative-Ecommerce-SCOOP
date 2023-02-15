@@ -1,10 +1,10 @@
-import type { DtItem } from "../../interfaces";
+import type { DtItem } from '../../interfaces';
 
 export type FavouritesParams = {
-    name: string;
-}
+	name: string;
+};
 
 export type FavouritesParamList = {
-    Favourites: FavouritesParams;
-    Detail: FavouritesParams & { item: DtItem };
-}
+	Favourites: FavouritesParams;
+	Detail: FavouritesParams & { item: DtItem };
+};

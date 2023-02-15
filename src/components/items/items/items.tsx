@@ -13,7 +13,14 @@ interface IProps {
 	paddingBottom?: number;
 }
 
-const Items: React.FC<IProps> = ({ shownItems, RenderItem, numColumns, noItemsMessage, heightPercentage, paddingBottom }) => {
+const Items: React.FC<IProps> = ({
+	shownItems,
+	RenderItem,
+	numColumns,
+	noItemsMessage,
+	heightPercentage,
+	paddingBottom,
+}) => {
 	const styles = createStyles(heightPercentage, paddingBottom);
 	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
 

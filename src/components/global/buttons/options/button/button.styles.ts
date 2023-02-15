@@ -3,11 +3,18 @@ import { COLORS } from '../../../../../constants';
 
 const { MAIN_COLOR, LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 
-const styles = (isSelected: boolean): StyleSheet.NamedStyles<any> =>
+const createStyles = (
+	isSelected: boolean,
+	backgroundColor?: string,
+	color?: string,
+	pressedBackgroundColor?: string,
+	pressedColor?: string,
+): StyleSheet.NamedStyles<any> =>
 	StyleSheet.create({
 		button: {
-			backgroundColor: isSelected ? MAIN_COLOR : 'white',
-
+			backgroundColor: isSelected
+				? pressedBackgroundColor ?? MAIN_COLOR
+				: backgroundColor ?? 'white',
 			shadowColor: '#000',
 			shadowOffset: { width: 0, height: 3 },
 			shadowOpacity: 0.2,
@@ -19,8 +26,8 @@ const styles = (isSelected: boolean): StyleSheet.NamedStyles<any> =>
 			paddingHorizontal: 12,
 		},
 		text: {
-			color: isSelected ? LIGHT_COLOR : NEUTRAL_COLOR,
+			color: isSelected ? pressedColor ?? LIGHT_COLOR : color ?? NEUTRAL_COLOR,
 		},
 	});
 
-export default styles;
+export default createStyles;

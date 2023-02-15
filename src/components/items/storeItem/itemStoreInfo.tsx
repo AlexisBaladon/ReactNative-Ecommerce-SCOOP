@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { type DtItem } from '../../../interfaces';
 import CustomText from '../../global/customText/customText';
 import { TEXT } from '../../../constants';
 import { useSelector, useDispatch } from 'react-redux';
-import { addItemCart} from '../../../store/actions';
+import { addItemCart } from '../../../store/actions';
 import type { ReduxStoreState } from '../../../store';
 import styles from './itemStoreInfo.styles';
 
@@ -12,12 +12,14 @@ interface IProps {
 	item: DtItem;
 }
 
-const { ADD_BUTTON_MESSAGE, CURRENCY_SYMBOL } = TEXT;
+const { ADD_BUTTON_MESSAGE, CURRENCY_SYMBOL, ALREADY_ADDED_BUTTON_MESSAGE } = TEXT;
 
 const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 	const dispatch = useDispatch();
-	
-	const isInCart: boolean = useSelector((state: ReduxStoreState) => state.cart.items.some((cartItem: DtItem) => cartItem.id === item.id));
+
+	const isInCart: boolean = useSelector((state: ReduxStoreState) =>
+		state.cart.items.some((cartItem: DtItem) => cartItem.id === item.id),
+	);
 	const addToCartButtonStyle = isInCart ? styles.addToCartButtonDisabled : {};
 
 	const handleOnAddToCart = (): void => {
@@ -36,7 +38,7 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 			>
 				{`${item.priceDollars}${CURRENCY_SYMBOL}`}
 			</CustomText>
-			<TouchableHighlight
+			<TouchableOpacity
 				style={[styles.addToCartButton, addToCartButtonStyle]}
 				onPress={handleOnAddToCart}
 				disabled={isInCart}
@@ -48,9 +50,9 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 					numberOfLines={1}
 					ellipsizeMode="tail"
 				>
-					{ADD_BUTTON_MESSAGE}
+					{isInCart ? ALREADY_ADDED_BUTTON_MESSAGE : ADD_BUTTON_MESSAGE}
 				</CustomText>
-			</TouchableHighlight>
+			</TouchableOpacity>
 		</View>
 	);
 };

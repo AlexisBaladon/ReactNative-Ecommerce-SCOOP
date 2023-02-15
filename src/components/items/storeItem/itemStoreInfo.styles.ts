@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 		marginBottom: 5,
 		padding: 5,
 		borderRadius: 7.5,
-		width: 60,
+		width: 70,
 		height: 30,
 		position: 'absolute',
 		bottom: 0,

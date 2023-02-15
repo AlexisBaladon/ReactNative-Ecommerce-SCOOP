@@ -1,12 +1,11 @@
-import { type DtItem } from "../../interfaces";
+import { type DtItem } from '../../interfaces';
 
-export const storeTypes = {
-};
+export const storeTypes = {};
 
 export interface StoreState {
-    items: DtItem[],
+	items: DtItem[];
 }
 
 export interface StoreActions {
-    itemId?: DtItem['id'],
+	itemId?: DtItem['id'];
 }

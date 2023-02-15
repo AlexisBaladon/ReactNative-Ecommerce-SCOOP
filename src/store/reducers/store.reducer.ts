@@ -1,12 +1,12 @@
-import { items } from "../../data";
-import type { StoreActions, StoreState } from "../types";
+import { items } from '../../data';
+import type { StoreActions, StoreState } from '../types';
 
 const initialState: StoreState = {
-    items,
+	items,
 };
 
 const storeReducer = (state: StoreState = initialState, action?: StoreActions): StoreState => {
-    return state;
-}
+	return state;
+};
 
 export default storeReducer;

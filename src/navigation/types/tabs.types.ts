@@ -1,5 +1,5 @@
 export type RootBottomTabParamList = {
-    StoreTab: undefined;
-    CartTab: undefined;
-    FavouritesTab: undefined;
-}
+	StoreTab: undefined;
+	CartTab: undefined;
+	FavouritesTab: undefined;
+};

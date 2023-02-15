@@ -83,7 +83,7 @@ export default StyleSheet.create({
 		alignItems: 'center',
 		alignSelf: 'center',
 		backgroundColor: MAIN_COLOR,
-		
+
 		shadowColor: '#000',
 		shadowOffset: { width: 0, height: 2 },
 		shadowOpacity: 0.8,
@@ -96,7 +96,7 @@ export default StyleSheet.create({
 		height: '100%',
 		flexDirection: 'column',
 		justifyContent: 'space-between',
-		padding: marginHorizontal*1.5,	
+		padding: marginHorizontal * 1.5,
 		marginBottom: 100,
 	},
 	formItem: {
@@ -104,7 +104,7 @@ export default StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		paddingHorizontal: marginHorizontal,
-		paddingVertical: marginHorizontal*1.25,
+		paddingVertical: marginHorizontal * 1.25,
 	},
 	input: {
 		backgroundColor: 'white',
@@ -112,11 +112,9 @@ export default StyleSheet.create({
 		borderRadius: 5,
 		borderColor: 'rgba(0,0,0,0.2)',
 		borderWidth: 1,
-
-
 	},
 	pressedinput: {
 		borderWidth: 1,
 		borderColor: MAIN_COLOR,
-	}
+	},
 });

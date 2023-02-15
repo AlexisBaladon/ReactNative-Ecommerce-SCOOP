@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'flex-start',
 		alignItems: 'center',
 		width: '100%',
-		paddingHorizontal: 20,
 		height: 25,
 	},
 	categoryContainer: {

@@ -78,9 +78,13 @@ const Item: React.FC<IProps> = ({
 					<Counter
 						addCharacter={'+'}
 						decCharacter={'-'}
-						addToCounter={() => {updateItemCounter(item.id, count + 1)}}
+						addToCounter={() => {
+							updateItemCounter(item.id, count + 1);
+						}}
 						count={count}
-						decToCounter={() => {updateItemCounter(item.id, count - 1)}}
+						decToCounter={() => {
+							updateItemCounter(item.id, count - 1);
+						}}
 					/>
 				</View>
 			</View>
