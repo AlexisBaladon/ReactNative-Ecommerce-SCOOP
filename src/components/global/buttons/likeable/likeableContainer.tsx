@@ -14,9 +14,9 @@ interface IProps {
 
 const LikeableContainer: React.FC<IProps> = ({ children, item, width = 30 }) => {
 	const dispatch = useDispatch();
-	const itemExists: boolean = useSelector((state: ReduxStoreState) => state.favourites.items).some(
-		(it: DtItem) => it.id === item.id
-	);
+	const itemExists: boolean = useSelector(
+		(state: ReduxStoreState) => state.favourites.items,
+	).some((it: DtItem) => it.id === item.id);
 
 	const handleLike = (item: DtItem): void => {
 		dispatch(addItemFavourites(item.id));

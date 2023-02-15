@@ -1,4 +1,4 @@
-import type { DtItem } from "../../interfaces";
+import type { DtItem } from '../../interfaces';
 
 export type StoreParams = {
 	name: string;

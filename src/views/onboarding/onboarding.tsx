@@ -1,6 +1,9 @@
 import React from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { OnboardingParams, OnboardingParamList } from '../../navigation/types/onboarding.types';
+import type {
+	OnboardingParams,
+	OnboardingParamList,
+} from '../../navigation/types/onboarding.types';
 import { OnboardingTemplate } from '../../components';
 import type { ImageSourcePropType } from 'react-native';
 
@@ -36,20 +39,30 @@ const onboardingScreens = [0, 1, 2].map((index) => {
 const navProps: OnboardingParams = { animation: 'slide_from_right', headerShown: false };
 
 const OnboardingScreen1: React.FC<OnboardingScreen1NavigationProp> = ({ navigation }) => {
-	const navigateNext = (): void => { navigation.navigate('Onboarding2', navProps); };
+	const navigateNext = (): void => {
+		navigation.navigate('Onboarding2', navProps);
+	};
 	const navigatePrev = (): void => {};
 	return onboardingScreens[0](navigatePrev, navigateNext);
 };
 
 const OnboardingScreen2: React.FC<OnboardingScreen2NavigationProp> = ({ navigation }) => {
-	const navigateNext = (): void => { navigation.navigate('Onboarding3', navProps); };
-	const navigatePrev = (): void => { navigation.navigate('Onboarding1', navProps); };
+	const navigateNext = (): void => {
+		navigation.navigate('Onboarding3', navProps);
+	};
+	const navigatePrev = (): void => {
+		navigation.navigate('Onboarding1', navProps);
+	};
 	return onboardingScreens[1](navigatePrev, navigateNext);
 };
 
 const OnboardingScreen3: React.FC<OnboardingScreen3NavigationProp> = ({ navigation }) => {
-	const navigateNext = (): void => { navigation.navigate('Home', { name: 'Tienda' }); };
-	const navigatePrev = (): void => { navigation.navigate('Onboarding2', navProps); };
+	const navigateNext = (): void => {
+		navigation.navigate('Home', { name: 'Tienda' });
+	};
+	const navigatePrev = (): void => {
+		navigation.navigate('Onboarding2', navProps);
+	};
 	return onboardingScreens[2](navigatePrev, navigateNext);
 };
 

@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
 	search: {
 		marginVertical: 15,
 	},
+	options: {
+		paddingHorizontal: 25,
+	},
 });
 
 export { styles, itemHeight };

@@ -1,59 +1,127 @@
-import { BUSINESS } from "../../constants";
-import { items } from "../../data";
-import type { DtItemCart } from "../../interfaces";
-import type { CartActions } from '../types';
+import { BUSINESS } from '../../constants';
+import { items } from '../../data';
+import type { DtItem, DtItemCart } from '../../interfaces';
+import type { CartActions, CartState } from '../types';
 
-export interface StoreState {
-    items: DtItemCart[],
-    subtotal: number,
-}
+const initialState: CartState = {
+	items: [],
+	totalItems: 0,
+	subtotal: 0,
+	carriage: 25,
+	discountPercentage: 25,
+	total: 0,
+};
 
-const initialState: StoreState = {
-    items: [],
-    subtotal: 0,
+const getUpdatedCounter = (counter: number | undefined): number => {
+	if (counter === undefined) return 0;
+	if (counter < MIN_ITEMS_IN_CART) return MIN_ITEMS_IN_CART;
+	if (counter > MAX_ITEMS_IN_CART) return MAX_ITEMS_IN_CART;
+	return counter;
+};
+
+const getSubtotal = (state: CartState, action: CartActions): number => {
+	return state.items.reduce((subtotal, item) => {
+		if (item.id === action.itemId) {
+			return subtotal + item.priceDollars * getUpdatedCounter(action.counter);
+		}
+		return subtotal + item.priceDollars * item.amount;
+	}, 0);
+};
+
+const getItemPrice = (items: DtItem[], itemId: DtItem['id']): number => {
+	return items.find((item) => item.id === itemId)?.priceDollars ?? 0;
+};
+
+const getItemAmount = (items: DtItemCart[], itemId: DtItemCart['id']): number => {
+	return items.find((item) => item.id === itemId)?.amount ?? 0;
+};
+
+const updateTotalPrice = (
+	subtotal: number,
+	carriage: number,
+	discountPercentage: number,
+): number => {
+	return subtotal * ((100 - discountPercentage) / 100) + carriage;
+};
+
+const updateItemsAmount = (
+	items: DtItemCart[],
+	itemId: DtItemCart['id'] | undefined,
+	counter: number | undefined,
+): number => {
+	return items.reduce((totalItems, item) => {
+		if (item.id === itemId) {
+			return totalItems + getUpdatedCounter(counter);
+		}
+		return totalItems + item.amount;
+	}, 0);
 };
 
 const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
 
-const cartReducer = (state: StoreState = initialState, action: CartActions): StoreState => {
-    const foundItem = items.find(item => item.id === action.itemId);
-    const item = foundItem === undefined ? undefined : { ...foundItem, amount: action.counter ?? 1 };
-    switch (action.type) {
-        case 'ADD_ITEM_CART':
-            return {
-                ...state,
-                items: item === undefined ? state.items : [...state.items, item],
-                subtotal: item === undefined ? state.subtotal : state.subtotal + item.priceDollars,
-            };
-        case 'REMOVE_ITEM_CART':
-            return {
-                ...state,
-                items: action.itemId === undefined ? state.items : state.items.filter(item => item.id !== action.itemId),
-                subtotal: action.itemId === undefined ? state.subtotal : state.subtotal - (state.items.find(item => item.id === action.itemId)?.priceDollars ?? 0),
-            };
-        case 'REMOVE_ALL_ITEMS_CART':
-            return initialState;
-        case 'UPDATE_COUNTER_CART':
-            return {
-                ...state,
-                items: state.items.map(
-                    item => item.id !== action.itemId ? item: { 
-                        ...item, 
-                        amount: action.counter === undefined ? item.amount :
-                            action.counter < MIN_ITEMS_IN_CART ? MIN_ITEMS_IN_CART :
-                            action.counter > MAX_ITEMS_IN_CART ? MAX_ITEMS_IN_CART :
-                            action.counter
-                    }
-                ),
-                subtotal: state.items.reduce(
-                    (subtotal, item) => item.id !== action.itemId ? subtotal : 
-                        subtotal + (action.counter === undefined ? item.amount : action.counter) * item.priceDollars,
-                    0
-                ),
-            };
-        default:
-            return state;
-    }
-}
+const cartReducer = (state: CartState = initialState, action: CartActions): CartState => {
+	const foundItem = items.find((item) => item.id === action.itemId);
+	const item =
+		foundItem === undefined ? undefined : { ...foundItem, amount: action.counter ?? 1 };
+	const { subtotal, carriage, discountPercentage, total } = state;
+
+	switch (action.type) {
+		case 'ADD_ITEM_CART':
+			return {
+				...state,
+				items: item === undefined ? state.items : [...state.items, item],
+				totalItems: item === undefined ? state.totalItems : state.totalItems + item.amount,
+				subtotal:
+					item === undefined ? subtotal : subtotal + item.priceDollars * item.amount,
+				total:
+					item === undefined
+						? total
+						: updateTotalPrice(
+								subtotal + item.priceDollars * item.amount,
+								carriage,
+								discountPercentage,
+						  ),
+			};
+		case 'REMOVE_ITEM_CART':
+			return {
+				...state,
+				items:
+					action.itemId === undefined
+						? state.items
+						: state.items.filter((item) => item.id !== action.itemId),
+				totalItems:
+					action.itemId === undefined
+						? state.totalItems
+						: state.totalItems - getItemAmount(state.items, action.itemId),
+				subtotal:
+					action.itemId === undefined
+						? subtotal
+						: subtotal - getItemPrice(state.items, action.itemId),
+				total:
+					action.itemId === undefined
+						? total
+						: total - getItemPrice(state.items, action.itemId),
+			};
+		case 'REMOVE_ALL_ITEMS_CART':
+			return initialState;
+		case 'UPDATE_COUNTER_CART':
+			return {
+				...state,
+				items: state.items.map((item) =>
+					item.id !== action.itemId
+						? item
+						: {
+								...item,
+								amount: getUpdatedCounter(action.counter),
+						  },
+				),
+				totalItems: updateItemsAmount(state.items, action.itemId, action.counter),
+				subtotal: getSubtotal(state, action),
+				total: updateTotalPrice(getSubtotal(state, action), carriage, discountPercentage),
+			};
+		default:
+			return state;
+	}
+};
 
 export default cartReducer;

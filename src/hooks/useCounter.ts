@@ -25,7 +25,7 @@ const useCounter = (
 
 	const resetCounter = (value: number = minCount): void => {
 		if (value < minCount) value = minCount;
-		else if (maxCount != null && value > maxCount) value = maxCount; 
+		else if (maxCount != null && value > maxCount) value = maxCount;
 		counterRef.current = value;
 		setCount(value);
 	};

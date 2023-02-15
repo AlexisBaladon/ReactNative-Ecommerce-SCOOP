@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, TextInput, Image, TouchableHighlight } from 'react-native';
+import { View, TextInput, Image, TouchableOpacity } from 'react-native';
 import styles from './search.styles';
 
 interface IProps {
@@ -24,9 +24,9 @@ const Search: React.FC<IProps> = ({ placeHolder, onChangeText, defaultValue = ''
 				/>
 			</View>
 			<View style={styles.filterContainer}>
-				<TouchableHighlight onPress={() => searchInputRef.current?.focus()}>
+				<TouchableOpacity onPress={() => searchInputRef.current?.focus()}>
 					<Image style={styles.filterImage} source={require('./filter.png')} />
-				</TouchableHighlight>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);

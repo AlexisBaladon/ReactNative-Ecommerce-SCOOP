@@ -8,22 +8,22 @@ const Stack = createNativeStackNavigator<FavouritesParamList>();
 
 const StoreNavigator: React.FC = () => {
 	return (
-        <Stack.Navigator
-            initialRouteName="Favourites"
-            screenOptions={{
-                headerStyle: { backgroundColor: 'white' },
-                headerTitleAlign: 'center',
-                headerTitleStyle: { fontWeight: 'bold' },
-            }}
-        >
-            <Stack.Screen
-                name="Favourites"
-                component={FavouritesScreen}
-                options={{
-                    title: 'Favoritos',
-                }}
-            />
-        </Stack.Navigator>
+		<Stack.Navigator
+			initialRouteName="Favourites"
+			screenOptions={{
+				headerStyle: { backgroundColor: 'white' },
+				headerTitleAlign: 'center',
+				headerTitleStyle: { fontWeight: 'bold' },
+			}}
+		>
+			<Stack.Screen
+				name="Favourites"
+				component={FavouritesScreen}
+				options={{
+					title: 'Favoritos',
+				}}
+			/>
+		</Stack.Navigator>
 	);
 };
 

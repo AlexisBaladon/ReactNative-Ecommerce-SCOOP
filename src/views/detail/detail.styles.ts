@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { COLORS } from '../../constants';
 
 const { MAIN_COLOR, NEUTRAL_COLOR } = COLORS;
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
 	itemDetailScroll: {
@@ -10,11 +10,15 @@ export default StyleSheet.create({
 		display: 'flex',
 		position: 'relative',
 		backgroundColor: 'white',
+		marginBottom: height * 0.1,
 	},
 	itemDetail: {},
 	itemImage: {
 		width: '100%',
 		height: 300,
+	},
+	category: {
+		color: MAIN_COLOR,
 	},
 	itemInfo: {
 		flex: 1,
@@ -24,22 +28,43 @@ export default StyleSheet.create({
 	description: {
 		color: NEUTRAL_COLOR,
 	},
+	line: {
+		marginTop: 10,
+	},
+	sections: {
+		marginTop: 20,
+	},
 	bottomInfo: {
+		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'flex-end',
-		paddingTop: '55%',
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		padding: width * 0.05,
+		backgroundColor: 'rgba(255, 255, 255, 0.95)',
+		borderTopEndRadius: 20,
+		borderTopStartRadius: 20,
 	},
+	priceContainer: {},
 	price: {
-		width: '100%',
+		width: width * 0.3,
+		textAlign: 'left',
 		color: MAIN_COLOR,
 	},
 	addButton: {
-		width: width*0.6,
+		width: width * 0.6,
 		backgroundColor: MAIN_COLOR,
 		padding: 20,
 		borderRadius: 10,
+
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.8,
+		shadowRadius: 2,
+		elevation: 4,
 	},
 	disabledButton: {
 		backgroundColor: NEUTRAL_COLOR,

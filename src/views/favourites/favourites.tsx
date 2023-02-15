@@ -78,7 +78,9 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 			<View style={styles.search}>
 				<Search onChangeText={filterText} placeHolder={SEARCH_PLACEHOLDER} />
 			</View>
-			<Buttons buttons={buttons} />
+			<View style={styles.options}>
+				<Buttons buttons={buttons} />
+			</View>
 			<Items
 				shownItems={filteredItems}
 				noItemsMessage={NO_ITEMS_MESSAGE}

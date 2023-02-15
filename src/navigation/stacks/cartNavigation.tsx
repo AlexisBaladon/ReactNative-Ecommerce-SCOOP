@@ -7,29 +7,29 @@ const Stack = createNativeStackNavigator<CartParamList>();
 
 const StoreNavigator: React.FC = () => {
 	return (
-        <Stack.Navigator
-            initialRouteName="Cart"
-            screenOptions={{
-                headerStyle: { backgroundColor: 'white' },
-                headerTitleAlign: 'center',
-                headerTitleStyle: { fontWeight: 'bold' },
-            }}
-        >
-            <Stack.Screen
-                name="Cart"
-                component={CartScreen}
-                options={{
-                    title: 'Carrito',
-                }}
-            />
-            <Stack.Screen
-                name="Checkout"
-                component={CheckoutScreen}
-                options={{
-                    title: 'Confirmar compra',
-                }}
-            />
-        </Stack.Navigator>
+		<Stack.Navigator
+			initialRouteName="Cart"
+			screenOptions={{
+				headerStyle: { backgroundColor: 'white' },
+				headerTitleAlign: 'center',
+				headerTitleStyle: { fontWeight: 'bold' },
+			}}
+		>
+			<Stack.Screen
+				name="Cart"
+				component={CartScreen}
+				options={{
+					title: 'Carrito',
+				}}
+			/>
+			<Stack.Screen
+				name="Checkout"
+				component={CheckoutScreen}
+				options={{
+					title: 'Confirmar compra',
+				}}
+			/>
+		</Stack.Navigator>
 	);
 };
 

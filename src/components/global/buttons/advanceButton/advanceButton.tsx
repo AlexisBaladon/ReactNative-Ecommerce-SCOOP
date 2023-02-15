@@ -27,11 +27,12 @@ const AdvanceButton: React.FC<IProps> = ({
 }) => {
 	const styles = createStyles(width);
 	return (
-		<Pressable 
-			onPress={onPress} 
-			style= {({pressed}) => [
-				styles.container, active && styles.activeButton,
-				pressed && styles.pressedButton
+		<Pressable
+			onPress={onPress}
+			style={({ pressed }) => [
+				styles.container,
+				active && styles.activeButton,
+				pressed && styles.pressedButton,
 			]}
 		>
 			<Image

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert, Pressable, Image, TouchableHighlight } from 'react-native';
+import { View, Alert, Pressable, Image, TouchableOpacity, Dimensions } from 'react-native';
 import createStyles from './cart.styles';
 import { TEXT } from '../../constants';
 import { type DtItem, type DtItemCart } from '../../interfaces';
@@ -25,12 +25,20 @@ const {
 	CONFIRM_ORDER_TITLE,
 } = TEXT;
 
+const { height } = Dimensions.get('window');
+
 type CartScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Cart'>;
 
 const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) => {
 	const dispatch = useDispatch();
 	const items = useSelector((state: ReduxStoreState) => state.cart.items);
+	const totalItems = useSelector((state: ReduxStoreState) => state.cart.totalItems);
 	const subtotal = useSelector((state: ReduxStoreState) => state.cart.subtotal);
+	const carriage = useSelector((state: ReduxStoreState) => state.cart.carriage);
+	const total = useSelector((state: ReduxStoreState) => state.cart.total);
+	const discountPercentage = useSelector(
+		(state: ReduxStoreState) => state.cart.discountPercentage,
+	);
 	const { filterText, filteredItems } = useFilter(items);
 	const tabBarHeight = useBottomTabBarHeight();
 	const styles = createStyles(tabBarHeight);
@@ -58,7 +66,6 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		dispatch(updateCounterCart(id, count));
 	};
 
-	
 	const handleDeleteItem = (id: DtItem['id']): void => {
 		Alert.alert(DELETE_ITEM_TITLE, DELETE_ITEM_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
@@ -70,14 +77,14 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			},
 		]);
 	};
-	
+
 	const handleDeleteAllItems = (): void => {
 		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
 			{ text: DELETE_ALL_ITEMS_TITLE, onPress: () => dispatch(removeAllItemsCart()) },
 		]);
 	};
-	
+
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<Pressable
@@ -96,15 +103,15 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		);
 	};
 
-
 	return (
 		<>
 			<View style={[styles.orderDescription]}>
 				<OrderDescription
-					totalItems={items.length}
+					totalItems={totalItems}
 					subtotal={subtotal}
-					discountPercentage={25}
-					carriage={25}
+					total={total}
+					discountPercentage={discountPercentage}
+					carriage={carriage}
 					currencySymbol={CURRENCY_SYMBOL}
 				/>
 			</View>
@@ -113,17 +120,24 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={1}
-				heightPercentage={60}
+				heightPercentage={height * 0.07}
 				paddingBottom={35}
 			/>
 			<View style={styles.buttons}>
-				<TouchableHighlight onPress={handleDeleteAllItems} style={[styles.deleteButton, styles.button]}>
+				<TouchableOpacity
+					onPress={handleDeleteAllItems}
+					style={[styles.deleteButton, styles.button]}
+				>
 					<Image source={require('./delete.png')} style={styles.deleteIcon} />
-				</TouchableHighlight>
-				<TouchableHighlight onPress={handleCheckout} style={[styles.checkoutButton, styles.button]}>
-					<CustomText textType='bold' style={styles.buttonText}>{CONFIRM_ORDER_TITLE}</CustomText>
-				</TouchableHighlight>
-
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={handleCheckout}
+					style={[styles.checkoutButton, styles.button]}
+				>
+					<CustomText textType="bold" style={styles.buttonText}>
+						{CONFIRM_ORDER_TITLE}
+					</CustomText>
+				</TouchableOpacity>
 			</View>
 		</>
 	);
