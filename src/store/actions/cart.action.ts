@@ -1,10 +1,10 @@
 import { type DtItem } from '../../interfaces';
 import type { CartActions } from '../types/';
 
-export const addItemCart: (itemId: DtItem['id'], counter?: number) => CartActions = (
-	itemId,
+export const addItemCart: (item: DtItem, counter?: number) => CartActions = (
+	item,
 	counter,
-) => ({ type: 'ADD_ITEM_CART', itemId, counter });
+) => ({ type: 'ADD_ITEM_CART', item, counter });
 
 export const removeItemCart: (itemId: DtItem['id']) => CartActions = (itemId) => ({
 	type: 'REMOVE_ITEM_CART',

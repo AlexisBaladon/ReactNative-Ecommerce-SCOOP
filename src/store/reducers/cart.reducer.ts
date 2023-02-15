@@ -1,5 +1,4 @@
 import { BUSINESS } from '../../constants';
-import { items } from '../../data';
 import type { DtItem, DtItemCart } from '../../interfaces';
 import type { CartActions, CartState } from '../types';
 
@@ -22,14 +21,14 @@ const getUpdatedCounter = (counter: number | undefined): number => {
 const getSubtotal = (state: CartState, action: CartActions): number => {
 	return state.items.reduce((subtotal, item) => {
 		if (item.id === action.itemId) {
-			return subtotal + item.priceDollars * getUpdatedCounter(action.counter);
+			return subtotal + item.price * getUpdatedCounter(action.counter);
 		}
-		return subtotal + item.priceDollars * item.amount;
+		return subtotal + item.price * item.amount;
 	}, 0);
 };
 
 const getItemPrice = (items: DtItem[], itemId: DtItem['id']): number => {
-	return items.find((item) => item.id === itemId)?.priceDollars ?? 0;
+	return items.find((item) => item.id === itemId)?.price ?? 0;
 };
 
 const getItemAmount = (items: DtItemCart[], itemId: DtItemCart['id']): number => {
@@ -60,9 +59,9 @@ const updateItemsAmount = (
 const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
 
 const cartReducer = (state: CartState = initialState, action: CartActions): CartState => {
-	const foundItem = items.find((item) => item.id === action.itemId);
-	const item =
-		foundItem === undefined ? undefined : { ...foundItem, amount: action.counter ?? 1 };
+	const item: DtItemCart | undefined = action.item !== undefined ?
+										{ ...action.item, amount: action.counter ?? 1 } :
+										undefined;
 	const { subtotal, carriage, discountPercentage, total } = state;
 
 	switch (action.type) {
@@ -72,12 +71,12 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				items: item === undefined ? state.items : [...state.items, item],
 				totalItems: item === undefined ? state.totalItems : state.totalItems + item.amount,
 				subtotal:
-					item === undefined ? subtotal : subtotal + item.priceDollars * item.amount,
+					item === undefined ? subtotal : subtotal + item.price * item.amount,
 				total:
 					item === undefined
 						? total
 						: updateTotalPrice(
-								subtotal + item.priceDollars * item.amount,
+								subtotal + item.price * item.amount,
 								carriage,
 								discountPercentage,
 						  ),

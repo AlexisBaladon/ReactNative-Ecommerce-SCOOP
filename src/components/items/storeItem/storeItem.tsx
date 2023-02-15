@@ -14,7 +14,7 @@ interface IProps {
 
 const StoreItem: React.FC<IProps> = ({ item, selling }) => {
 	const { getItemImage } = ImageHandler;
-	const imageSrc = getItemImage(item.imageURL);
+	const imageSrc = getItemImage(item.pictureUrl);
 	const AddToCart: React.FC = () => {
 		return selling ? <ItemStoreInfo item={item} /> : null;
 	};

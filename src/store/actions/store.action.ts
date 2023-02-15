@@ -5,7 +5,6 @@ export const getStoreItems = (category?: string) => {
     return async (dispatch: (action: StoreActions) => void) => {
         try {
             const items = await getItemsDB(category);
-            console.log('ITEMS', items);
             dispatch({
                 type: 'GET_ITEMS',
                 items,

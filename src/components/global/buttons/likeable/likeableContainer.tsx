@@ -19,7 +19,7 @@ const LikeableContainer: React.FC<IProps> = ({ children, item, width = 30 }) => 
 	).some((it: DtItem) => it.id === item.id);
 
 	const handleLike = (item: DtItem): void => {
-		dispatch(addItemFavourites(item.id));
+		dispatch(addItemFavourites(item));
 	};
 
 	const handleRemoveLike = (item: DtItem): void => {

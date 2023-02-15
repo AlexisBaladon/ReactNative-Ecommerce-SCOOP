@@ -17,5 +17,6 @@ export const getItems = async (category?: string): Promise<DtItem[]> => {
     const response = await fetch(`${API_URL}/items.json`);
     let data = await response.json();
     data = Object.keys(data).map((key) => ({ ...data[key], id: key }));
+    console.log('DATA', data);
     return data;
 };

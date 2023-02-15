@@ -20,7 +20,6 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.store.items);
 
 	const shownItems = useMemo(() => {
-		console.log('111111111DATATATA', items);
 		if (searchText === '') return items;
 		return items.filter(filterItemFunction(searchText));
 	}, [searchText, items]);

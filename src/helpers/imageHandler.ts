@@ -10,9 +10,8 @@ const getItemImagesIds = (): string[] => {
 };
 
 const getItemImage = (id: string): ImageSourcePropType | undefined => {
-	let foundItem = itemImages.find((image) => image.id === id);
-	if (foundItem == null) foundItem = itemImages.find((image) => image.id === DEFAULT_ID);
-	if (foundItem == null) throw new Error('No default image found');
+	const foundItem = itemImages.find((image) => image.id === id);
+	if (foundItem == null) return { uri: id };
 	return foundItem.src;
 };
 

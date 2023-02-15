@@ -51,11 +51,11 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 
 	const handleAddItem = (): void => {
 		if (itemInCart) return;
-		dispatch(addItemCart(item.id, count));
+		dispatch(addItemCart(item, count));
 	};
 
 	const { getItemImage } = ImageHandler;
-	const image = getItemImage(item.imageURL);
+	const image = getItemImage(item.pictureUrl);
 	const { NEUTRAL_COLOR } = COLORS;
 
 	return (
@@ -105,7 +105,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 			<View style={styles.bottomInfo}>
 				<View style={styles.priceContainer}>
 					<CustomText size="big" textType="bold" style={styles.price}>
-						{item.priceDollars * (cartItem?.amount ?? count)}
+						{item.price * (cartItem?.amount ?? count)}
 						{CURRENCY_SYMBOL}
 					</CustomText>
 				</View>

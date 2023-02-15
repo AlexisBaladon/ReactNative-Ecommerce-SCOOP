@@ -28,7 +28,7 @@ const Item: React.FC<IProps> = ({
 }) => {
 	const count = item.amount;
 	const { getItemImage } = ImageHandler;
-	const imageSrc = getItemImage(item.imageURL);
+	const imageSrc = getItemImage(item.pictureUrl);
 
 	return (
 		<View style={styles.item}>
@@ -61,7 +61,7 @@ const Item: React.FC<IProps> = ({
 					numberOfLines={1}
 					ellipsizeMode="tail"
 				>
-					{`${item.priceDollars * count} ${currencySymbol}`}
+					{`${item.price * count} ${currencySymbol}`}
 				</CustomText>
 			</View>
 			<View style={styles.buttonContainer}>

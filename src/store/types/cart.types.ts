@@ -1,4 +1,4 @@
-import type { DtItemCart } from '../../interfaces';
+import type { DtItem, DtItemCart } from '../../interfaces';
 
 export interface CartState {
 	items: DtItemCart[];
@@ -17,6 +17,7 @@ export type CartActionTypes =
 
 export interface CartActions {
 	type: CartActionTypes;
-	itemId?: DtItemCart['id'];
+	item?: DtItem;
+	itemId?: DtItem['id'];
 	counter?: number;
 }

@@ -1,6 +1,4 @@
-import { type DtItem } from '../../interfaces';
 import type { FavouritesState, FavouritesActions } from '../types';
-import { items } from '../../data';
 
 const initialState: FavouritesState = {
 	items: [],
@@ -10,15 +8,12 @@ const favouritesReducer = (
 	state: FavouritesState = initialState,
 	action: FavouritesActions,
 ): FavouritesState => {
-	let item: DtItem | undefined;
-	if (action.itemId !== undefined) {
-		item = items.find((item) => item.id === action.itemId);
-	}
 	switch (action.type) {
 		case 'ADD_ITEM_FAVOURITES':
+			console.log('action.item', action.item);
 			return {
 				...state,
-				items: item === undefined ? state.items : [...state.items, item],
+				items: action.item === undefined ? state.items : [...state.items, action.item],
 			};
 		case 'REMOVE_ITEM_FAVOURITES':
 			return {

@@ -24,7 +24,7 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 
 	const handleOnAddToCart = (): void => {
 		if (!isInCart) {
-			dispatch(addItemCart(item.id));
+			dispatch(addItemCart(item));
 		}
 	};
 
@@ -36,7 +36,7 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 				numberOfLines={1}
 				ellipsizeMode="tail"
 			>
-				{`${item.priceDollars}${CURRENCY_SYMBOL}`}
+				{`${item.price}${CURRENCY_SYMBOL}`}
 			</CustomText>
 			<TouchableOpacity
 				style={[styles.addToCartButton, addToCartButtonStyle]}
