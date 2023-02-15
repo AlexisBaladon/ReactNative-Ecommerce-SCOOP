@@ -17,9 +17,11 @@ type StoreScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Store'>
 
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
 	const [searchText, setSearchText] = useState<string>('');
-	const items = useSelector((state: ReduxStoreState) => state.store.items);
+	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.store.items);
 
 	const shownItems = useMemo(() => {
+		console.log('111111111DATATATA', items);
+		if (searchText === '') return items;
 		return items.filter(filterItemFunction(searchText));
 	}, [searchText, items]);
 

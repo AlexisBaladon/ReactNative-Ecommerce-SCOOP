@@ -7,6 +7,7 @@ import { OnboardingNavigation } from './navigation/stacks';
 const App = (): React.ReactElement => {
 	const [loaded] = useFonts(fonts);
 
+
 	if (!loaded) return <></>; // TODO: Add a loading screen
 
 	return (

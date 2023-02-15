@@ -1,12 +1,24 @@
-import { items } from "../../data";
 import type { StoreActions, StoreState } from "../types";
 
 const initialState: StoreState = {
-    items,
+    items: [],
 };
 
 const storeReducer = (state: StoreState = initialState, action?: StoreActions): StoreState => {
-    return state;
+    switch (action?.type) {
+        case 'GET_ITEMS':
+            return {
+                ...state,
+                items: action.items !== undefined ? action.items : [],
+            };
+        case 'ERROR_GET_ITEMS':
+            return {
+                ...state,
+                error: action.error,
+            };
+        default:
+            return state;
+    }
 }
 
 export default storeReducer;

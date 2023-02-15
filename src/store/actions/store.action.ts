@@ -1,32 +1,20 @@
-import type { DtItem } from "../../interfaces";
-import type { CartActions } from "../types";
+import type { StoreActions } from "../types";
+import { getItems as getItemsDB } from "../../firebase";
 
-export const getItems = (category?: string) => {
-    return async (dispatch: (action: CartActions) => void) => {
+export const getStoreItems = (category?: string) => {
+    return async (dispatch: (action: StoreActions) => void) => {
         try {
-        const response = await fetch(`${API_URL}/orders.json`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                date: Date.now(),
-                items,
-                total,
-            }),
-        });
-    
-        const result = await response.json();
-    
-        dispatch({
-            type: CONFIRM_ORDER,
-            orderId: result.name,
-            
-        });
-        } catch (error) {
+            const items = await getItemsDB(category);
+            console.log('ITEMS', items);
             dispatch({
-                type: CONFIRM_ORDER,
-                error,
+                type: 'GET_ITEMS',
+                items,
+            });
+        }
+        catch (error) {
+            dispatch({
+                type: 'ERROR_GET_ITEMS',
+                error: error as Error,
             });
         }
     };
