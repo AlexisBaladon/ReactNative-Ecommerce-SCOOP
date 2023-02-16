@@ -9,6 +9,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import styles from './tabs.styles';
 import { useDispatch } from 'react-redux';
 import { getStoreItems } from '../../store/actions';
+import { type ItemFetchParameters } from '../../store/types';
+import { AuthScreen } from '../../views';
 
 const BottomTab = createBottomTabNavigator<RootBottomTabParamList>();
 
@@ -16,6 +18,7 @@ const iconsImages = {
 	home: require('./home.png'),
 	cart: require('./cart.png'),
 	favourites: require('./liked.png'),
+	profile: require('./profile.png'),
 };
 
 const TabsNavigator: React.FC = () => {
@@ -23,7 +26,8 @@ const TabsNavigator: React.FC = () => {
 
 	useEffect(() => {
 		const dispatchAsync = async (): Promise<void> => {
-			(await getStoreItems()(dispatch));
+			const storeParameters: ItemFetchParameters = {orderBy: 'type', orderDirection: 'asc'};
+			(await getStoreItems(storeParameters)(dispatch));
 		};
 		dispatchAsync().catch((error) => {console.log(error)});
 	}, [])
@@ -72,6 +76,19 @@ const TabsNavigator: React.FC = () => {
 						tabBarIcon: ({ focused }) => (
 							<Image
 								source={iconsImages.favourites}
+								style={[styles.icon, focused && styles.chosenIcon]}
+							/>
+						),
+					}}
+				/>
+				<BottomTab.Screen
+					name="ProfileTab"
+					component={AuthScreen}
+					options={{
+						title: '',
+						tabBarIcon: ({ focused }) => (
+							<Image
+								source={iconsImages.profile}
 								style={[styles.icon, focused && styles.chosenIcon]}
 							/>
 						),

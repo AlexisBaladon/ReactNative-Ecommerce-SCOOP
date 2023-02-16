@@ -17,7 +17,7 @@ const CONFIRM_ORDER_TITLE = 'Confirmar orden';
 const RECOMMENDED_TITLE = 'Recomendados';
 const CATEGORIES_TITLE = 'Categorías';
 
-const BRAND_NAME = 'Tienda';
+const BRAND_NAME = 'Scoop';
 
 const TEXT = {
 	BRAND_NAME,

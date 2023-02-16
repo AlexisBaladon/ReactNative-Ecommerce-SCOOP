@@ -1,5 +1,12 @@
 import { API_URL } from "./env";
 import type { DtItem } from "../interfaces";
+import type { ItemFetchParameters } from "../store/types";
+
+const orderByMap = {
+    title: (a: DtItem, b: DtItem) => a.title.localeCompare(b.title),
+    price: (a: DtItem, b: DtItem) => a.price - b.price,
+    type: (a: DtItem, b: DtItem) => a.type.localeCompare(b.type),
+}
 
 export const getItem = async (id: string): Promise<DtItem | Error | undefined> => {
     try {
@@ -13,10 +20,20 @@ export const getItem = async (id: string): Promise<DtItem | Error | undefined> =
     }
 };
 
-export const getItems = async (category?: string): Promise<DtItem[]> => {
+export const getItems = async (props: ItemFetchParameters): Promise<DtItem[]> => {
+    const { orderBy, orderDirection, type } = props;
+
     const response = await fetch(`${API_URL}/items.json`);
     let data = await response.json();
     data = Object.keys(data).map((key) => ({ ...data[key], id: key }));
-    console.log('DATA', data);
+    if (orderBy !== undefined) {
+        data = data.sort(orderByMap[orderBy]);
+        if (orderDirection === 'desc') {
+            data = data.reverse();
+        }
+    }
+    if (type !== undefined) {
+        data = data.filter((item: DtItem) => item.type === type);
+    }
     return data;
 };
