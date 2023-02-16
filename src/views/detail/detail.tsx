@@ -1,8 +1,8 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { LikeableContainer, CustomText, Counter, DetailSections, Line } from '../../components';
-import { ImageHandler } from '../../helpers';
+import { ImageHandler, findClosestNeighbours } from '../../helpers';
 import { type StoreParamList } from '../../navigation/types/store.types';
 import { TEXT, BUSINESS, COLORS } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import styles from './detail.styles';
 import { addItemCart, updateCounterCart } from '../../store/actions';
 import type { ReduxStoreState } from '../../store';
 import { useCounter } from '../../hooks';
+import { type DtItem } from '../../interfaces';
 
 const {
 	CURRENCY_SYMBOL,
@@ -25,6 +26,7 @@ type DetailScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Detail
 const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation }) => {
 	const dispatch = useDispatch();
 	const { item } = route.params;
+	const storeItems = useSelector((state: ReduxStoreState) => state.store.items);
 	const cartItem = useSelector((state: ReduxStoreState) =>
 		state.cart.items.find((cartItem) => cartItem.id === item.id),
 	);
@@ -34,6 +36,11 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 		cartItem?.amount,
 		MAX_ITEMS_IN_CART,
 	);
+	const closestNeigbours = useMemo(() => findClosestNeighbours(
+		item,
+		storeItems.filter((it) => it.id !== item.id), 
+		4
+	), [item, storeItems]);
 
 	const handleUpdateCount = (count: number): void => {
 		resetCounter(count);
@@ -54,6 +61,10 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 		dispatch(addItemCart(item, count));
 	};
 
+	const handleOnPressItem = (item: DtItem): void => {
+		navigation.navigate('Detail', { name: item.title,  item });
+	};
+
 	const { getItemImage } = ImageHandler;
 	const image = getItemImage(item.pictureUrl);
 	const { NEUTRAL_COLOR } = COLORS;
@@ -69,7 +80,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 						<View style={styles.topInfoContainer}>
 							<View style={styles.topInfo}>
 								<CustomText textType="bold" size="medium" style={styles.category}>
-									Libros
+									{item.type.charAt(0).toUpperCase() + item.type.slice(1)}
 								</CustomText>
 								<CustomText textType="bold" size="big">
 									{item.title}
@@ -95,8 +106,9 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 							<DetailSections
 								categoryTitle={CATEGORIES_TITLE}
 								recommendedTitle={RECOMMENDED_TITLE}
-								categories={['Libro', 'Magia', 'Fantasia', 'Novela']}
-								imagesIds={ImageHandler.getItemImagesIds()}
+								categories={item.categories}
+								similarItems={closestNeigbours}
+								handleOnPressItem={handleOnPressItem}
 							/>
 						</View>
 					</View>

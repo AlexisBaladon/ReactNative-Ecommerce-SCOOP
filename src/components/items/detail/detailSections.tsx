@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, Image, TouchableOpacity } from 'react-native';
 import { ImageHandler } from '../../../helpers';
+import type { DtItem } from '../../../interfaces';
 import Buttons from '../../global/buttons/options/buttons/buttons';
 import CustomText from '../../global/customText/customText';
 import styles from './detailSections.styles';
@@ -9,14 +10,16 @@ interface IProps {
 	categoryTitle: string;
 	categories: string[];
 	recommendedTitle: string;
-	imagesIds: string[];
+	similarItems: DtItem[];
+	handleOnPressItem: (item: DtItem) => void;
 }
 
 const DetailSections: React.FC<IProps> = ({
 	categoryTitle,
 	categories,
 	recommendedTitle,
-	imagesIds,
+	similarItems,
+	handleOnPressItem,
 }) => {
 	const buttons = categories.map((category) => ({
 		title: category,
@@ -37,18 +40,18 @@ const DetailSections: React.FC<IProps> = ({
 				{recommendedTitle}
 			</CustomText>
 			<FlatList
-				data={imagesIds}
+				data={similarItems}
 				contentContainerStyle={styles.recommendedContainer}
 				style={styles.recommended}
 				renderItem={({ item }) => (
-					<TouchableOpacity>
+					<TouchableOpacity onPress={() => {handleOnPressItem(item)}}>
 						<Image
-							source={ImageHandler.getItemImage(item)}
+							source={ImageHandler.getItemImage(item.pictureUrl)}
 							style={styles.recommendedImage}
 						/>
 					</TouchableOpacity>
 				)}
-				keyExtractor={(item) => item}
+				keyExtractor={(item) => item.id}
 				horizontal={true}
 			/>
 		</>

@@ -6,6 +6,7 @@ interface DtItem {
 	price: number;
 	stock: number;
 	type: string;
+	categories: string[];
 }
 
 export default DtItem;
