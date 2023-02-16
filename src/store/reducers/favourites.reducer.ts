@@ -10,7 +10,6 @@ const favouritesReducer = (
 ): FavouritesState => {
 	switch (action.type) {
 		case 'ADD_ITEM_FAVOURITES':
-			console.log('action.item', action.item);
 			return {
 				...state,
 				items: action.item === undefined ? state.items : [...state.items, action.item],

@@ -69,7 +69,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 					</View>
 					<View style={styles.form}>
 						<View style={styles.formItem}>
-							<CustomText>Método de pago</CustomText>
+							<CustomText textType='bold' size='small'>Método de pago</CustomText>
 							<TouchableOpacity style={styles.paymentButton} onPress={() => {}}>
 								<CustomText size="small" style={styles.text}>
 									Efectivo
@@ -77,7 +77,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 							</TouchableOpacity>
 						</View>
 						<View style={styles.formItem}>
-							<CustomText size="medium">Ubicación</CustomText>
+							<CustomText textType='bold' size='small'>Ubicación</CustomText>
 							<TextInput
 								style={styles.input}
 								placeholder="Calle, número, piso, puerta"
@@ -92,7 +92,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 							/>
 						</View>
 						<View style={styles.formItem}>
-							<CustomText size="medium">Teléfono</CustomText>
+							<CustomText textType='bold' size='small'>Teléfono</CustomText>
 							<TextInput
 								style={styles.input}
 								placeholderTextColor={NEUTRAL_COLOR}
@@ -107,7 +107,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 							/>
 						</View>
 						<View style={styles.formItem}>
-							<CustomText size="medium">Código postal</CustomText>
+							<CustomText  textType='bold' size='small'>Código postal</CustomText>
 							<TextInput
 								style={styles.input}
 								placeholderTextColor={NEUTRAL_COLOR}
