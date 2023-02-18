@@ -52,6 +52,9 @@ const createStyles = (bottomTabBarHeight: number, hasAccount: boolean, visibleHe
             justifyContent: 'center',
             width: '100%',
         },
+        title: {
+            color: COLORS.MAIN_COLOR,
+        },
         form: {
             display: 'flex',
             flexDirection: 'column',

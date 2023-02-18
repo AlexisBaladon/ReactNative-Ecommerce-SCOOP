@@ -11,11 +11,13 @@ export default StyleSheet.create({
 		position: 'relative',
 		backgroundColor: 'white',
 		marginBottom: height * 0.1,
+		marginTop: -height * 0.01,
 	},
-	itemDetail: {},
+	itemDetail: { },
 	itemImage: {
 		width: '100%',
-		height: 300,
+		height: 300, 
+		resizeMode: 'contain',
 	},
 	category: {
 		color: MAIN_COLOR,

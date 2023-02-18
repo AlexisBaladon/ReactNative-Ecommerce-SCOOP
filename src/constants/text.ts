@@ -14,7 +14,7 @@ const DELETE_ITEM_DESCRIPTION = '¿Estás seguro/a que de que quieres borrar est
 const DELETE_ALL_ITEMS_DESCRIPTION = '¿Estás seguro/a de que quieres borrar todos tus items?';
 const DELETE_ALL_ITEMS_TITLE = 'Borrar todo';
 const CONFIRM_ORDER_TITLE = 'Confirmar orden';
-const RECOMMENDED_TITLE = 'Recomendados';
+const RECOMMENDED_TITLE = 'Relacionados';
 const CATEGORIES_TITLE = 'Categorías';
 
 const BRAND_NAME = 'Scoop';

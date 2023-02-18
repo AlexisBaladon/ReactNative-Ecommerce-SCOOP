@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 		height: 100,
 		marginHorizontal: 10,
+		borderWidth: 1,
+		borderColor: LIGHT_COLOR,
+		
 	},
 	tagsContainer: {
 		marginTop: 10,

@@ -13,6 +13,7 @@ const signInText = {
 	subtitle: 'Debes iniciar sesión para continuar',
 	hasAccountMessage: '¿Aún no tienes una cuenta?',
 	hasAccountAction: 'Regístrate',
+	actionTitle: 'Iniciar sesión',
 }
 
 const signUpText = {
@@ -20,6 +21,7 @@ const signUpText = {
 	subtitle: 'Debes registrarte para continuar',
 	hasAccountMessage: '¿Ya tienes una cuenta?',
 	hasAccountAction: 'Iniciar sesión',
+	actionTitle: 'Registrarse',
 }
 
 const AuthScreen: React.FC = () => {
@@ -53,7 +55,7 @@ const AuthScreen: React.FC = () => {
 			}
 			<View style={styles.bottomInfo}>
 				<View style={styles.headings}>
-					<CustomText size='big' textType='bold'>{text.title}</CustomText>
+					<CustomText style={styles.title} size='big' textType='bold'>{text.title}</CustomText>
 					<CustomText size='small'>{text.subtitle}</CustomText>
 				</View>
 
@@ -93,7 +95,7 @@ const AuthScreen: React.FC = () => {
 				</View>
 
 				<TouchableOpacity style={styles.authButton}>
-					<CustomText style={styles.authButtonText}>Iniciar sesión</CustomText>
+					<CustomText style={styles.authButtonText}>{text.actionTitle}</CustomText>
 				</TouchableOpacity>
 				<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
 					<CustomText size='small'>{text.hasAccountMessage}</CustomText>
