@@ -25,11 +25,8 @@ const TabsNavigator: React.FC = () => {
     const dispatch = useDispatch();
 
 	useEffect(() => {
-		const dispatchAsync = async (): Promise<void> => {
-			const storeParameters: ItemFetchParameters = {orderBy: 'type', orderDirection: 'asc'};
-			(await getStoreItems(storeParameters)(dispatch));
-		};
-		dispatchAsync().catch((error) => {console.log(error)});
+		const storeParameters: ItemFetchParameters = {orderBy: 'type', orderDirection: 'asc'};
+		dispatch(getStoreItems(storeParameters) as any);
 	}, [])
 
 	return (

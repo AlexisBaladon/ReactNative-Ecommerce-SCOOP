@@ -1,6 +1,6 @@
-import { API_URL } from "./env";
-import type { DtItem } from "../interfaces";
-import type { ItemFetchParameters } from "../store/types";
+import { API_URL } from "../env";
+import type { DtItem } from "../../interfaces";
+import type { ItemFetchParameters } from "../../store/types";
 
 const orderByMap = {
     title: (a: DtItem, b: DtItem) => a.title.localeCompare(b.title),

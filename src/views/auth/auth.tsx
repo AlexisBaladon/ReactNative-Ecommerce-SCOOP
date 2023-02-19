@@ -1,10 +1,13 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { View, TextInput, Image, TouchableOpacity, type ImageProps } from 'react-native'
 import { TEXT } from '../../constants'
 import { useKeyboardListener } from '../../hooks'
 import createStyles from './auth.styles'
 import { Checkbox, CustomText } from '../../components'
+import { useDispatch, useSelector } from 'react-redux'
+import { login, register } from '../../store/actions/auth.action'
+import type { ReduxStoreState } from '../../store'
 
 const { BRAND_NAME } = TEXT
 
@@ -25,26 +28,44 @@ const signUpText = {
 }
 
 const AuthScreen: React.FC = () => {
+	const dispatch = useDispatch();
 	const [visibleHeader, setVisibleHeader] = useState(true);
-	const [hasAccount, setHasAccount] = useState(true);
 	useKeyboardListener(() => {setVisibleHeader(false)}, () => {setVisibleHeader(true)});
-	const emailRef = useRef<TextInput>(null);
-	const passwordRef = useRef<TextInput>(null);
-	const confirmPasswordRef = useRef<TextInput>(null);
-
+	const [hasAccount, setHasAccount] = useState(true);
 	const bottomTabBarHeight = useBottomTabBarHeight();
 	const styles = createStyles(bottomTabBarHeight, hasAccount, visibleHeader);
+	const [emailStyle, setEmailStyle] = useState(styles.input);
+	const [passwordStyle, setPasswordStyle] = useState(styles.input);
+	const [confirmPasswordStyle, setConfirmPasswordStyle] = useState(styles.input);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+
+	const isLogged = useSelector((state: ReduxStoreState) => state.auth.userId !== null);
+
+	
 	const text = hasAccount ? signInText : signUpText;
-
-	const handleOnFocusInput = (inputRef: React.RefObject<TextInput>): void => {
-		inputRef.current?.setNativeProps({style: styles.pressedInput});
-		inputRef.current?.clear();
+	
+	const handleOnAuth = (): void => {
+		const toDispatch = hasAccount ? login(email, password) : register(email, password, confirmPassword);
+		dispatch(toDispatch as any);
+	}
+	
+	const Profile: React.FC = () => {
+		const mail = useSelector((state: ReduxStoreState) => state.auth.email);
+		const shownName = mail !== null ? mail.split('@')[0] : '';
+		return (<View style={{flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
+			<View>
+				<Image source={require('./icon.png')} style={{...styles.logo as ImageProps, tintColor: 'blue'}}/>
+				<CustomText textType='bold' size='xx-big' style={{...styles.brandName, color: 'blue'}}>{BRAND_NAME.toUpperCase()}</CustomText>
+			</View>
+			<CustomText textType='regular' size='big' style={{...styles.brandName, color: 'blue'}}>{'Bienvenid@ '+shownName}</CustomText>
+		</View>)
 	}
 
-	const handleOnBlurInput = (inputRef: React.RefObject<TextInput>): void => {
-		inputRef.current?.setNativeProps({style: styles.input});
+	if (isLogged) {
+		return <Profile />;
 	}
-
 	return (<>
 		<View style={styles.auth}>
 			{!visibleHeader? null:
@@ -62,39 +83,39 @@ const AuthScreen: React.FC = () => {
 				<View style={styles.form}>
 					<CustomText textType='bold' size='small'>Correo electrónico</CustomText>
 					<TextInput 
-						style={styles.input} 
+						style={emailStyle} 
 						placeholder="Correo electrónico" 
-						ref={emailRef}
-						onPressIn={() => {handleOnFocusInput(emailRef)}}
-						onBlur={() => {handleOnBlurInput(emailRef)}}
+						onPressIn={() => {setEmailStyle({ ...styles.input, ...styles.pressedInput })}}
+						onBlur={() => {setEmailStyle(styles.input)}}
+						onChangeText={(text) => {setEmail(text)}}
 						autoCapitalize='none'
 						autoCorrect={false}
 
 					/>
 					<CustomText textType='bold' size='small'>Contraseña</CustomText>
 					<TextInput
-						style={styles.input} 
+						style={passwordStyle}
 						placeholder="Contraseña" 
 						secureTextEntry={true}
-						ref={passwordRef}
-						onFocus={() => {handleOnFocusInput(passwordRef)}}
-						onBlur={() => {handleOnBlurInput(passwordRef)}}
+						onFocus={() => {setPasswordStyle({ ...styles.input, ...styles.pressedInput })}}
+						onBlur={() => {setPasswordStyle(styles.input)}}
+						onChangeText={(text) => {setPassword(text)}}
 					/>
 					{hasAccount ? null : (<>
 						<CustomText textType='bold' size='small'>Confirmar contraseña</CustomText>
 						<TextInput 
-							style={styles.input} 
+							style={confirmPasswordStyle}
 							placeholder="Contraseña" 
 							secureTextEntry={true}
-							ref={confirmPasswordRef}
-							onFocus={() => {handleOnFocusInput(confirmPasswordRef)}}
-							onBlur={() => {handleOnBlurInput(confirmPasswordRef)}}
+							onFocus={() => {setConfirmPasswordStyle({ ...styles.input, ...styles.pressedInput })}}
+							onBlur={() => {setConfirmPasswordStyle(styles.input)}}
+							onChangeText={(text) => {setConfirmPassword(text)}}
 						/>
 					</>)}
 					<Checkbox title={'Recuérdame'} size={20} initiallyChecked={true}/>
 				</View>
 
-				<TouchableOpacity style={styles.authButton}>
+				<TouchableOpacity onPress={handleOnAuth} style={styles.authButton}>
 					<CustomText style={styles.authButtonText}>{text.actionTitle}</CustomText>
 				</TouchableOpacity>
 				<View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
