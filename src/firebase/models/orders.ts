@@ -1,8 +1,7 @@
 import type { DtItemCart } from '../../interfaces';
 
 export interface Order {
-	id: string;
-	userId: string;
+	id?: string;
 	items: DtItemCart[];
 	discountPercentage: number;
 	carriagePrice: number;
@@ -11,5 +10,5 @@ export interface Order {
 	phone: string;
 	postalCode: string;
 	totalPrice: number;
-	orderDate: string;
+	orderDate: Date;
 }

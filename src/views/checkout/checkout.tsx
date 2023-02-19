@@ -1,13 +1,15 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './checkout.styles';
 import type { ReduxStoreState } from '../../store';
 import type { CartParamList } from '../../navigation/types/cart.types';
 import { CustomText, Line } from '../../components';
 import { COLORS, TEXT } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
+import { createOrder } from '../../store/actions/orders.actions';
+import type { Order } from '../../firebase/models/orders';
 
 const { LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 const { CURRENCY_SYMBOL, BRAND_NAME, PRICE_TITLE, getPriceDiscountTitle } = TEXT;
@@ -15,6 +17,7 @@ const { CURRENCY_SYMBOL, BRAND_NAME, PRICE_TITLE, getPriceDiscountTitle } = TEXT
 type CheckoutScreenNavigationProp = NativeStackScreenProps<CartParamList, 'Checkout'>;
 
 const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigation }) => {
+	const buttonContainerRef = useRef<View>(null);
 	const handleKeyboardDidShow = (): void => {
 		buttonContainerRef?.current?.setNativeProps({ style: { opacity: 0 } });
 	};
@@ -25,21 +28,35 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 
 	useKeyboardListener(handleKeyboardDidShow, handleKeyboardDidHide);
 	const totalPrice = useSelector((state: ReduxStoreState) => state.cart.total);
+	const carriagePrice = useSelector((state: ReduxStoreState) => state.cart.carriage);
 	const discountPercentage = useSelector(
 		(state: ReduxStoreState) => state.cart.discountPercentage,
 	);
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
+	const dispatch = useDispatch();
 
-	const locationRef = useRef<TextInput>(null);
-	const phoneRef = useRef<TextInput>(null);
-	const postalCodeRef = useRef<TextInput>(null);
-	const buttonContainerRef = useRef<View>(null);
+	const [locationStyle, setLocationStyle] = useState(styles.input);
+	const [phoneStyle, setPhoneStyle] = useState(styles.input);
+	const [postalCodeStyle, setPostalCodeStyle] = useState(styles.input);
+	const [location, setLocation] = useState<string>('');
+	const [phone, setPhone] = useState<string>('');
+	const [postalCode, setPostalCode] = useState<string>('');
 
-	const handleOnFocus = (ref: React.RefObject<TextInput>): void => {
-		ref?.current?.setNativeProps({ style: styles.pressedinput });
-	};
-
-	const handleOnBlur = (ref: React.RefObject<TextInput>): void => {
-		ref?.current?.setNativeProps({ style: styles.input });
+	const handleConfirmCheckout = (): void => {
+		if (userId === null) return;
+		// navigation.navigate('CheckoutSuccess');
+		const order: Order = {
+			items: [],
+			totalPrice,
+			discountPercentage,
+			paymentMethod: 'cash',
+			location,
+			phone,
+			postalCode,
+			carriagePrice,
+			orderDate: new Date(),
+		}
+		dispatch(createOrder(userId, order) as any);
 	};
 
 	return (
@@ -83,16 +100,12 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 								Ubicación
 							</CustomText>
 							<TextInput
-								style={styles.input}
+								style={locationStyle}
 								placeholder="Calle, número, piso, puerta"
 								placeholderTextColor={NEUTRAL_COLOR}
-								ref={locationRef}
-								onFocus={() => {
-									handleOnFocus(locationRef);
-								}}
-								onBlur={() => {
-									handleOnBlur(locationRef);
-								}}
+								onFocus={() => { setLocationStyle({...styles.input, ...styles.pressedinput}) }}
+								onBlur={() => { setLocationStyle(styles.input) }}
+								onChangeText={setLocation}
 							/>
 						</View>
 						<View style={styles.formItem}>
@@ -100,16 +113,12 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 								Teléfono
 							</CustomText>
 							<TextInput
-								style={styles.input}
+								style={phoneStyle}
 								placeholderTextColor={NEUTRAL_COLOR}
 								placeholder="Teléfono"
-								ref={phoneRef}
-								onFocus={() => {
-									handleOnFocus(phoneRef);
-								}}
-								onBlur={() => {
-									handleOnBlur(phoneRef);
-								}}
+								onFocus={() => { setPhoneStyle({...styles.input, ...styles.pressedinput}) }}
+								onBlur={() => { setPhoneStyle(styles.input) }}
+								onChangeText={setPhone}
 							/>
 						</View>
 						<View style={styles.formItem}>
@@ -117,22 +126,18 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 								Código postal
 							</CustomText>
 							<TextInput
-								style={styles.input}
+								style={postalCodeStyle}
 								placeholderTextColor={NEUTRAL_COLOR}
 								placeholder="Código postal"
-								ref={postalCodeRef}
-								onFocus={() => {
-									handleOnFocus(postalCodeRef);
-								}}
-								onBlur={() => {
-									handleOnBlur(postalCodeRef);
-								}}
+								onFocus={() => {setPostalCodeStyle({...styles.input, ...styles.pressedinput})}}
+								onBlur={() => {setPostalCodeStyle(styles.input)}}
+								onChangeText={setPostalCode}
 							/>
 						</View>
 					</View>
 				</ScrollView>
 				<View style={styles.buttonContainer} ref={buttonContainerRef}>
-					<TouchableOpacity style={styles.checkoutButton} onPress={() => {}}>
+					<TouchableOpacity style={styles.checkoutButton} onPress={handleConfirmCheckout}>
 						<CustomText textType="bold" style={styles.text}>
 							Confirmar compra
 						</CustomText>

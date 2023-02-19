@@ -1,21 +1,34 @@
-// import { Order } from "../models/orders";
+import type { Order } from "../models/orders";
+import { API_URL } from "../env";
 
-// export const createOrder = async (order: Order, userId: string) => {
-//     return async (dispatch: (action: OrderActions) => void) => {
-//         try {
-//             const response = await fetch(`${ORDERS_URL}/${userId}.json`, {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json',
-//                 },
-//                 body: JSON.stringify(order),
-//             });
-//             const data = await response.json();
-//             const orderId = data.name;
-//             dispatch({ type: 'CREATE_ORDER', order: { ...order, id: orderId } });
-//         }
-//         catch (error) {
-//             console.log(error as Error);
-//         }
-//     }
-// }
+export const createOrder = async (order: Order, userId: string): Promise<Error | any> => {
+    try {
+        const response = await fetch(`${API_URL}/users/${userId}/orders.json`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(order),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            return new Error("Something went wrong");
+        }
+        return data;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const getOrders = async (userId: string): Promise<Error | any> => {
+    try {
+        const response = await fetch(`${API_URL}/users/${userId}/orders.json`);
+        const data = await response.json();
+        if (!response.ok) {
+            return new Error("Something went wrong");
+        }
+        return data;
+    } catch (error) {
+        return error;
+    }
+}

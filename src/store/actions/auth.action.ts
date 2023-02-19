@@ -1,5 +1,5 @@
 import type { AuthActions } from '../types/';
-import { login as _login, register as _register } from '../../firebase/services/authDAO';
+import { login as _login, register as _register } from '../../firebase/services/auth.services';
 
 export const login = (email: string, password: string) => {
 	return async (dispatch: (action: AuthActions) => void) => {

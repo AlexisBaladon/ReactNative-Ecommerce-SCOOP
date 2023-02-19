@@ -1,2 +1,2 @@
-export * from './services/itemsDAO';
-export * from './services/authDAO';
+export * from './services/items.services';
+export * from './services/auth.services';
