@@ -25,10 +25,11 @@ type FavouritesScreenNavigationProp = NativeStackScreenProps<FavouritesParamList
 const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, navigation }) => {
 	const dispatch = useDispatch();
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.favourites.items);
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 	const { filterText, filteredItems } = useFilter(items);
 
 	const handleDeleteAllItems = (): void => {
-		dispatch(removeAllItemsFavourites());
+		dispatch(removeAllItemsFavourites(userId) as any);
 	};
 
 	useEffect(() => {

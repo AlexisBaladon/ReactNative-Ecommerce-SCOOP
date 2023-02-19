@@ -12,4 +12,5 @@ export interface FavouritesActions {
 	type: FavouritesActionTypes;
 	itemId?: DtItem['id'];
 	item?: DtItem;
+	error?: Error;
 }

@@ -17,7 +17,6 @@ export const addItemCart = (userId: User['userId'] | null, item: DtItemCart) => 
 		}
 		try {
 			const data = await _addItemCart(userId, item);
-			console.log('data', data);
 			if (data === undefined) {
 				dispatch({ type: 'ADD_ITEM_CART', error: new Error('Something went wrong') });
 				return;

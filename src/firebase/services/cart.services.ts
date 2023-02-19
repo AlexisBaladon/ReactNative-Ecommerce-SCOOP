@@ -29,7 +29,6 @@ export const updateItemCart = async (
 	itemCount: DtItemCart['amount'],
 ): Promise<Error | undefined | any> => {
 	try {
-		console.log('updateItemCart', userId, itemId, itemCount);
 		const response = await fetch(`${API_URL}/users/${userId}/cart/${itemId}.json`, {
 			method: 'PATCH',
 			headers: {

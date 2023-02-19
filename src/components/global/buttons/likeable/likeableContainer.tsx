@@ -17,13 +17,14 @@ const LikeableContainer: React.FC<IProps> = ({ children, item, width = 30 }) => 
 	const itemExists: boolean = useSelector(
 		(state: ReduxStoreState) => state.favourites.items,
 	).some((it: DtItem) => it.id === item.id);
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 
 	const handleLike = (item: DtItem): void => {
-		dispatch(addItemFavourites(item));
+		dispatch(addItemFavourites(userId, item) as any);
 	};
 
 	const handleRemoveLike = (item: DtItem): void => {
-		dispatch(removeItemFavourites(item.id));
+		dispatch(removeItemFavourites(userId, item.id) as any);
 	};
 
 	const handlePressHeart = (): void => {
