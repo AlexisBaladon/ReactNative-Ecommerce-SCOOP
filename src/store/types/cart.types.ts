@@ -13,11 +13,14 @@ export type CartActionTypes =
 	| 'ADD_ITEM_CART'
 	| 'REMOVE_ITEM_CART'
 	| 'REMOVE_ALL_ITEMS_CART'
-	| 'UPDATE_COUNTER_CART';
+	| 'UPDATE_COUNTER_CART'
+	| 'GET_ITEMS_CART';
 
 export interface CartActions {
 	type: CartActionTypes;
 	item?: DtItem;
 	itemId?: DtItem['id'];
+	items?: DtItemCart[];
 	counter?: number;
+	error?: Error;
 }

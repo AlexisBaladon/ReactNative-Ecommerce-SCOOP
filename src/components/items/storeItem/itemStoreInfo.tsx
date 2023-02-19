@@ -20,11 +20,12 @@ const ItemStoreInfo: React.FC<IProps> = ({ item }) => {
 	const isInCart: boolean = useSelector((state: ReduxStoreState) =>
 		state.cart.items.some((cartItem: DtItem) => cartItem.id === item.id),
 	);
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 	const addToCartButtonStyle = isInCart ? styles.addToCartButtonDisabled : {};
 
 	const handleOnAddToCart = (): void => {
 		if (!isInCart) {
-			dispatch(addItemCart(item));
+			dispatch(addItemCart(userId, { ...item, amount: 1 }) as any);
 		}
 	};
 

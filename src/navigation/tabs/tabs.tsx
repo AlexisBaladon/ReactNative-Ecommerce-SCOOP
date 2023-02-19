@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
-import { Image } from 'react-native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import type { RootBottomTabParamList } from '../types/tabs.types'
+import React, { useEffect } from 'react';
+import { Image } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import type { RootBottomTabParamList } from '../types/tabs.types';
 import StoreNavigator from '../stacks/storeNavigation';
 import CartNavigator from '../stacks/cartNavigation';
 import FavouritesNavigator from '../stacks/favouritesNavigation';
@@ -22,12 +22,12 @@ const iconsImages = {
 };
 
 const TabsNavigator: React.FC = () => {
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const storeParameters: ItemFetchParameters = {orderBy: 'type', orderDirection: 'asc'};
+		const storeParameters: ItemFetchParameters = { orderBy: 'type', orderDirection: 'asc' };
 		dispatch(getStoreItems(storeParameters) as any);
-	}, [])
+	}, []);
 
 	return (
 		<NavigationContainer independent={true}>

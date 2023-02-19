@@ -44,7 +44,11 @@ const DetailSections: React.FC<IProps> = ({
 				contentContainerStyle={styles.recommendedContainer}
 				style={styles.recommended}
 				renderItem={({ item }) => (
-					<TouchableOpacity onPress={() => {handleOnPressItem(item)}}>
+					<TouchableOpacity
+						onPress={() => {
+							handleOnPressItem(item);
+						}}
+					>
 						<Image
 							source={ImageHandler.getItemImage(item.pictureUrl)}
 							style={styles.recommendedImage}

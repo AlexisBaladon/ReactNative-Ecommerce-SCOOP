@@ -30,22 +30,33 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 	const cartItem = useSelector((state: ReduxStoreState) =>
 		state.cart.items.find((cartItem) => cartItem.id === item.id),
 	);
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 	const itemInCart = cartItem !== undefined;
 	const { count, resetCounter } = useCounter(
 		MIN_ITEMS_IN_CART,
 		cartItem?.amount,
 		MAX_ITEMS_IN_CART,
 	);
-	const closestNeigbours = useMemo(() => findClosestNeighbours(
-		item,
-		storeItems.filter((it) => it.id !== item.id), 
-		4
-	), [item, storeItems]);
+	const closestNeigbours = useMemo(
+		() =>
+			findClosestNeighbours(
+				item,
+				storeItems.filter((it) => it.id !== item.id),
+				4,
+			),
+		[item, storeItems],
+	);
 
 	const handleUpdateCount = (count: number): void => {
 		resetCounter(count);
 		if (!itemInCart) return;
-		dispatch(updateCounterCart(item.id, count)); // TODO: after component is no longer focused
+		count =
+			count < MIN_ITEMS_IN_CART
+				? MIN_ITEMS_IN_CART
+				: count > MAX_ITEMS_IN_CART
+				? MAX_ITEMS_IN_CART
+				: count;
+		dispatch(updateCounterCart(userId, item.id, count) as any); // TODO: after component is no longer focused
 	};
 
 	const handleAddCount = (): void => {
@@ -58,11 +69,11 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 
 	const handleAddItem = (): void => {
 		if (itemInCart) return;
-		dispatch(addItemCart(item, count));
+		dispatch(addItemCart(userId, { ...item, amount: count }) as any);
 	};
 
 	const handleOnPressItem = (item: DtItem): void => {
-		navigation.navigate('Detail', { name: item.title,  item });
+		navigation.navigate('Detail', { name: item.title, item });
 	};
 
 	const { getItemImage } = ImageHandler;

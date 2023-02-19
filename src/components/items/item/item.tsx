@@ -30,6 +30,12 @@ const Item: React.FC<IProps> = ({
 	const { getItemImage } = ImageHandler;
 	const imageSrc = getItemImage(item.pictureUrl);
 
+	const handleUpdateCount = (count: number): void => {
+		if (count >= minCount && count <= maxCount) {
+			updateItemCounter(item.id, count);
+		}
+	};
+
 	return (
 		<View style={styles.item}>
 			<View style={styles.imageContainer}>
@@ -79,11 +85,11 @@ const Item: React.FC<IProps> = ({
 						addCharacter={'+'}
 						decCharacter={'-'}
 						addToCounter={() => {
-							updateItemCounter(item.id, count + 1);
+							handleUpdateCount(count + 1);
 						}}
 						count={count}
 						decToCounter={() => {
-							updateItemCounter(item.id, count - 1);
+							handleUpdateCount(count - 1);
 						}}
 					/>
 				</View>

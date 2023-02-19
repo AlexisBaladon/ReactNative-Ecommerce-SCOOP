@@ -27,8 +27,10 @@ const getSubtotal = (state: CartState, action: CartActions): number => {
 	}, 0);
 };
 
-const getItemPrice = (items: DtItem[], itemId: DtItem['id']): number => {
-	return items.find((item) => item.id === itemId)?.price ?? 0;
+const getItemPrice = (items: DtItemCart[], itemId: DtItem['id']): number => {
+	const foundItem = items.find((item) => item.id === itemId);
+	const itemAmount = foundItem?.amount ?? 0;
+	return foundItem !== undefined ? foundItem.price * itemAmount : 0;
 };
 
 const getItemAmount = (items: DtItemCart[], itemId: DtItemCart['id']): number => {
@@ -59,9 +61,8 @@ const updateItemsAmount = (
 const { MIN_ITEMS_IN_CART, MAX_ITEMS_IN_CART } = BUSINESS;
 
 const cartReducer = (state: CartState = initialState, action: CartActions): CartState => {
-	const item: DtItemCart | undefined = action.item !== undefined ?
-										{ ...action.item, amount: action.counter ?? 1 } :
-										undefined;
+	const item: DtItemCart | undefined =
+		action.item !== undefined ? { ...action.item, amount: action.counter ?? 1 } : undefined;
 	const { subtotal, carriage, discountPercentage, total } = state;
 
 	switch (action.type) {
@@ -70,8 +71,7 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				...state,
 				items: item === undefined ? state.items : [...state.items, item],
 				totalItems: item === undefined ? state.totalItems : state.totalItems + item.amount,
-				subtotal:
-					item === undefined ? subtotal : subtotal + item.price * item.amount,
+				subtotal: item === undefined ? subtotal : subtotal + item.price * item.amount,
 				total:
 					item === undefined
 						? total
@@ -99,7 +99,9 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				total:
 					action.itemId === undefined
 						? total
-						: total - getItemPrice(state.items, action.itemId),
+						: total -
+						  getItemPrice(state.items, action.itemId) *
+								((100 - discountPercentage) / 100),
 			};
 		case 'REMOVE_ALL_ITEMS_CART':
 			return initialState;
@@ -109,14 +111,31 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				items: state.items.map((item) =>
 					item.id !== action.itemId
 						? item
-						: {
-								...item,
-								amount: getUpdatedCounter(action.counter),
-						  },
+						: { ...item, amount: getUpdatedCounter(action.counter) },
 				),
 				totalItems: updateItemsAmount(state.items, action.itemId, action.counter),
 				subtotal: getSubtotal(state, action),
 				total: updateTotalPrice(getSubtotal(state, action), carriage, discountPercentage),
+			};
+		case 'GET_ITEMS_CART':
+			return {
+				...state,
+				items: action.items ?? [],
+				totalItems:
+					action.items?.reduce((totalItems, item) => {
+						return totalItems + item.amount;
+					}, 0) ?? 0,
+				subtotal:
+					action.items?.reduce((subtotal, item) => {
+						return subtotal + item.price * item.amount;
+					}, 0) ?? 0,
+				total: updateTotalPrice(
+					action.items?.reduce((subtotal, item) => {
+						return subtotal + item.price * item.amount;
+					}, 0) ?? 0,
+					carriage,
+					discountPercentage,
+				),
 			};
 		default:
 			return state;

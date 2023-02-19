@@ -36,6 +36,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 	const subtotal = useSelector((state: ReduxStoreState) => state.cart.subtotal);
 	const carriage = useSelector((state: ReduxStoreState) => state.cart.carriage);
 	const total = useSelector((state: ReduxStoreState) => state.cart.total);
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 	const discountPercentage = useSelector(
 		(state: ReduxStoreState) => state.cart.discountPercentage,
 	);
@@ -62,8 +63,8 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 		});
 	};
 
-	const handleUpdateCount = (id: DtItem['id'], count: number): void => {
-		dispatch(updateCounterCart(id, count));
+	const handleUpdateCount = (itemId: DtItem['id'], count: number): void => {
+		dispatch(updateCounterCart(userId, itemId, count) as any);
 	};
 
 	const handleDeleteItem = (id: DtItem['id']): void => {
@@ -72,7 +73,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			{
 				text: CONFIRM_DELETE_ITEM_TITLE,
 				onPress: () => {
-					dispatch(removeItemCart(id));
+					dispatch(removeItemCart(userId, id) as any);
 				},
 			},
 		]);
@@ -81,7 +82,10 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 	const handleDeleteAllItems = (): void => {
 		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
-			{ text: DELETE_ALL_ITEMS_TITLE, onPress: () => dispatch(removeAllItemsCart()) },
+			{
+				text: DELETE_ALL_ITEMS_TITLE,
+				onPress: () => dispatch(removeAllItemsCart(userId) as any),
+			},
 		]);
 	};
 

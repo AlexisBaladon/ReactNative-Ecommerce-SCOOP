@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
 		marginHorizontal: 10,
 		borderWidth: 1,
 		borderColor: LIGHT_COLOR,
-		
 	},
 	tagsContainer: {
 		marginTop: 10,
