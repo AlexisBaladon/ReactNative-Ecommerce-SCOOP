@@ -1,7 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import { FavouritesReducer, CartReducer, StoreReducer, AuthReducer, OrdersReducer } from './reducers';
+import {
+	FavouritesReducer,
+	CartReducer,
+	StoreReducer,
+	AuthReducer,
+	OrdersReducer,
+} from './reducers';
 import type { FavouritesState, CartState, StoreState, AuthState, OrdersState } from './types';
 
 export interface ReduxStoreState {

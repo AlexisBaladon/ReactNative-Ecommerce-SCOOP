@@ -55,7 +55,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 			postalCode,
 			carriagePrice,
 			orderDate: new Date(),
-		}
+		};
 		dispatch(createOrder(userId, order) as any);
 	};
 
@@ -103,8 +103,12 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 								style={locationStyle}
 								placeholder="Calle, número, piso, puerta"
 								placeholderTextColor={NEUTRAL_COLOR}
-								onFocus={() => { setLocationStyle({...styles.input, ...styles.pressedinput}) }}
-								onBlur={() => { setLocationStyle(styles.input) }}
+								onFocus={() => {
+									setLocationStyle({ ...styles.input, ...styles.pressedinput });
+								}}
+								onBlur={() => {
+									setLocationStyle(styles.input);
+								}}
 								onChangeText={setLocation}
 							/>
 						</View>
@@ -116,8 +120,12 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 								style={phoneStyle}
 								placeholderTextColor={NEUTRAL_COLOR}
 								placeholder="Teléfono"
-								onFocus={() => { setPhoneStyle({...styles.input, ...styles.pressedinput}) }}
-								onBlur={() => { setPhoneStyle(styles.input) }}
+								onFocus={() => {
+									setPhoneStyle({ ...styles.input, ...styles.pressedinput });
+								}}
+								onBlur={() => {
+									setPhoneStyle(styles.input);
+								}}
 								onChangeText={setPhone}
 							/>
 						</View>
@@ -129,8 +137,12 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 								style={postalCodeStyle}
 								placeholderTextColor={NEUTRAL_COLOR}
 								placeholder="Código postal"
-								onFocus={() => {setPostalCodeStyle({...styles.input, ...styles.pressedinput})}}
-								onBlur={() => {setPostalCodeStyle(styles.input)}}
+								onFocus={() => {
+									setPostalCodeStyle({ ...styles.input, ...styles.pressedinput });
+								}}
+								onBlur={() => {
+									setPostalCodeStyle(styles.input);
+								}}
 								onChangeText={setPostalCode}
 							/>
 						</View>
