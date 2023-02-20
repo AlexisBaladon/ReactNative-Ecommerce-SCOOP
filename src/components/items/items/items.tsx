@@ -11,6 +11,7 @@ interface IProps {
 	noItemsMessage: string;
 	heightPercentage?: number;
 	paddingBottom?: number;
+	isLoading?: boolean;
 }
 
 const Items: React.FC<IProps> = ({
@@ -20,7 +21,12 @@ const Items: React.FC<IProps> = ({
 	noItemsMessage,
 	heightPercentage,
 	paddingBottom,
+	isLoading,
 }) => {
+	if (isLoading!== undefined && isLoading) {
+		return <CustomText>Cargando...</CustomText>;
+	}
+
 	const styles = createStyles(heightPercentage, paddingBottom);
 	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
 

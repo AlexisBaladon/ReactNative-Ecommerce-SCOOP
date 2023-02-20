@@ -9,6 +9,7 @@ import type { User } from '../../firebase/models/user';
 
 export const createOrder = (userId: User['userId'] | null, order: Order) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		if (userId === null) {
 			dispatch({ type: 'ADD_ORDER', order });
 			return;
@@ -32,6 +33,7 @@ export const createOrder = (userId: User['userId'] | null, order: Order) => {
 
 export const getOrders = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		if (userId === null) {
 			dispatch({ type: 'GET_ORDERS' });
 			return;

@@ -3,6 +3,7 @@ import { getItems as getItemsDB } from '../../firebase';
 
 export const getStoreItems = (props: ItemFetchParameters) => {
 	return async (dispatch: (action: StoreActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		try {
 			const items = await getItemsDB(props);
 			dispatch({
@@ -11,7 +12,7 @@ export const getStoreItems = (props: ItemFetchParameters) => {
 			});
 		} catch (error) {
 			dispatch({
-				type: 'ERROR_GET_ITEMS',
+				type: 'ERROR',
 				error: error as Error,
 			});
 		}

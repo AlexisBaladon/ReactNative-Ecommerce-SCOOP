@@ -3,15 +3,16 @@ import type { AuthState, AuthActions } from '../types';
 const initialState: AuthState = {
 	userId: null,
 	userToken: null,
-	error: null,
 	email: null,
+	error: null,
+	loading: false,
 };
 
 const authReducer = (state: AuthState = initialState, action: AuthActions): AuthState => {
-	const userId = action.userId !== undefined ? action.userId : null;
-	const userToken = action.userToken !== undefined ? action.userToken : null;
-	const error = action.error !== undefined ? action.error : null;
-	const email = action.email !== undefined ? action.email : null;
+	const userId = action.userId !== undefined ? action.userId : state.userId;
+	const userToken = action.userToken !== undefined ? action.userToken : state.userToken;
+	const error = action.error !== undefined ? action.error : state.error;
+	const email = action.email !== undefined ? action.email : state.email;
 
 	switch (action.type) {
 		case 'LOGIN':
@@ -21,6 +22,7 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 				userToken,
 				error,
 				email,
+				loading: false,
 			};
 		case 'REGISTER':
 			return {
@@ -29,6 +31,7 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 				userToken,
 				error,
 				email,
+				loading: false,
 			};
 		case 'LOGOUT':
 			return {
@@ -37,6 +40,12 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 				userToken: null,
 				email: null,
 				error,
+				loading: false,
+			};
+		case 'LOADING':
+			return {
+				...state,
+				loading: true,
 			};
 		default:
 			return state;

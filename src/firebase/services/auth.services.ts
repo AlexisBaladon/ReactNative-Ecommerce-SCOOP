@@ -11,10 +11,12 @@ export const login = async (email: string, password: string): Promise<User | Err
 			body: JSON.stringify({ email, password, returnSecureToken: true }),
 		});
 		const data = await response.json();
+		if (data?.error !== undefined) {
+			return new Error(data.error.message);
+		}
 		const userData = { userId: data.localId, token: data.idToken, email: data.email };
 		return userData;
 	} catch (error) {
-		console.log(error as Error);
 		return error as Error;
 	}
 };
@@ -36,6 +38,9 @@ export const register = async (
 			body: JSON.stringify({ email, password, returnSecureToken: true }),
 		});
 		const data = await response.json();
+		if (data?.error !== undefined) {
+			return new Error(data.error.message);
+		}
 		const userData = { userId: data.localId, token: data.idToken, email: data.email };
 		return userData;
 	} catch (error) {

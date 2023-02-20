@@ -9,6 +9,7 @@ import type { User } from '../../firebase/models/user';
 
 export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		if (userId === null) {
 			return { type: 'ADD_ITEM_FAVOURITES', item };
 		}
@@ -31,6 +32,7 @@ export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) =
 
 export const removeItemFavourites = (userId: User['userId'] | null, itemId: DtItem['id']) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		if (userId === null) {
 			dispatch({ type: 'REMOVE_ITEM_FAVOURITES', itemId });
 			return;
@@ -57,8 +59,8 @@ export const removeItemFavourites = (userId: User['userId'] | null, itemId: DtIt
 
 export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		if (userId === null) {
-			dispatch({ type: 'REMOVE_ALL_ITEMS_FAVOURITES' });
 			return;
 		}
 		try {

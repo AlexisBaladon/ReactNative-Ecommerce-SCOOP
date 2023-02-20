@@ -26,6 +26,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 	const dispatch = useDispatch();
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.favourites.items);
 	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
+	const isLoading = useSelector((state: ReduxStoreState) => state.favourites.loading);
 	const { filterText, filteredItems } = useFilter(items);
 
 	const handleDeleteAllItems = (): void => {
@@ -87,6 +88,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 				noItemsMessage={NO_ITEMS_MESSAGE}
 				RenderItem={RenderItem}
 				numColumns={2}
+				isLoading={isLoading}
 			/>
 		</>
 	);

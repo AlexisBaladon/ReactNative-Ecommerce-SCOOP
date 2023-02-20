@@ -9,6 +9,8 @@ const initialState: CartState = {
 	carriage: 25,
 	discountPercentage: 25,
 	total: 0,
+	loading: false,
+	error: null,
 };
 
 const getUpdatedCounter = (counter: number | undefined): number => {
@@ -64,6 +66,7 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 	const item: DtItemCart | undefined =
 		action.item !== undefined ? { ...action.item, amount: action.counter ?? 1 } : undefined;
 	const { subtotal, carriage, discountPercentage, total } = state;
+	const error = action.error ?? state.error;
 
 	switch (action.type) {
 		case 'ADD_ITEM_CART':
@@ -80,6 +83,8 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 								carriage,
 								discountPercentage,
 						  ),
+				loading: false,
+				error,
 			};
 		case 'REMOVE_ITEM_CART':
 			return {
@@ -102,6 +107,8 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 						: total -
 						  getItemPrice(state.items, action.itemId) *
 								((100 - discountPercentage) / 100),
+				loading: false,
+				error,
 			};
 		case 'REMOVE_ALL_ITEMS_CART':
 			return initialState;
@@ -116,6 +123,8 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				totalItems: updateItemsAmount(state.items, action.itemId, action.counter),
 				subtotal: getSubtotal(state, action),
 				total: updateTotalPrice(getSubtotal(state, action), carriage, discountPercentage),
+				loading: false,
+				error,
 			};
 		case 'GET_ITEMS_CART':
 			return {
@@ -136,6 +145,13 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 					carriage,
 					discountPercentage,
 				),
+				loading: false,
+				error: action.error !== undefined ? action.error : state.error,
+			};
+		case 'LOADING':
+			return {
+				...state,
+				loading: true,
 			};
 		default:
 			return state;

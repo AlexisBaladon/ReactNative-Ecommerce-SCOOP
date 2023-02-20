@@ -7,6 +7,8 @@ export interface CartState {
 	carriage: number;
 	discountPercentage: number;
 	total: number;
+	loading: boolean;
+	error: Error | null;
 }
 
 export type CartActionTypes =
@@ -14,7 +16,9 @@ export type CartActionTypes =
 	| 'REMOVE_ITEM_CART'
 	| 'REMOVE_ALL_ITEMS_CART'
 	| 'UPDATE_COUNTER_CART'
-	| 'GET_ITEMS_CART';
+	| 'GET_ITEMS_CART'
+	| 'LOADING'
+	;
 
 export interface CartActions {
 	type: CartActionTypes;

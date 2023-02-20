@@ -8,11 +8,12 @@ export type ItemFetchParameters = {
 	type?: string;
 };
 
-export type StoreActionTypes = 'GET_ITEMS' | 'ERROR_GET_ITEMS';
+export type StoreActionTypes = 'GET_ITEMS' | 'LOADING' | 'ERROR';
 
 export interface StoreState {
 	items: DtItem[];
-	error?: Error;
+	error: Error | null;
+	loading: boolean;
 }
 
 export interface StoreActions {

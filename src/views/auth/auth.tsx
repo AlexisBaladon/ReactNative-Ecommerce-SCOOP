@@ -1,6 +1,6 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import React, { useState } from 'react';
-import { View, TextInput, Image, TouchableOpacity, type ImageProps } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Image, TouchableOpacity, type ImageProps, Alert } from 'react-native';
 import { TEXT } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
 import createStyles from './auth.styles';
@@ -31,12 +31,8 @@ const AuthScreen: React.FC = () => {
 	const dispatch = useDispatch();
 	const [visibleHeader, setVisibleHeader] = useState(true);
 	useKeyboardListener(
-		() => {
-			setVisibleHeader(false);
-		},
-		() => {
-			setVisibleHeader(true);
-		},
+		() => { setVisibleHeader(false); },
+		() => { setVisibleHeader(true); },
 	);
 	const [hasAccount, setHasAccount] = useState(true);
 	const bottomTabBarHeight = useBottomTabBarHeight();
@@ -49,8 +45,17 @@ const AuthScreen: React.FC = () => {
 	const [confirmPassword, setConfirmPassword] = useState('');
 
 	const isLogged = useSelector((state: ReduxStoreState) => state.auth.userId !== null);
+	const isLoading = useSelector((state: ReduxStoreState) => state.auth.loading);
+	const error = useSelector((state: ReduxStoreState) => state.auth.error);
 
+	useEffect(() => {
+		if (error != null) {
+			Alert.alert('Error', error.message, [{ text: 'OK' }]);
+		}
+	}, [error])
+	
 	const text = hasAccount ? signInText : signUpText;
+	const actionTitle = isLoading ? text.actionTitle : 'Cargando...';
 
 	const handleOnAuth = (): void => {
 		const toDispatch = hasAccount
@@ -124,6 +129,8 @@ const AuthScreen: React.FC = () => {
 						<TextInput
 							style={emailStyle}
 							placeholder="Correo electrónico"
+							editable={!isLoading} 
+							selectTextOnFocus={!isLoading}
 							onPressIn={() => {
 								setEmailStyle({ ...styles.input, ...styles.pressedInput });
 							}}
@@ -142,7 +149,9 @@ const AuthScreen: React.FC = () => {
 						<TextInput
 							style={passwordStyle}
 							placeholder="Contraseña"
-							secureTextEntry={true}
+							secureTextEntry={true} 
+							editable={!isLoading} 
+							selectTextOnFocus={!isLoading}
 							onFocus={() => {
 								setPasswordStyle({ ...styles.input, ...styles.pressedInput });
 							}}
@@ -162,6 +171,8 @@ const AuthScreen: React.FC = () => {
 									style={confirmPasswordStyle}
 									placeholder="Contraseña"
 									secureTextEntry={true}
+									editable={!isLoading} 
+									selectTextOnFocus={!isLoading}
 									onFocus={() => {
 										setConfirmPasswordStyle({
 											...styles.input,
@@ -189,7 +200,7 @@ const AuthScreen: React.FC = () => {
 					</TouchableOpacity>
 
 					<TouchableOpacity onPress={handleOnAuth} style={styles.authButton}>
-						<CustomText style={styles.authButtonText}>{text.actionTitle}</CustomText>
+						<CustomText style={styles.authButtonText}> {actionTitle} </CustomText>
 					</TouchableOpacity>
 					<View
 						style={{

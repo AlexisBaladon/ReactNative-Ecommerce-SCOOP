@@ -3,6 +3,7 @@ import { login as _login, register as _register } from '../../firebase/services/
 
 export const login = (email: string, password: string) => {
 	return async (dispatch: (action: AuthActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		try {
 			const data = await _login(email, password);
 			if (data === undefined) {
@@ -22,6 +23,7 @@ export const login = (email: string, password: string) => {
 
 export const register = (email: string, password: string, confirmPassword: string) => {
 	return async (dispatch: (action: AuthActions) => void) => {
+		dispatch({ type: 'LOADING' });
 		try {
 			const data = await _register(email, password, confirmPassword);
 			if (data === undefined) {

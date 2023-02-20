@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import { View, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search } from '../../components';
@@ -9,28 +9,25 @@ import { type StoreParamList } from '../../navigation/types/store.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
 import { useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
-import { filterItemFunction } from '../../helpers/itemFilter';
+import { useFilter } from '../../hooks';
 
 const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
 type StoreScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Store'>;
 
+
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
-	const [searchText, setSearchText] = useState<string>('');
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.store.items);
-
-	const shownItems = useMemo(() => {
-		if (searchText === '') return items;
-		return items.filter(filterItemFunction(searchText));
-	}, [searchText, items]);
-
+	const isLoading: boolean = useSelector((state: ReduxStoreState) => state.store.loading);
+	const { filterText: setSearchText, filteredItems: shownItems } = useFilter(items);
+	
 	interface TButton {
 		title: string;
 		onPress: () => void;
 		pressed: boolean;
 	}
 	const buttons: TButton[] = [{ title: 'Todos', onPress: () => {}, pressed: true }];
-
+	
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<Pressable
@@ -38,19 +35,19 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				onPress={() => {
 					handlePress(item);
 				}}
-			>
+				>
 				<StoreItem item={item} selling={true} />
 			</Pressable>
 		);
 	};
-
+	
 	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
 			item,
 		});
 	};
-
+	
 	return (
 		<>
 			<View style={styles.search}>
@@ -59,11 +56,12 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 			<View style={styles.options}>
 				<Buttons buttons={buttons} />
 			</View>
-			<Items
-				shownItems={shownItems}
-				noItemsMessage={NO_ITEMS_MESSAGE}
-				RenderItem={RenderItem}
-				numColumns={2}
+			<Items 
+				shownItems={shownItems} 
+				noItemsMessage={NO_ITEMS_MESSAGE} 
+				RenderItem={RenderItem} 
+				numColumns={2} 
+				isLoading={isLoading}
 			/>
 		</>
 	);
