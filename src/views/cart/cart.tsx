@@ -7,7 +7,7 @@ import { type DtItem, type DtItemCart } from '../../interfaces';
 import { CustomText, Item, OrderDescription } from '../../components';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack';
 import { type CartParamList } from '../../navigation/types/cart.types';
-import { updateCounterCart, removeItemCart, removeAllItemsCart } from '../../store/actions';
+import { updateCounterCart, removeItemCart, removeAllItemsCart, fetchItemsCart } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
 import useFilter from '../../hooks/useFilter';
@@ -49,6 +49,12 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			filterText('');
 		};
 	}, []);
+
+	useEffect(() => {
+		if (userId !== null) {
+			dispatch(fetchItemsCart(userId) as any);
+		}
+	}, [userId]);
 
 	const handlePressItem = (item: DtItem): void => {
 		navigation.navigate('Detail', {

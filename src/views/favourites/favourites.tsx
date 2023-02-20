@@ -8,7 +8,7 @@ import StoreItem from '../../components/items/storeItem/storeItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { type FavouritesParamList } from '../../navigation/types/favourites.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import { removeAllItemsFavourites } from '../../store/actions/favourites.action';
+import { fetchFavouriteItems, removeAllItemsFavourites } from '../../store/actions/favourites.action';
 import type { ReduxStoreState } from '../../store';
 import useFilter from '../../hooks/useFilter';
 
@@ -39,6 +39,12 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 		};
 	}, []);
 
+	useEffect(() => {
+		if (userId !== null) {
+			dispatch(fetchFavouriteItems(userId) as any);
+		}
+	}, [userId]);
+	
 	const onHandleDeleteAllItems = (): void => {
 		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },

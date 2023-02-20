@@ -9,11 +9,13 @@ export type FavouritesActionTypes =
 	| 'ADD_ITEM_FAVOURITES'
 	| 'REMOVE_ITEM_FAVOURITES'
 	| 'REMOVE_ALL_ITEMS_FAVOURITES'
-	| 'LOADING';
+	| 'FETCH_ITEMS_FAVOURITES'
+	| 'LOADING_FAVOURITES';
 
 export interface FavouritesActions {
 	type: FavouritesActionTypes;
 	itemId?: DtItem['id'];
 	item?: DtItem;
+	items?: DtItem[];
 	error?: Error;
 }

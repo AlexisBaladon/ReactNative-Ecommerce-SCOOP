@@ -17,7 +17,7 @@ const storeReducer = (state: StoreState = initialState, action?: StoreActions): 
 				loading: false,
 				error,
 			};
-		case 'LOADING':
+		case 'LOADING_STORE':
 			return {
 				...state,
 				loading: true,

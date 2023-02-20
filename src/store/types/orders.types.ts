@@ -5,7 +5,7 @@ export interface OrdersState {
 	error: Error | null;
 	loading: boolean;
 }
-export type OrdersActionTypes = 'ADD_ORDER' | 'GET_ORDERS' | 'LOADING';
+export type OrdersActionTypes = 'ADD_ORDER' | 'GET_ORDERS' | 'LOADING_ORDERS';
 
 export interface OrdersActions {
 	type: OrdersActionTypes;

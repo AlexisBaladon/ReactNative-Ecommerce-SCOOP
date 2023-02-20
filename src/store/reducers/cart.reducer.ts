@@ -148,7 +148,7 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				loading: false,
 				error: action.error !== undefined ? action.error : state.error,
 			};
-		case 'LOADING':
+		case 'LOADING_CART':
 			return {
 				...state,
 				loading: true,

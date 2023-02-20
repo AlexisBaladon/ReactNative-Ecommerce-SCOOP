@@ -2,14 +2,14 @@ import type { Order } from '../../firebase/models/orders';
 import { type OrdersActions } from '../types/orders.types';
 import {
 	createOrder as _createOrder,
-	getOrders as _getOrders,
+	getAllOrders,
 } from '../../firebase/services/orders.services';
 
 import type { User } from '../../firebase/models/user';
 
 export const createOrder = (userId: User['userId'] | null, order: Order) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
-		dispatch({ type: 'LOADING' });
+		dispatch({ type: 'LOADING_ORDERS' });
 		if (userId === null) {
 			dispatch({ type: 'ADD_ORDER', order });
 			return;
@@ -31,15 +31,15 @@ export const createOrder = (userId: User['userId'] | null, order: Order) => {
 	};
 };
 
-export const getOrders = (userId: User['userId'] | null) => {
+export const fetchOrders = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
-		dispatch({ type: 'LOADING' });
+		dispatch({ type: 'LOADING_ORDERS' });
 		if (userId === null) {
 			dispatch({ type: 'GET_ORDERS' });
 			return;
 		}
 		try {
-			const data = await _getOrders(userId);
+			const data = await getAllOrders(userId);
 			if (data === undefined) {
 				dispatch({ type: 'GET_ORDERS', error: new Error('Something went wrong') });
 				return;

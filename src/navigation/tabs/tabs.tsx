@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RootBottomTabParamList } from '../types/tabs.types';
@@ -7,9 +7,6 @@ import CartNavigator from '../stacks/cartNavigation';
 import FavouritesNavigator from '../stacks/favouritesNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import styles from './tabs.styles';
-import { useDispatch } from 'react-redux';
-import { getStoreItems } from '../../store/actions';
-import { type ItemFetchParameters } from '../../store/types';
 import { AuthScreen } from '../../views';
 
 const BottomTab = createBottomTabNavigator<RootBottomTabParamList>();
@@ -22,13 +19,6 @@ const iconsImages = {
 };
 
 const TabsNavigator: React.FC = () => {
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const storeParameters: ItemFetchParameters = { orderBy: 'type', orderDirection: 'asc' };
-		dispatch(getStoreItems(storeParameters) as any);
-	}, []);
-
 	return (
 		<NavigationContainer independent={true}>
 			<BottomTab.Navigator

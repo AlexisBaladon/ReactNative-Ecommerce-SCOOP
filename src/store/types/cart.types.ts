@@ -17,7 +17,7 @@ export type CartActionTypes =
 	| 'REMOVE_ALL_ITEMS_CART'
 	| 'UPDATE_COUNTER_CART'
 	| 'GET_ITEMS_CART'
-	| 'LOADING'
+	| 'LOADING_CART'
 	;
 
 export interface CartActions {

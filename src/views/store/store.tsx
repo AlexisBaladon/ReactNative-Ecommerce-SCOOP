@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Pressable } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search } from '../../components';
@@ -7,9 +7,11 @@ import { type DtItem } from '../../interfaces';
 import StoreItem from '../../components/items/storeItem/storeItem';
 import { type StoreParamList } from '../../navigation/types/store.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
 import { useFilter } from '../../hooks';
+import { getStoreItems } from '../../store/actions';
+import { type ItemFetchParameters } from '../../store/types';
 
 const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
@@ -20,6 +22,14 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.store.items);
 	const isLoading: boolean = useSelector((state: ReduxStoreState) => state.store.loading);
 	const { filterText: setSearchText, filteredItems: shownItems } = useFilter(items);
+
+	
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const storeParameters: ItemFetchParameters = { orderBy: 'type', orderDirection: 'asc' };
+		dispatch(getStoreItems(storeParameters) as any);
+	}, []);
 	
 	interface TButton {
 		title: string;

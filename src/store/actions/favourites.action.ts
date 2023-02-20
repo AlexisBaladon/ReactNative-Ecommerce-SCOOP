@@ -4,15 +4,15 @@ import {
 	addItemFavourites as _addItemFavourites,
 	removeItemFavourites as _removeItemFavourites,
 	removeAllItemsFavourites as _removeAllItemsFavourites,
+	getAllItemsFavourites,
 } from '../../firebase/services/favourites.services';
 import type { User } from '../../firebase/models/user';
 
 export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
-		dispatch({ type: 'LOADING' });
-		if (userId === null) {
-			return { type: 'ADD_ITEM_FAVOURITES', item };
-		}
+		dispatch({ type: 'LOADING_FAVOURITES' });
+		dispatch({ type: 'ADD_ITEM_FAVOURITES', item });
+		if (userId === null) return;
 		try {
 			const data = await _addItemFavourites(userId, item);
 			if (data === undefined) {
@@ -32,11 +32,9 @@ export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) =
 
 export const removeItemFavourites = (userId: User['userId'] | null, itemId: DtItem['id']) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
-		dispatch({ type: 'LOADING' });
-		if (userId === null) {
-			dispatch({ type: 'REMOVE_ITEM_FAVOURITES', itemId });
-			return;
-		}
+		dispatch({ type: 'LOADING_FAVOURITES' });
+		dispatch({ type: 'REMOVE_ITEM_FAVOURITES', itemId });
+		if (userId === null) return;
 		try {
 			const data = await _removeItemFavourites(userId, itemId);
 			if (data === undefined) {
@@ -59,7 +57,8 @@ export const removeItemFavourites = (userId: User['userId'] | null, itemId: DtIt
 
 export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
-		dispatch({ type: 'LOADING' });
+		dispatch({ type: 'LOADING_FAVOURITES' });
+		dispatch({ type: 'REMOVE_ALL_ITEMS_FAVOURITES' });
 		if (userId === null) {
 			return;
 		}
@@ -82,3 +81,28 @@ export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 		}
 	};
 };
+
+export const fetchFavouriteItems = (userId: User['userId'] | null) => {
+	return async (dispatch: (action: FavouritesActions) => void) => {
+		dispatch({ type: 'LOADING_FAVOURITES' });
+		dispatch({ type: 'FETCH_ITEMS_FAVOURITES' });
+		if (userId === null) return;
+		try {
+			const data = await getAllItemsFavourites(userId);
+			if (data === undefined) {
+				dispatch({
+					type: 'FETCH_ITEMS_FAVOURITES',
+					error: new Error('Something went wrong'),
+				});
+				return;
+			}
+			if (data instanceof Error) {
+				dispatch({ type: 'FETCH_ITEMS_FAVOURITES', error: data });
+				return;
+			}
+			dispatch({ type: 'FETCH_ITEMS_FAVOURITES', items: data });
+		} catch (error) {
+			dispatch({ type: 'FETCH_ITEMS_FAVOURITES', error: error as Error });
+		}
+	};
+}

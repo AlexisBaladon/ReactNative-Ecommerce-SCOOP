@@ -42,7 +42,7 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 				error,
 				loading: false,
 			};
-		case 'LOADING':
+		case 'LOADING_AUTH':
 			return {
 				...state,
 				loading: true,

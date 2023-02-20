@@ -20,7 +20,7 @@ export const createOrder = async (order: Order, userId: string): Promise<Error |
 	}
 };
 
-export const getOrders = async (userId: string): Promise<Error | any> => {
+export const getAllOrders = async (userId: string): Promise<Error | any> => {
 	try {
 		const response = await fetch(`${API_URL}/users/${userId}/orders.json`);
 		const data = await response.json();

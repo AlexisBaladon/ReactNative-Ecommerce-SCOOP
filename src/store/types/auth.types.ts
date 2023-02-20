@@ -6,7 +6,7 @@ export interface AuthState {
 	error: Error | null;
 }
 
-export type AuthActionTypes = 'LOGIN' | 'REGISTER' | 'LOGOUT' | 'LOADING';
+export type AuthActionTypes = 'LOGIN' | 'REGISTER' | 'LOGOUT' | 'LOADING_AUTH';
 
 export interface AuthActions {
 	type: AuthActionTypes;

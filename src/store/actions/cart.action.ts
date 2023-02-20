@@ -11,10 +11,8 @@ import type { User } from '../../firebase/models/user';
 
 export const addItemCart = (userId: User['userId'] | null, item: DtItemCart) => {
 	return async (dispatch: (action: CartActions) => void) => {
-		if (userId === null) {
-			dispatch({ type: 'ADD_ITEM_CART', item, counter: item.amount });
-			return;
-		}
+		dispatch({ type: 'ADD_ITEM_CART', item, counter: item.amount });
+		if (userId === null) return;
 		try {
 			const data = await _addItemCart(userId, item);
 			if (data === undefined) {
@@ -34,10 +32,8 @@ export const addItemCart = (userId: User['userId'] | null, item: DtItemCart) => 
 
 export const removeItemCart = (userId: User['userId'] | null, itemId: DtItem['id']) => {
 	return async (dispatch: (action: CartActions) => void) => {
-		if (userId === null) {
-			dispatch({ type: 'REMOVE_ITEM_CART', itemId });
-			return;
-		}
+		dispatch({ type: 'REMOVE_ITEM_CART', itemId });
+		if (userId === null) return;
 		try {
 			const data = await _removeItemCart(userId, itemId);
 			if (data === undefined) {
@@ -57,9 +53,8 @@ export const removeItemCart = (userId: User['userId'] | null, itemId: DtItem['id
 
 export const removeAllItemsCart = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: CartActions) => void) => {
-		if (userId === null) {
-			return { type: 'REMOVE_ALL_ITEMS_CART' };
-		}
+		dispatch({ type: 'REMOVE_ALL_ITEMS_CART' });
+		if (userId === null) return;
 		try {
 			const data = await removeAllCart(userId);
 			if (data === undefined) {
@@ -86,10 +81,8 @@ export const updateCounterCart = (
 	itemCount: DtItemCart['amount'],
 ) => {
 	return async (dispatch: (action: CartActions) => void) => {
-		if (userId === null) {
-			dispatch({ type: 'UPDATE_COUNTER_CART', itemId, counter: itemCount });
-			return;
-		}
+		dispatch({ type: 'UPDATE_COUNTER_CART', itemId, counter: itemCount });
+		if (userId === null) return;
 		try {
 			const data = await updateItemCart(userId, itemId, itemCount);
 			if (data === undefined) {
@@ -107,7 +100,7 @@ export const updateCounterCart = (
 	};
 };
 
-export const getItemsCartAction = (userId: User['userId'] | null) => {
+export const fetchItemsCart = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: CartActions) => void) => {
 		if (userId === null) {
 			dispatch({ type: 'GET_ITEMS_CART' });
