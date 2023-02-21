@@ -2,6 +2,7 @@ import type { DtItem, DtItemCart } from '../../interfaces';
 
 export interface CartState {
 	items: DtItemCart[];
+	categories: string[];
 	totalItems: number;
 	subtotal: number;
 	carriage: number;

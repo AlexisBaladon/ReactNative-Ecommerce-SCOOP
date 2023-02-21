@@ -13,9 +13,20 @@ interface IProps {
 		pressedBackgroundColor?: string;
 		pressedColor?: string;
 	}>;
+	handleStates?: boolean,
 }
 
-const Buttons: React.FC<IProps> = ({ buttons }) => {
+const Buttons: React.FC<IProps> = ({ buttons, handleStates = false }) => {
+	const pressedVector = buttons.map((but) => but.pressed);
+	const [pressed, setPressed] = React.useState<boolean[]>(pressedVector);
+
+	const handleOnPress = handleStates ? (i: number): void => {
+		const newPressed = pressed.map((_, j) => (i === j));
+		setPressed(newPressed);
+		buttons[i].onPress();
+	}
+	: () => {};
+
 	return (
 		<View style={styles.categoriesContainer}>
 			{buttons.map((but, i) => {
@@ -23,8 +34,8 @@ const Buttons: React.FC<IProps> = ({ buttons }) => {
 					<View style={styles.categoryContainer} key={i}>
 						<Button
 							title={but.title}
-							isSelected={but.pressed}
-							onPress={but.onPress}
+							isSelected={pressed[i]}
+							onPress={() => {handleOnPress(i)}}
 							backgroundColor={but.backgroundColor}
 							color={but.color}
 							pressedBackgroundColor={but.pressedBackgroundColor}

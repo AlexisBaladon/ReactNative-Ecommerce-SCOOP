@@ -19,9 +19,10 @@ type StoreScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Store'>
 
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.store.items);
+	const categories: string[] = useSelector((state: ReduxStoreState) => state.store.categories);
 	const isLoading: boolean = useSelector((state: ReduxStoreState) => state.store.loading);
 	const error = useSelector((state: ReduxStoreState) => state.store.error);
-	const { filterText: setSearchText, filteredItems: shownItems } = useFilter(items);
+	const { filterText: setSearchText, filterCategory, filteredItems: shownItems } = useFilter(items);
 
 	const dispatch = useDispatch();
 
@@ -41,7 +42,16 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 		onPress: () => void;
 		pressed: boolean;
 	}
-	const buttons: TButton[] = [{ title: 'Todos', onPress: () => {}, pressed: true }];
+	const buttons: TButton[] = [
+		{ title: 'Todos', onPress: () => {filterCategory(null)}, pressed: true },
+		...categories.map((category) => {
+			return {
+				title: category,
+				onPress: () => {filterCategory(category)},
+				pressed: false,
+			};
+		}),
+	];
 
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
@@ -69,7 +79,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={setSearchText} />
 			</View>
 			<View style={styles.options}>
-				<Buttons buttons={buttons} />
+				<Buttons buttons={buttons} handleStates />
 			</View>
 			<Items
 				shownItems={shownItems}

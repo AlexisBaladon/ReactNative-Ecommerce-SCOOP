@@ -4,6 +4,7 @@ import type { CartActions, CartState } from '../types';
 
 const initialState: CartState = {
 	items: [],
+	categories: [],
 	totalItems: 0,
 	subtotal: 0,
 	carriage: 25,
