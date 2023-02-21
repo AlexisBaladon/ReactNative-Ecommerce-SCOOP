@@ -43,6 +43,12 @@ const favouritesReducer = (
 				...state,
 				loading: true,
 			};
+		case 'ERROR_FAVOURITES':
+			return {
+				...state,
+				error: action.error ?? state.error,
+				loading: false,
+			};
 		default:
 			return state;
 	}

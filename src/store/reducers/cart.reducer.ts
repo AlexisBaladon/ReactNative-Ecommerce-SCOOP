@@ -153,6 +153,16 @@ const cartReducer = (state: CartState = initialState, action: CartActions): Cart
 				...state,
 				loading: true,
 			};
+		case 'ERROR_CART':
+			return {
+				...state,
+				items:
+					action.itemId !== undefined
+						? state.items.filter((item) => item.id !== action.itemId)
+						: state.items,
+				loading: false,
+				error,
+			};
 		default:
 			return state;
 	}

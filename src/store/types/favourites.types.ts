@@ -10,7 +10,8 @@ export type FavouritesActionTypes =
 	| 'REMOVE_ITEM_FAVOURITES'
 	| 'REMOVE_ALL_ITEMS_FAVOURITES'
 	| 'FETCH_ITEMS_FAVOURITES'
-	| 'LOADING_FAVOURITES';
+	| 'LOADING_FAVOURITES'
+	| 'ERROR_FAVOURITES';
 
 export interface FavouritesActions {
 	type: FavouritesActionTypes;

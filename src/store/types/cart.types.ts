@@ -18,7 +18,7 @@ export type CartActionTypes =
 	| 'UPDATE_COUNTER_CART'
 	| 'GET_ITEMS_CART'
 	| 'LOADING_CART'
-	;
+	| 'ERROR_CART';
 
 export interface CartActions {
 	type: CartActionTypes;

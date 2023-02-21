@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Pressable } from 'react-native';
+import { View, Pressable, Alert } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search } from '../../components';
 import styles from './store.styles';
@@ -17,27 +17,32 @@ const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
 
 type StoreScreenNavigationProp = NativeStackScreenProps<StoreParamList, 'Store'>;
 
-
 const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route }) => {
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.store.items);
 	const isLoading: boolean = useSelector((state: ReduxStoreState) => state.store.loading);
+	const error = useSelector((state: ReduxStoreState) => state.store.error);
 	const { filterText: setSearchText, filteredItems: shownItems } = useFilter(items);
 
-	
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const storeParameters: ItemFetchParameters = { orderBy: 'type', orderDirection: 'asc' };
 		dispatch(getStoreItems(storeParameters) as any);
 	}, []);
-	
+
+	useEffect(() => {
+		if (error !== null) {
+			Alert.alert('Error', error.message, [{ text: 'OK' }]);
+		}
+	}, [error]);
+
 	interface TButton {
 		title: string;
 		onPress: () => void;
 		pressed: boolean;
 	}
 	const buttons: TButton[] = [{ title: 'Todos', onPress: () => {}, pressed: true }];
-	
+
 	const RenderItem: React.FC<{ item: DtItem }> = ({ item }) => {
 		return (
 			<Pressable
@@ -45,19 +50,19 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				onPress={() => {
 					handlePress(item);
 				}}
-				>
+			>
 				<StoreItem item={item} selling={true} />
 			</Pressable>
 		);
 	};
-	
+
 	const handlePress = (item: DtItem): void => {
 		navigation.navigate('Detail', {
 			name: item.title,
 			item,
 		});
 	};
-	
+
 	return (
 		<>
 			<View style={styles.search}>
@@ -66,11 +71,11 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 			<View style={styles.options}>
 				<Buttons buttons={buttons} />
 			</View>
-			<Items 
-				shownItems={shownItems} 
-				noItemsMessage={NO_ITEMS_MESSAGE} 
-				RenderItem={RenderItem} 
-				numColumns={2} 
+			<Items
+				shownItems={shownItems}
+				noItemsMessage={NO_ITEMS_MESSAGE}
+				RenderItem={RenderItem}
+				numColumns={2}
 				isLoading={isLoading}
 			/>
 		</>

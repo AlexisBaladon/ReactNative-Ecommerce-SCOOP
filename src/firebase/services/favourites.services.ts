@@ -62,6 +62,7 @@ export const getAllItemsFavourites = async (userId: User['userId']): Promise<Err
 	try {
 		const response = await fetch(`${API_URL}/users/${userId}/favourites.json`);
 		const data = await response.json();
+		if (data === null) return [];
 		const parsedData = Object.keys(data).map((key) => ({ ...data[key], id: key }));
 		if (!response.ok) {
 			return new Error('Something went wrong');
@@ -70,4 +71,4 @@ export const getAllItemsFavourites = async (userId: User['userId']): Promise<Err
 	} catch (error) {
 		return error;
 	}
-}
+};

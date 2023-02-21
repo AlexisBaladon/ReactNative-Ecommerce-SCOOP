@@ -31,8 +31,12 @@ const AuthScreen: React.FC = () => {
 	const dispatch = useDispatch();
 	const [visibleHeader, setVisibleHeader] = useState(true);
 	useKeyboardListener(
-		() => { setVisibleHeader(false); },
-		() => { setVisibleHeader(true); },
+		() => {
+			setVisibleHeader(false);
+		},
+		() => {
+			setVisibleHeader(true);
+		},
 	);
 	const [hasAccount, setHasAccount] = useState(true);
 	const bottomTabBarHeight = useBottomTabBarHeight();
@@ -52,10 +56,10 @@ const AuthScreen: React.FC = () => {
 		if (error != null) {
 			Alert.alert('Error', error.message, [{ text: 'OK' }]);
 		}
-	}, [error])
-	
+	}, [error]);
+
 	const text = hasAccount ? signInText : signUpText;
-	const actionTitle = isLoading ? text.actionTitle : 'Cargando...';
+	const actionTitle = isLoading ? 'Cargando...' : text.actionTitle;
 
 	const handleOnAuth = (): void => {
 		const toDispatch = hasAccount
@@ -129,7 +133,7 @@ const AuthScreen: React.FC = () => {
 						<TextInput
 							style={emailStyle}
 							placeholder="Correo electrónico"
-							editable={!isLoading} 
+							editable={!isLoading}
 							selectTextOnFocus={!isLoading}
 							onPressIn={() => {
 								setEmailStyle({ ...styles.input, ...styles.pressedInput });
@@ -149,8 +153,8 @@ const AuthScreen: React.FC = () => {
 						<TextInput
 							style={passwordStyle}
 							placeholder="Contraseña"
-							secureTextEntry={true} 
-							editable={!isLoading} 
+							secureTextEntry={true}
+							editable={!isLoading}
 							selectTextOnFocus={!isLoading}
 							onFocus={() => {
 								setPasswordStyle({ ...styles.input, ...styles.pressedInput });
@@ -171,7 +175,7 @@ const AuthScreen: React.FC = () => {
 									style={confirmPasswordStyle}
 									placeholder="Contraseña"
 									secureTextEntry={true}
-									editable={!isLoading} 
+									editable={!isLoading}
 									selectTextOnFocus={!isLoading}
 									onFocus={() => {
 										setConfirmPasswordStyle({

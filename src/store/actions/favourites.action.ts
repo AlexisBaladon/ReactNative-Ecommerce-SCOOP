@@ -10,7 +10,6 @@ import type { User } from '../../firebase/models/user';
 
 export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
-		dispatch({ type: 'LOADING_FAVOURITES' });
 		dispatch({ type: 'ADD_ITEM_FAVOURITES', item });
 		if (userId === null) return;
 		try {
@@ -20,37 +19,34 @@ export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) =
 				return;
 			}
 			if (data instanceof Error) {
-				dispatch({ type: 'ADD_ITEM_FAVOURITES', error: data });
+				dispatch({ type: 'ERROR_FAVOURITES', error: data });
 				return;
 			}
-			dispatch({ type: 'ADD_ITEM_FAVOURITES', item });
 		} catch (error) {
-			dispatch({ type: 'ADD_ITEM_FAVOURITES', error: error as Error });
+			dispatch({ type: 'ERROR_FAVOURITES', error: error as Error });
 		}
 	};
 };
 
 export const removeItemFavourites = (userId: User['userId'] | null, itemId: DtItem['id']) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
-		dispatch({ type: 'LOADING_FAVOURITES' });
 		dispatch({ type: 'REMOVE_ITEM_FAVOURITES', itemId });
 		if (userId === null) return;
 		try {
 			const data = await _removeItemFavourites(userId, itemId);
 			if (data === undefined) {
 				dispatch({
-					type: 'REMOVE_ITEM_FAVOURITES',
+					type: 'ERROR_FAVOURITES',
 					error: new Error('Something went wrong'),
 				});
 				return;
 			}
 			if (data instanceof Error) {
-				dispatch({ type: 'REMOVE_ITEM_FAVOURITES', error: data });
+				dispatch({ type: 'ERROR_FAVOURITES', error: data });
 				return;
 			}
-			dispatch({ type: 'REMOVE_ITEM_FAVOURITES', itemId });
 		} catch (error) {
-			dispatch({ type: 'REMOVE_ITEM_FAVOURITES', error: error as Error });
+			dispatch({ type: 'ERROR_FAVOURITES', error: error as Error });
 		}
 	};
 };
@@ -66,18 +62,17 @@ export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 			const data = await _removeAllItemsFavourites(userId);
 			if (data === undefined) {
 				dispatch({
-					type: 'REMOVE_ALL_ITEMS_FAVOURITES',
+					type: 'ERROR_FAVOURITES',
 					error: new Error('Something went wrong'),
 				});
 				return;
 			}
 			if (data instanceof Error) {
-				dispatch({ type: 'REMOVE_ALL_ITEMS_FAVOURITES', error: data });
+				dispatch({ type: 'ERROR_FAVOURITES', error: data });
 				return;
 			}
-			dispatch({ type: 'REMOVE_ALL_ITEMS_FAVOURITES' });
 		} catch (error) {
-			dispatch({ type: 'REMOVE_ALL_ITEMS_FAVOURITES', error: error as Error });
+			dispatch({ type: 'ERROR_FAVOURITES', error: error as Error });
 		}
 	};
 };
@@ -85,24 +80,23 @@ export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 export const fetchFavouriteItems = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
 		dispatch({ type: 'LOADING_FAVOURITES' });
-		dispatch({ type: 'FETCH_ITEMS_FAVOURITES' });
 		if (userId === null) return;
 		try {
 			const data = await getAllItemsFavourites(userId);
 			if (data === undefined) {
 				dispatch({
-					type: 'FETCH_ITEMS_FAVOURITES',
+					type: 'ERROR_FAVOURITES',
 					error: new Error('Something went wrong'),
 				});
 				return;
 			}
 			if (data instanceof Error) {
-				dispatch({ type: 'FETCH_ITEMS_FAVOURITES', error: data });
+				dispatch({ type: 'ERROR_FAVOURITES', error: data });
 				return;
 			}
 			dispatch({ type: 'FETCH_ITEMS_FAVOURITES', items: data });
 		} catch (error) {
-			dispatch({ type: 'FETCH_ITEMS_FAVOURITES', error: error as Error });
+			dispatch({ type: 'ERROR_FAVOURITES', error: error as Error });
 		}
 	};
-}
+};

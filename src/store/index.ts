@@ -16,6 +16,7 @@ export interface ReduxStoreState {
 	favourites: FavouritesState;
 	auth: AuthState;
 	orders: OrdersState;
+	orderId: string;
 }
 
 const rootReducer = combineReducers({

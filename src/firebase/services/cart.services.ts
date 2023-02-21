@@ -66,6 +66,7 @@ export const getItemsCart = async (
 	try {
 		const response = await fetch(`${API_URL}/users/${userId}/cart.json`);
 		const data = await response.json();
+		if (data === null) return [];
 		const parsedData = Object.keys(data).map((key) => ({ ...data[key], id: key }));
 		return parsedData;
 	} catch (error) {
@@ -80,8 +81,7 @@ export const removeAllCart = async (userId: User['userId']): Promise<Error | und
 			method: 'DELETE',
 		});
 		const data = await response.json();
-		const parsedData = Object.keys(data).map((key) => ({ ...data[key], id: key }));
-		return parsedData;
+		return data;
 	} catch (error) {
 		console.log(error as Error);
 		return error as Error;

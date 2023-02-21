@@ -1,6 +1,6 @@
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import React, { useRef, useState } from 'react';
-import { Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Image, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './checkout.styles';
 import type { ReduxStoreState } from '../../store';
@@ -8,8 +8,9 @@ import type { CartParamList } from '../../navigation/types/cart.types';
 import { CustomText, Line } from '../../components';
 import { COLORS, TEXT } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
-import { createOrder } from '../../store/actions/orders.actions';
+import { claimOrderId, createOrder } from '../../store/actions/orders.actions';
 import type { Order } from '../../firebase/models/orders';
+import { removeAllItemsCart } from '../../store/actions';
 
 const { LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 const { CURRENCY_SYMBOL, BRAND_NAME, PRICE_TITLE, getPriceDiscountTitle } = TEXT;
@@ -33,7 +34,29 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 		(state: ReduxStoreState) => state.cart.discountPercentage,
 	);
 	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
+	const lastAddedOrderId = useSelector((state: ReduxStoreState) => state.orders.lastAddedOrderId);
+	const isLoading = useSelector((state: ReduxStoreState) => state.orders.loading);
+	const error = useSelector((state: ReduxStoreState) => state.orders.error);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (error !== null) {
+			Alert.alert('Error', error.message, [{ text: 'OK' }]);
+		}
+	}, [error]);
+
+	useEffect(() => {
+		if (lastAddedOrderId !== null && lastAddedOrderId !== undefined) {
+			const orderId = String(lastAddedOrderId);
+			Alert.alert(
+				'Compra realizada',
+				`Tu orden ha sido procesada de forma exitosa! Recibirás tu pedido en la brevedad. El ID de su pedido es: ${orderId}`,
+				[{ text: 'OK' }],
+			);
+			dispatch(claimOrderId() as any);
+			dispatch(removeAllItemsCart(userId) as any);
+		}
+	}, [lastAddedOrderId]);
 
 	const [locationStyle, setLocationStyle] = useState(styles.input);
 	const [phoneStyle, setPhoneStyle] = useState(styles.input);
@@ -44,7 +67,6 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 
 	const handleConfirmCheckout = (): void => {
 		if (userId === null) return;
-		// navigation.navigate('CheckoutSuccess');
 		const order: Order = {
 			items: [],
 			totalPrice,
@@ -151,7 +173,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 				<View style={styles.buttonContainer} ref={buttonContainerRef}>
 					<TouchableOpacity style={styles.checkoutButton} onPress={handleConfirmCheckout}>
 						<CustomText textType="bold" style={styles.text}>
-							Confirmar compra
+							{isLoading ? 'Procesando compra...' : 'Confirmar compra'}
 						</CustomText>
 					</TouchableOpacity>
 				</View>

@@ -24,6 +24,7 @@ export const getItems = async (props: ItemFetchParameters): Promise<DtItem[]> =>
 
 	const response = await fetch(`${API_URL}/items.json`);
 	let data = await response.json();
+	if (data === null) return [];
 	data = Object.keys(data).map((key) => ({ ...data[key], id: key }));
 	if (orderBy !== undefined) {
 		data = data.sort(orderByMap[orderBy]);

@@ -7,7 +7,12 @@ import { type DtItem, type DtItemCart } from '../../interfaces';
 import { CustomText, Item, OrderDescription } from '../../components';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack';
 import { type CartParamList } from '../../navigation/types/cart.types';
-import { updateCounterCart, removeItemCart, removeAllItemsCart, fetchItemsCart } from '../../store/actions';
+import {
+	updateCounterCart,
+	removeItemCart,
+	removeAllItemsCart,
+	fetchItemsCart,
+} from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
 import useFilter from '../../hooks/useFilter';
@@ -37,6 +42,8 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 	const carriage = useSelector((state: ReduxStoreState) => state.cart.carriage);
 	const total = useSelector((state: ReduxStoreState) => state.cart.total);
 	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
+	const isLoading = useSelector((state: ReduxStoreState) => state.cart.loading);
+	const error = useSelector((state: ReduxStoreState) => state.cart.error);
 	const discountPercentage = useSelector(
 		(state: ReduxStoreState) => state.cart.discountPercentage,
 	);
@@ -55,6 +62,12 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			dispatch(fetchItemsCart(userId) as any);
 		}
 	}, [userId]);
+
+	useEffect(() => {
+		if (error !== null) {
+			Alert.alert('Error', error.message, [{ text: 'OK' }]);
+		}
+	}, [error]);
 
 	const handlePressItem = (item: DtItem): void => {
 		navigation.navigate('Detail', {
@@ -132,6 +145,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				numColumns={1}
 				heightPercentage={height * 0.07}
 				paddingBottom={35}
+				isLoading={isLoading}
 			/>
 			<View style={styles.buttons}>
 				<TouchableOpacity

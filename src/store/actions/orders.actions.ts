@@ -1,9 +1,6 @@
 import type { Order } from '../../firebase/models/orders';
 import { type OrdersActions } from '../types/orders.types';
-import {
-	createOrder as _createOrder,
-	getAllOrders,
-} from '../../firebase/services/orders.services';
+import { createOrder as _createOrder, getAllOrders } from '../../firebase/services/orders.services';
 
 import type { User } from '../../firebase/models/user';
 
@@ -11,7 +8,7 @@ export const createOrder = (userId: User['userId'] | null, order: Order) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
 		dispatch({ type: 'LOADING_ORDERS' });
 		if (userId === null) {
-			dispatch({ type: 'ADD_ORDER', order });
+			dispatch({ type: 'ADD_ORDER', error: new Error('User not logged in') });
 			return;
 		}
 		try {
@@ -24,10 +21,16 @@ export const createOrder = (userId: User['userId'] | null, order: Order) => {
 				dispatch({ type: 'ADD_ORDER', error: data });
 				return;
 			}
-			dispatch({ type: 'ADD_ORDER', order });
+			dispatch({ type: 'ADD_ORDER', orderId: data });
 		} catch (error) {
 			dispatch({ type: 'ADD_ORDER', error: error as Error });
 		}
+	};
+};
+
+export const claimOrderId = () => {
+	return (dispatch: (action: OrdersActions) => void) => {
+		dispatch({ type: 'CLAIM_ORDER_ID' });
 	};
 };
 

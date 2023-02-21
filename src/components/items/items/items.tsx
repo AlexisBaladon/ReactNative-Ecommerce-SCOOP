@@ -23,7 +23,7 @@ const Items: React.FC<IProps> = ({
 	paddingBottom,
 	isLoading,
 }) => {
-	if (isLoading!== undefined && isLoading) {
+	if (isLoading !== undefined && isLoading) {
 		return <CustomText>Cargando...</CustomText>;
 	}
 

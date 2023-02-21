@@ -8,7 +8,10 @@ import StoreItem from '../../components/items/storeItem/storeItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { type FavouritesParamList } from '../../navigation/types/favourites.types';
 import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/typescript/src/types';
-import { fetchFavouriteItems, removeAllItemsFavourites } from '../../store/actions/favourites.action';
+import {
+	fetchFavouriteItems,
+	removeAllItemsFavourites,
+} from '../../store/actions/favourites.action';
 import type { ReduxStoreState } from '../../store';
 import useFilter from '../../hooks/useFilter';
 
@@ -27,6 +30,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 	const items: DtItem[] = useSelector((state: ReduxStoreState) => state.favourites.items);
 	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 	const isLoading = useSelector((state: ReduxStoreState) => state.favourites.loading);
+	const error = useSelector((state: ReduxStoreState) => state.favourites.error);
 	const { filterText, filteredItems } = useFilter(items);
 
 	const handleDeleteAllItems = (): void => {
@@ -44,7 +48,13 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 			dispatch(fetchFavouriteItems(userId) as any);
 		}
 	}, [userId]);
-	
+
+	useEffect(() => {
+		if (error !== null) {
+			Alert.alert('Error', error.message, [{ text: 'OK' }]);
+		}
+	}, [error]);
+
 	const onHandleDeleteAllItems = (): void => {
 		Alert.alert(DELETE_ALL_ITEMS_TITLE, DELETE_ALL_ITEMS_DESCRIPTION, [
 			{ text: CANCEL_TITLE, style: 'cancel' },
