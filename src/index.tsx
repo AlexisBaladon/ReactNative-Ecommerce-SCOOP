@@ -3,11 +3,12 @@ import { Fonts as fonts } from './assets';
 import { Provider } from 'react-redux';
 import store from './store';
 import { OnboardingNavigation } from './navigation/stacks';
+import { ActivityIndicator } from 'react-native';
 
 const App = (): React.ReactElement => {
 	const [loaded] = useFonts(fonts);
 
-	if (!loaded) return <></>; // TODO: Add a loading screen
+	if (!loaded) return <ActivityIndicator size="large" color="blue" style={{flex: 1}}/>
 
 	return (
 		<Provider store={store}>

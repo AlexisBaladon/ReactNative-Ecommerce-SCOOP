@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const createStyles = (heightPercentage: number = 100, paddingBottom: number = 120): any =>
+const createStyles = (heightPercentage: number = 100, paddingBottom: number = 120, paddingBottomEmpty?: number): StyleSheet.NamedStyles<any> =>
 	StyleSheet.create({
 		itemsContainer: {
 			width: '100%',
@@ -27,7 +27,7 @@ const createStyles = (heightPercentage: number = 100, paddingBottom: number = 12
 			flexDirection: 'column',
 			alignItems: 'center',
 			justifyContent: 'center',
-			paddingBottom,
+			paddingBottom: paddingBottomEmpty ?? paddingBottom,
 		},
 		emptyListText: {
 			textAlign: 'center',

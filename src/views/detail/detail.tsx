@@ -56,7 +56,7 @@ const DetailScreen: React.FC<DetailScreenNavigationProp> = ({ route, navigation 
 				: count > MAX_ITEMS_IN_CART
 				? MAX_ITEMS_IN_CART
 				: count;
-		dispatch(updateCounterCart(userId, item.id, count) as any); // TODO: after component is no longer focused
+		dispatch(updateCounterCart(userId, item.id, count) as any);
 	};
 
 	const handleAddCount = (): void => {

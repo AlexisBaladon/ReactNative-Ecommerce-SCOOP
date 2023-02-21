@@ -145,6 +145,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 				numColumns={1}
 				heightPercentage={height * 0.07}
 				paddingBottom={35}
+				paddingBottomEmpty={200}
 				isLoading={isLoading}
 			/>
 			<View style={styles.buttons}>
