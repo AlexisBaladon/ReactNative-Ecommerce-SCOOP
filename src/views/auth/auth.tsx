@@ -8,6 +8,7 @@ import { Checkbox, CustomText } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, register } from '../../store/actions/auth.action';
 import type { ReduxStoreState } from '../../store';
+import ProfileScreen from '../profile/profile';
 
 const { BRAND_NAME } = TEXT;
 
@@ -68,44 +69,8 @@ const AuthScreen: React.FC = () => {
 		dispatch(toDispatch as any);
 	};
 
-	const Profile: React.FC = () => {
-		const mail = useSelector((state: ReduxStoreState) => state.auth.email);
-		const shownName = mail !== null ? mail.split('@')[0] : '';
-		return (
-			<View
-				style={{
-					flex: 1,
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-evenly',
-				}}
-			>
-				<View>
-					<Image
-						source={require('./icon.png')}
-						style={{ ...(styles.logo as ImageProps), tintColor: 'blue' }}
-					/>
-					<CustomText
-						textType="bold"
-						size="xx-big"
-						style={{ ...styles.brandName, color: 'blue' }}
-					>
-						{BRAND_NAME.toUpperCase()}
-					</CustomText>
-				</View>
-				<CustomText
-					textType="regular"
-					size="big"
-					style={{ ...styles.brandName, color: 'blue' }}
-				>
-					{'Bienvenid@ ' + shownName}
-				</CustomText>
-			</View>
-		);
-	};
-
 	if (isLogged) {
-		return <Profile />;
+		return <ProfileScreen />;
 	}
 	return (
 		<>

@@ -14,7 +14,7 @@ export const login = (email: string, password: string) => {
 				dispatch({ type: 'LOGIN', error: data });
 				return;
 			}
-			dispatch({ type: 'LOGIN', userId: data.userId, userToken: data.token });
+			dispatch({ type: 'LOGIN', userId: data.userId, email, userToken: data.token });
 		} catch (error) {
 			dispatch({ type: 'LOGIN', error: error as Error });
 		}
@@ -34,7 +34,7 @@ export const register = (email: string, password: string, confirmPassword: strin
 				dispatch({ type: 'REGISTER', error: data });
 				return;
 			}
-			dispatch({ type: 'REGISTER', userId: data.userId, userToken: data.token });
+			dispatch({ type: 'REGISTER', userId: data.userId, email, userToken: data.token });
 		} catch (error) {
 			dispatch({ type: 'REGISTER', error: error as Error });
 		}

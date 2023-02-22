@@ -17,8 +17,7 @@ interface IProps {
 }
 
 const Buttons: React.FC<IProps> = ({ buttons, handleStates = false }) => {
-	const pressedVector = buttons.map((but) => but.pressed);
-	const [pressed, setPressed] = React.useState<boolean[]>(pressedVector);
+	const [pressed, setPressed] = React.useState<boolean[]>(buttons.map((but) => but.pressed));
 
 	const handleOnPress = handleStates ? (i: number): void => {
 		const newPressed = pressed.map((_, j) => (i === j));

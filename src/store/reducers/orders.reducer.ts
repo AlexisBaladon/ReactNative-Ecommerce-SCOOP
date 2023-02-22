@@ -11,7 +11,6 @@ const ordersReducer = (state: OrdersState = initialState, action: OrdersActions)
 	const error = action.error !== undefined ? action.error : state.error;
 	switch (action.type) {
 		case 'ADD_ORDER':
-			console.log(action.orderId);
 			return {
 				...state,
 				orders: action.order === undefined ? state.orders : [...state.orders, action.order],

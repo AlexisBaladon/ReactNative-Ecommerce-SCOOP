@@ -79,7 +79,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={setSearchText} />
 			</View>
 			<View style={styles.options}>
-				<Buttons buttons={buttons} handleStates />
+				<Buttons buttons={buttons} handleStates={true} />
 			</View>
 			<Items
 				shownItems={shownItems}

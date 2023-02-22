@@ -38,11 +38,11 @@ export const fetchOrders = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
 		dispatch({ type: 'LOADING_ORDERS' });
 		if (userId === null) {
-			dispatch({ type: 'GET_ORDERS' });
 			return;
 		}
 		try {
 			const data = await getAllOrders(userId);
+			console.log(data);
 			if (data === undefined) {
 				dispatch({ type: 'GET_ORDERS', error: new Error('Something went wrong') });
 				return;

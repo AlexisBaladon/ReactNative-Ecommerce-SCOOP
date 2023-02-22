@@ -30,6 +30,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 	useKeyboardListener(handleKeyboardDidShow, handleKeyboardDidHide);
 	const totalPrice = useSelector((state: ReduxStoreState) => state.cart.total);
 	const carriagePrice = useSelector((state: ReduxStoreState) => state.cart.carriage);
+	const items = useSelector((state: ReduxStoreState) => state.cart.items);
 	const discountPercentage = useSelector(
 		(state: ReduxStoreState) => state.cart.discountPercentage,
 	);
@@ -68,7 +69,7 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 	const handleConfirmCheckout = (): void => {
 		if (userId === null) return;
 		const order: Order = {
-			items: [],
+			items,
 			totalPrice,
 			discountPercentage,
 			paymentMethod: 'cash',

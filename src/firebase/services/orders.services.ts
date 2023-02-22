@@ -24,10 +24,30 @@ export const getAllOrders = async (userId: string): Promise<Error | any> => {
 	try {
 		const response = await fetch(`${API_URL}/users/${userId}/orders.json`);
 		const data = await response.json();
+		if (data === null) {
+			return [];
+		}
+		const parsedData = Object.keys(data).map((key) => ({
+			...data[key],
+			id: key,
+		}));
+
+		parsedData.forEach((order) => {
+			console.log(order.items);
+			if (order?.items === undefined) {
+				Object.assign(order, { items: [] });
+			}
+			order.items = Object.keys(order.items).map((key) => ({
+				...order.items[key],
+				id: key,
+			}));
+		});
+
+		console.log(parsedData);
 		if (!response.ok) {
 			return new Error('Something went wrong');
 		}
-		return data;
+		return parsedData;
 	} catch (error) {
 		return error;
 	}
