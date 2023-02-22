@@ -22,7 +22,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 	const categories: string[] = useSelector((state: ReduxStoreState) => state.store.categories);
 	const isLoading: boolean = useSelector((state: ReduxStoreState) => state.store.loading);
 	const error = useSelector((state: ReduxStoreState) => state.store.error);
-	const { filterText: setSearchText, filterCategory, filteredItems: shownItems } = useFilter(items);
+	const { filterText: setSearchText, currentCategory, filterCategory, filteredItems: shownItems } = useFilter(items);
 
 	const dispatch = useDispatch();
 
@@ -43,12 +43,12 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 		pressed: boolean;
 	}
 	const buttons: TButton[] = [
-		{ title: 'Todos', onPress: () => {filterCategory(null)}, pressed: true },
+		{ title: 'Todos', onPress: () => {filterCategory(null)}, pressed: currentCategory === null },
 		...categories.map((category) => {
 			return {
 				title: category,
 				onPress: () => {filterCategory(category)},
-				pressed: false,
+				pressed: currentCategory === category,
 			};
 		}),
 	];
@@ -79,7 +79,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={setSearchText} />
 			</View>
 			<View style={styles.options}>
-				<Buttons buttons={buttons} handleStates={true} />
+				<Buttons buttons={buttons} />
 			</View>
 			<Items
 				shownItems={shownItems}

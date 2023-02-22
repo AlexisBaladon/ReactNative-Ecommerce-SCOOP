@@ -8,6 +8,7 @@ function useFilter<T extends FilterableItem>(
 ): {
 	query: string;
 	filterText: (query: string) => void;
+	currentCategory: string | null;
 	filterCategory: (category: string | null) => void;
 	filteredItems: T[];
 } {
@@ -33,7 +34,7 @@ function useFilter<T extends FilterableItem>(
 		setCurrentCategory(category);
 	};
 
-	return { query, filterText, filterCategory, filteredItems };
+	return { query, filterText, currentCategory, filterCategory, filteredItems };
 }
 
 export default useFilter;

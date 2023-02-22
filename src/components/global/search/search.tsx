@@ -11,7 +11,7 @@ interface IProps {
 const Search: React.FC<IProps> = ({ placeHolder, onChangeText, defaultValue = '' }) => {
 	const searchInputRef = useRef<TextInput>(null);
 
-	return (
+	return (<>
 		<View style={styles.search}>
 			<View style={styles.searchInputContainer}>
 				<Image style={styles.magnifyingGlass} source={require('./search.png')} />
@@ -29,7 +29,7 @@ const Search: React.FC<IProps> = ({ placeHolder, onChangeText, defaultValue = ''
 				</TouchableOpacity>
 			</View>
 		</View>
-	);
+	</>);
 };
 
 export default Search;
