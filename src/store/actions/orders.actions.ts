@@ -21,7 +21,7 @@ export const createOrder = (userId: User['userId'] | null, order: Order) => {
 				dispatch({ type: 'ADD_ORDER', error: data });
 				return;
 			}
-			dispatch({ type: 'ADD_ORDER', orderId: data });
+			dispatch({ type: 'ADD_ORDER', orderId: data, order });
 		} catch (error) {
 			dispatch({ type: 'ADD_ORDER', error: error as Error });
 		}
@@ -42,7 +42,6 @@ export const fetchOrders = (userId: User['userId'] | null) => {
 		}
 		try {
 			const data = await getAllOrders(userId);
-			console.log(data);
 			if (data === undefined) {
 				dispatch({ type: 'GET_ORDERS', error: new Error('Something went wrong') });
 				return;

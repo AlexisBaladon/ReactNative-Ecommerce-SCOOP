@@ -1,20 +1,30 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView, Dimensions } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders } from '../../store/actions/orders.actions';
-import { CustomText } from '../../components'
+import {CustomText } from '../../components'
 import Table from '../../components/global/table/table';
 import type { ReduxStoreState } from '../../store';
 import { COLORS, TEXT } from '../../constants';
+import ChoosePicture from '../../components/global/choosePicture/choosePicture';
+import { ImageHandler } from '../../helpers';
+import { loadPicture } from '../../store/actions/auth.action';
+import { StatusBar } from 'expo-status-bar';
 
 const { CURRENCY_SYMBOL } = TEXT
 
 const ProfileScreen: React.FC = () => {
     const dispatch = useDispatch();
     const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
-    const mail = useSelector((state: ReduxStoreState) => state.auth.email);
-    const shownName = mail !== null ? mail.split('@')[0] : '';
+    const email = useSelector((state: ReduxStoreState) => state.auth.email);
+    const shownName = email !== null ? email.split('@')[0] : '';
     const orders = useSelector((state: ReduxStoreState) => state.orders.orders);
+    const profileImage = useSelector((state: ReduxStoreState) => state.auth.pictureUri);
+    const defaultImage = ImageHandler.getDefaultImage();
+
+    const handleTakePicture = (): void => {
+        dispatch(loadPicture(userId) as any)
+    }
 
     useEffect(() => {
         if (userId !== null) {
@@ -32,33 +42,53 @@ const ProfileScreen: React.FC = () => {
     })
 
     const thead = ['Producto', 'Precio', 'Cantidad', 'Total']
+    const shownPicture = profileImage !== null ? { uri: profileImage } : defaultImage;
 
-    return (<View>
+    return (<View style={{marginVertical: StatusBar.length - 1}}>
+        <View style={styles.choosePictureContainer}>
+            <ChoosePicture 
+                image={shownPicture} 
+                handleChoosePicture={handleTakePicture} 
+                title={email ?? 'Perfil'}
+                buttonText='Tomar foto'
+            />
+        </View>
         <ScrollView contentContainerStyle={styles.container}>
-            <CustomText size='big' textType='regular'>{`Bienvenid@ ${shownName}!`}</CustomText>  
+            <View style={{marginTop: 20}}>
+                <CustomText style={styles.titleText} size='big' textType='bold'>{`Bienvenid@ ${shownName}!`}</CustomText>
+            </View>
             {tbodies.map((tbody, i) => (
                 <View key={i} style={styles.tableContainer} >
                     <View style={styles.tableHeader}>
-                        <CustomText size='small' textType='bold' >{'Orden: '}</CustomText>
-                        <CustomText size='small'> {`${orders[i].id ?? '(Id no encontrado)'}`}</CustomText>
+                        <CustomText style={styles.text} size='small' textType='bold' >{'Orden: '}</CustomText>
+                        <CustomText style={styles.text} size='small'> {`${orders[i].id ?? '(Id no encontrado)'}`}</CustomText>
                     </View>
                     <View style={styles.tableHeader}>
-                        <CustomText size='small' textType='bold' >{'Descuento: '}</CustomText>
-                        <CustomText size='small'>{`${orders[i].discountPercentage ?? 0}%  `}</CustomText>
-                        <CustomText size='small' textType='bold' >{'Envío: '}</CustomText>
-                        <CustomText size='small'>{`${orders[i].carriagePrice ?? 0}${CURRENCY_SYMBOL}`}</CustomText>
+                        <CustomText style={styles.text} size='small' textType='bold' >{'Descuento: '}</CustomText>
+                        <CustomText style={styles.text} size='small'>{`${orders[i].discountPercentage ?? 0}%  `}</CustomText>
+                        <CustomText style={styles.text} size='small' textType='bold' >{'Envío: '}</CustomText>
+                        <CustomText style={styles.text} size='small'>{`${orders[i].carriagePrice ?? 0}${CURRENCY_SYMBOL}`}</CustomText>
                     </View>
                     <View style={styles.table} >
                         <Table thead={thead} tbody={tbody} />
                     </View>
                 </View>
             ))}
+            {tbodies.length === 0 && <CustomText style={styles.text} size='small' textType='regular'>{'No hay ordenes para mostrar'}</CustomText>}
         </ScrollView>
     </View>)
 }
 
+const { height } = Dimensions.get('window')
+
 const styles = StyleSheet.create({
     container: {
+        alignItems: 'center',
+        paddingTop: 20,
+        paddingBottom: height * 0.4,
+    },
+    choosePictureContainer: {
+        backgroundColor: COLORS.MAIN_COLOR,
         alignItems: 'center',
         paddingVertical: 20,
     },
@@ -74,6 +104,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     table: {
+        marginTop: 10,
         flex: 0,
         width: '90%',
         backgroundColor: 'gray',
@@ -81,6 +112,11 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderWidth: 1,
         borderColor: COLORS.MAIN_COLOR,
+    },
+    text: {
+    },
+    titleText: {
+        color: COLORS.MAIN_COLOR,
     }
 })
 

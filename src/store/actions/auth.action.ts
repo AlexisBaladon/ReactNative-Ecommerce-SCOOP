@@ -1,5 +1,6 @@
 import type { AuthActions } from '../types/';
-import { login as _login, register as _register } from '../../firebase/services/auth.services';
+import { login as _login, register as _register, updateImage } from '../../firebase/services/auth.services';
+import { takePicture } from '../../helpers/fileStystem';
 
 export const login = (email: string, password: string) => {
 	return async (dispatch: (action: AuthActions) => void) => {
@@ -14,7 +15,7 @@ export const login = (email: string, password: string) => {
 				dispatch({ type: 'LOGIN', error: data });
 				return;
 			}
-			dispatch({ type: 'LOGIN', userId: data.userId, email, userToken: data.token });
+			dispatch({ type: 'LOGIN', userId: data.userId, email, userToken: data.token, pictureUri: data.pictureUri });
 		} catch (error) {
 			dispatch({ type: 'LOGIN', error: error as Error });
 		}
@@ -44,5 +45,26 @@ export const register = (email: string, password: string, confirmPassword: strin
 export const logout = () => {
 	return async (dispatch: (action: AuthActions) => void) => {
 		dispatch({ type: 'LOGOUT' });
-	};
+	}
 };
+
+export const loadPicture = (userId: string | null) => {
+	return async (dispatch: (action: AuthActions) => void) => {
+		const imageUri = await takePicture();
+		console.log(imageUri);
+		if (imageUri === null || imageUri === undefined || imageUri instanceof Error) {
+			dispatch({ type: 'SET_IMAGE', error: imageUri ?? new Error('Something went wrong while loading picture') });
+			return;
+		}
+		dispatch({ type: 'SET_IMAGE', pictureUri: imageUri });
+		
+		console.log(userId);
+		if (userId === null || userId === undefined) return;
+
+		const response = await updateImage(userId, imageUri);
+		console.log(response);
+		if (response instanceof Error) {
+			dispatch({ type: 'SET_IMAGE', error: response });
+		}
+	}
+}

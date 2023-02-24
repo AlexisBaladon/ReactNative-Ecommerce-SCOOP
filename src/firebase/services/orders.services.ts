@@ -33,7 +33,6 @@ export const getAllOrders = async (userId: string): Promise<Error | any> => {
 		}));
 
 		parsedData.forEach((order) => {
-			console.log(order.items);
 			if (order?.items === undefined) {
 				Object.assign(order, { items: [] });
 			}
@@ -43,7 +42,6 @@ export const getAllOrders = async (userId: string): Promise<Error | any> => {
 			}));
 		});
 
-		console.log(parsedData);
 		if (!response.ok) {
 			return new Error('Something went wrong');
 		}

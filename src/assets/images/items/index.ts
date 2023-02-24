@@ -6,10 +6,7 @@ interface ItemImage {
 }
 
 const itemImages: ItemImage[] = [
-	{ id: './default.jpg', src: require('./default.jpg') },
-	{ id: './books.jpg', src: require('./books.jpg') },
-	{ id: './clothes.png', src: require('./clothes.jpg') },
-	{ id: './food.jpg', src: require('./food.jpg') },
+	{ id: './default.png', src: require('./default.png') },
 ];
 
 export default itemImages;
