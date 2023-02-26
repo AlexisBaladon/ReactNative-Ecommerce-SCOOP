@@ -11,7 +11,6 @@ import {
 	updateCounterCart,
 	removeItemCart,
 	removeAllItemsCart,
-	fetchItemsCart,
 } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
@@ -56,12 +55,6 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 			filterText('');
 		};
 	}, []);
-
-	useEffect(() => {
-		if (userId !== null) {
-			dispatch(fetchItemsCart(userId) as any);
-		}
-	}, [userId]);
 
 	useEffect(() => {
 		if (error !== null) {

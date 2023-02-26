@@ -1,4 +1,5 @@
 export interface AuthState {
+	loggedIn: boolean;
 	userId: string | null;
 	email: string | null;
 	pictureUri: string | null;

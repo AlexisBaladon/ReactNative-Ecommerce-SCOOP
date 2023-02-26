@@ -2,20 +2,16 @@ import * as SQLite from 'expo-sqlite';
 import {
     CREATE_STORE_TABLE,
     CREATE_FAVOURITES_TABLE,
-    ALTER_TABLE,
-    CREATE_ORDERS_TABLE,
-    CREATE_AUTH_TABLE,
     CREATE_CART_TABLE,
+    CREATE_ORDERS_TABLE,
 } 
 from './tables';
 
 const TABLES = [
     CREATE_STORE_TABLE,
     CREATE_FAVOURITES_TABLE,
-    // CREATE_ORDERS_TABLE,
-    // CREATE_AUTH_TABLE,
-    // CREATE_FAVOURITES_TABLE,
-    // CREATE_CART_TABLE,
+    CREATE_CART_TABLE,
+    CREATE_ORDERS_TABLE,
 ];
 
 export const db = SQLite.openDatabase('scoop.db');

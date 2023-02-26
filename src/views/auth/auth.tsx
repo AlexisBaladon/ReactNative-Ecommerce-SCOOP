@@ -49,7 +49,7 @@ const AuthScreen: React.FC = () => {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const isLogged = useSelector((state: ReduxStoreState) => state.auth.userId !== null);
+	const isLogged = useSelector((state: ReduxStoreState) => state.auth.loggedIn);
 	const isLoading = useSelector((state: ReduxStoreState) => state.auth.loading);
 	const error = useSelector((state: ReduxStoreState) => state.auth.error);
 

@@ -43,7 +43,7 @@ export const register = (email: string, password: string, confirmPassword: strin
 };
 
 export const logout = () => {
-	return async (dispatch: (action: AuthActions) => void) => {
+	return async (dispatch: (action: AuthActions) => void) => {	
 		dispatch({ type: 'LOGOUT' });
 	}
 };

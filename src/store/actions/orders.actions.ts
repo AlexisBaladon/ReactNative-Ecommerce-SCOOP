@@ -3,6 +3,8 @@ import { type OrdersActions } from '../types/orders.types';
 import { createOrder as _createOrder, getAllOrders } from '../../firebase/services/orders.services';
 
 import type { User } from '../../firebase/models/user';
+import { persistOrders, fetchOrders as _fetchOrders } from '../../db/orders';
+import { hasConnection } from '../../helpers';
 
 export const createOrder = (userId: User['userId'] | null, order: Order) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
@@ -21,6 +23,7 @@ export const createOrder = (userId: User['userId'] | null, order: Order) => {
 				dispatch({ type: 'ADD_ORDER', error: data });
 				return;
 			}
+			await persistOrders([order]);
 			dispatch({ type: 'ADD_ORDER', orderId: data, order });
 		} catch (error) {
 			dispatch({ type: 'ADD_ORDER', error: error as Error });
@@ -37,11 +40,10 @@ export const claimOrderId = () => {
 export const fetchOrders = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
 		dispatch({ type: 'LOADING_ORDERS' });
-		if (userId === null) {
-			return;
-		}
 		try {
-			const data = await getAllOrders(userId);
+			const hasInternet = await hasConnection();
+			const data = hasInternet && (userId != null) ? await getAllOrders(userId) : 
+									   await _fetchOrders();
 			if (data === undefined) {
 				dispatch({ type: 'GET_ORDERS', error: new Error('Something went wrong') });
 				return;

@@ -28,9 +28,7 @@ const ProfileScreen: React.FC = () => {
     }
 
     useEffect(() => {
-        if (userId !== null) {
-            dispatch(fetchOrders(userId) as any)
-        }
+        dispatch(fetchOrders(userId) as any)
     }, [])
 
     const tbodies = orders.map((order) => {

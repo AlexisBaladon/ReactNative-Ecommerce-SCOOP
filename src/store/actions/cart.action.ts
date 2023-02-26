@@ -8,12 +8,15 @@ import {
 	updateItemCart,
 } from '../../firebase/services/cart.services';
 import type { User } from '../../firebase/models/user';
+import { deleteAllCart, deleteCart, fetchCart, persistCart, updateCartAmount } from '../../db/cart';
+import { hasConnection } from '../../helpers';
 
 export const addItemCart = (userId: User['userId'] | null, item: DtItemCart) => {
 	return async (dispatch: (action: CartActions) => void) => {
 		dispatch({ type: 'ADD_ITEM_CART', item, counter: item.amount });
-		if (userId === null) return;
 		try {
+			await persistCart([item]);
+			if (userId === null) return;
 			const data = await _addItemCart(userId, item);
 			if (data === undefined) {
 				dispatch({
@@ -36,8 +39,9 @@ export const addItemCart = (userId: User['userId'] | null, item: DtItemCart) => 
 export const removeItemCart = (userId: User['userId'] | null, itemId: DtItem['id']) => {
 	return async (dispatch: (action: CartActions) => void) => {
 		dispatch({ type: 'REMOVE_ITEM_CART', itemId });
-		if (userId === null) return;
 		try {
+			await deleteCart(itemId);
+			if (userId === null) return;
 			const data = await _removeItemCart(userId, itemId);
 			if (data === undefined) {
 				dispatch({ type: 'ERROR_CART', error: new Error('Something went wrong') });
@@ -56,8 +60,9 @@ export const removeItemCart = (userId: User['userId'] | null, itemId: DtItem['id
 export const removeAllItemsCart = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: CartActions) => void) => {
 		dispatch({ type: 'REMOVE_ALL_ITEMS_CART' });
-		if (userId === null) return;
 		try {
+			await deleteAllCart();
+			if (userId === null) return;
 			const data = await removeAllCart(userId);
 			if (data === undefined) {
 				dispatch({
@@ -83,8 +88,9 @@ export const updateCounterCart = (
 ) => {
 	return async (dispatch: (action: CartActions) => void) => {
 		dispatch({ type: 'UPDATE_COUNTER_CART', itemId, counter: itemCount });
-		if (userId === null) return;
 		try {
+			await updateCartAmount(itemId, itemCount);
+			if (userId === null) return;
 			const data = await updateItemCart(userId, itemId, itemCount);
 			if (data === undefined) {
 				dispatch({ type: 'ERROR_CART', error: new Error('Something went wrong') });
@@ -103,12 +109,10 @@ export const updateCounterCart = (
 export const fetchItemsCart = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: CartActions) => void) => {
 		dispatch({ type: 'LOADING_CART' });
-		if (userId === null) {
-			dispatch({ type: 'GET_ITEMS_CART' });
-			return;
-		}
 		try {
-			const data = await getItemsCart(userId);
+			const hasInternet = await hasConnection();
+			const data = hasInternet && (userId != null) ? await getItemsCart(userId) 
+									                     : await fetchCart();
 			if (data === undefined) {
 				dispatch({ type: 'ERROR_CART', error: new Error('Something went wrong') });
 				return;

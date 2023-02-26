@@ -1,6 +1,7 @@
 import type { AuthState, AuthActions } from '../types';
 
 const initialState: AuthState = {
+	loggedIn: false,
 	userId: null,
 	userToken: null,
 	email: null,
@@ -15,12 +16,12 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 	const error = action.error !== undefined ? action.error : state.error;
 	const email = action.email !== undefined ? action.email : state.email;
 	const pictureUri = action.pictureUri !== undefined ? action.pictureUri : state.pictureUri;
-	
 
 	switch (action.type) {
 		case 'LOGIN':
 			return {
 				...state,
+				loggedIn: true,
 				userId,
 				userToken,
 				pictureUri,
@@ -31,6 +32,7 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 		case 'REGISTER':
 			return {
 				...state,
+				loggedIn: true,
 				userId,
 				userToken,
 				error,
@@ -40,6 +42,7 @@ const authReducer = (state: AuthState = initialState, action: AuthActions): Auth
 		case 'LOGOUT':
 			return {
 				...state,
+				loggedIn: false,
 				userId: null,
 				userToken: null,
 				email: null,

@@ -10,7 +10,7 @@ import { type NativeStackScreenProps } from '@react-navigation/native-stack/lib/
 import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxStoreState } from '../../store';
 import { useFilter } from '../../hooks';
-import { getStoreItems } from '../../store/actions';
+import { fetchFavouriteItems, fetchItemsCart, getStoreItems } from '../../store/actions';
 import { type ItemFetchParameters } from '../../store/types';
 
 const { NO_ITEMS_MESSAGE, SEARCH_PLACEHOLDER } = TEXT;
@@ -25,11 +25,17 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 	const { filterText: setSearchText, currentCategory, filterCategory, filteredItems: shownItems } = useFilter(items);
 
 	const dispatch = useDispatch();
+	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
 
 	useEffect(() => {
 		const storeParameters: ItemFetchParameters = { orderBy: 'type', orderDirection: 'asc' };
 		dispatch(getStoreItems(storeParameters) as any);
 	}, []);
+
+	useEffect(() => {
+		dispatch(fetchFavouriteItems(userId) as any);
+		dispatch(fetchItemsCart(userId) as any);
+	}, [userId]);
 
 	useEffect(() => {
 		if (error !== null) {
