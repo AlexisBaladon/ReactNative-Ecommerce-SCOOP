@@ -44,9 +44,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 	}, []);
 
 	useEffect(() => {
-		if (userId !== null) {
-			dispatch(fetchFavouriteItems(userId) as any);
-		}
+		dispatch(fetchFavouriteItems(userId) as any);
 	}, [userId]);
 
 	useEffect(() => {

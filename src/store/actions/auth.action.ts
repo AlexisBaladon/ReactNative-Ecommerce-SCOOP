@@ -1,6 +1,6 @@
 import type { AuthActions } from '../types/';
 import { login as _login, register as _register, updateImage } from '../../firebase/services/auth.services';
-import { takePicture } from '../../helpers/fileStystem';
+import { takePicture } from '../../helpers/fileSystem';
 
 export const login = (email: string, password: string) => {
 	return async (dispatch: (action: AuthActions) => void) => {
@@ -51,18 +51,15 @@ export const logout = () => {
 export const loadPicture = (userId: string | null) => {
 	return async (dispatch: (action: AuthActions) => void) => {
 		const imageUri = await takePicture();
-		console.log(imageUri);
 		if (imageUri === null || imageUri === undefined || imageUri instanceof Error) {
 			dispatch({ type: 'SET_IMAGE', error: imageUri ?? new Error('Something went wrong while loading picture') });
 			return;
 		}
 		dispatch({ type: 'SET_IMAGE', pictureUri: imageUri });
 		
-		console.log(userId);
 		if (userId === null || userId === undefined) return;
 
 		const response = await updateImage(userId, imageUri);
-		console.log(response);
 		if (response instanceof Error) {
 			dispatch({ type: 'SET_IMAGE', error: response });
 		}

@@ -38,7 +38,6 @@ export const takePicture = async (): Promise<string | Error | undefined> => {
     if (!hasPermissions) {
         try {
             const { status } = await ImagePicker.requestCameraPermissionsAsync();
-            console.log('status', status)
             if (status !== 'granted') {
                 return new Error('No permissions');
             }
@@ -63,7 +62,6 @@ export const takePicture = async (): Promise<string | Error | undefined> => {
             return imageBytes;
         }
         const imageUri = getUriFromBytes(imageBytes);
-        console.log('imageUri', imageUri);
         return imageUri;
     }
     catch (error) {

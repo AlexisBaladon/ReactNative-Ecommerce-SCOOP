@@ -1,8 +1,9 @@
 {
 	"expo": {
-		"name": "coder-app",
-		"slug": "coder-app",
+		"name": "scoop",
+		"slug": "scoop",
 		"version": "1.0.0",
+		"platforms": ["ios", "android"],
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
 		"userInterfaceStyle": "light",

@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Image, StyleSheet, type ImageSourcePropType, TouchableOpacity } from 'react-native'
-import { COLORS } from '../../../constants';
+import { View, Image, type ImageSourcePropType, TouchableOpacity } from 'react-native'
+import styles from './choosePicture.styles';
 import CustomText from '../customText/customText';
 
 interface IProps {
@@ -17,38 +17,10 @@ const ChoosePicture: React.FC<IProps> = ({ image, handleChoosePicture, title, bu
         <Image source={image} style={styles.picture} />
         <CustomText style={styles.text}>{title}</CustomText>
         <TouchableOpacity onPress={handleChoosePicture} style={styles.button}>
-            <CustomText style={styles.buttonText}>Cambiar foto</CustomText>
+            <CustomText style={styles.buttonText}>{buttonText}</CustomText>
         </TouchableOpacity>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text: {
-        color: COLORS.LIGHT_COLOR,
-    },
-    picture: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        alignSelf: 'center',
-        marginVertical: 20,
-    },
-    button: {
-        backgroundColor: COLORS.LIGHT_COLOR,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 10,
-        marginVertical: 20,
-    },
-    buttonText: {
-        color: COLORS.MAIN_COLOR,
-    }
-
-})
 
 export default ChoosePicture

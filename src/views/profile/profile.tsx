@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders } from '../../store/actions/orders.actions';
 import {CustomText } from '../../components'
 import Table from '../../components/global/table/table';
 import type { ReduxStoreState } from '../../store';
-import { COLORS, TEXT } from '../../constants';
+import { TEXT } from '../../constants';
 import ChoosePicture from '../../components/global/choosePicture/choosePicture';
 import { ImageHandler } from '../../helpers';
 import { loadPicture } from '../../store/actions/auth.action';
 import { StatusBar } from 'expo-status-bar';
+import styles from './profile.styles';
 
 const { CURRENCY_SYMBOL } = TEXT
 
@@ -78,47 +79,6 @@ const ProfileScreen: React.FC = () => {
         </ScrollView>
     </View>)
 }
-
-const { height } = Dimensions.get('window')
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: 'center',
-        paddingTop: 20,
-        paddingBottom: height * 0.4,
-    },
-    choosePictureContainer: {
-        backgroundColor: COLORS.MAIN_COLOR,
-        alignItems: 'center',
-        paddingVertical: 20,
-    },
-    tableContainer: {
-        width: '100%',
-        alignItems: 'center',
-        paddingVertical: 20,
-    },
-    tableHeader: {
-        alignSelf: 'flex-start',
-        marginHorizontal: 25,
-        display: 'flex',
-        flexDirection: 'row',
-    },
-    table: {
-        marginTop: 10,
-        flex: 0,
-        width: '90%',
-        backgroundColor: 'gray',
-        borderRadius: 10,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: COLORS.MAIN_COLOR,
-    },
-    text: {
-    },
-    titleText: {
-        color: COLORS.MAIN_COLOR,
-    }
-})
 
 
 export default ProfileScreen

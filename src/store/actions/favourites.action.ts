@@ -5,14 +5,20 @@ import {
 	removeItemFavourites as _removeItemFavourites,
 	removeAllItemsFavourites as _removeAllItemsFavourites,
 	getAllItemsFavourites,
-} from '../../firebase/services/favourites.services';
+} 
+from '../../firebase/services/favourites.services';
 import type { User } from '../../firebase/models/user';
+import { hasConnection } from '../../helpers';
+import { deleteAllFavourites, deleteFavourite, fetchFavourites, persistFavourites } from '../../db/favourites';
 
 export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
 		dispatch({ type: 'ADD_ITEM_FAVOURITES', item });
-		if (userId === null) return;
 		try {
+			await persistFavourites([item]);
+			if (userId === null) return;
+			const hasInternet = await hasConnection();
+			if (!hasInternet) return;
 			const data = await _addItemFavourites(userId, item);
 			if (data === undefined) {
 				dispatch({ type: 'ADD_ITEM_FAVOURITES', error: new Error('Something went wrong') });
@@ -31,8 +37,11 @@ export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) =
 export const removeItemFavourites = (userId: User['userId'] | null, itemId: DtItem['id']) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
 		dispatch({ type: 'REMOVE_ITEM_FAVOURITES', itemId });
-		if (userId === null) return;
 		try {
+			await deleteFavourite(itemId);
+			if (userId === null) return;
+			const hasInternet = await hasConnection();
+			if (!hasInternet) return;
 			const data = await _removeItemFavourites(userId, itemId);
 			if (data === undefined) {
 				dispatch({
@@ -55,10 +64,11 @@ export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
 		dispatch({ type: 'LOADING_FAVOURITES' });
 		dispatch({ type: 'REMOVE_ALL_ITEMS_FAVOURITES' });
-		if (userId === null) {
-			return;
-		}
 		try {
+			await deleteAllFavourites();
+			if (userId === null) return;
+			const hasInternet = await hasConnection();
+			if (!hasInternet) return;
 			const data = await _removeAllItemsFavourites(userId);
 			if (data === undefined) {
 				dispatch({
@@ -80,9 +90,11 @@ export const removeAllItemsFavourites = (userId: User['userId'] | null) => {
 export const fetchFavouriteItems = (userId: User['userId'] | null) => {
 	return async (dispatch: (action: FavouritesActions) => void) => {
 		dispatch({ type: 'LOADING_FAVOURITES' });
-		if (userId === null) return;
 		try {
-			const data = await getAllItemsFavourites(userId);
+			const hasInternet = await hasConnection();
+			console.log('hasInternet', hasInternet, 'userId', userId, 'userId !== null', userId !== null);
+			const data = (hasInternet && userId !== null) ? await getAllItemsFavourites(userId) 
+									 					  : await fetchFavourites();
 			if (data === undefined) {
 				dispatch({
 					type: 'ERROR_FAVOURITES',
