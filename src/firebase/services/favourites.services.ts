@@ -25,6 +25,28 @@ export const addItemFavourites = async (
 	}
 };
 
+export const addItemsFavourites = async (
+	userId: User['userId'],
+	items: DtItem[],
+): Promise<Error | any> => {
+	try {
+		const response = await fetch(`${API_URL}/users/${userId}/favourites.json`, {
+			method: 'PUT', // Put prevents firebase from generating an extra id
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(items),
+		});
+		const data = await response.json();
+		if (!response.ok) {
+			return new Error('Something went wrong');
+		}
+		return data;
+	} catch (error) {
+		return error;
+	}
+};
+
 export const removeItemFavourites = async (
 	userId: User['userId'],
 	itemId: DtItem['id'],

@@ -5,7 +5,6 @@ export const persistFavourites = async (items: DtItem[]): Promise<null | Error> 
     return await new Promise((resolve, reject) => {
         db.transaction((tx) => {
             items.forEach((item) => {
-                console.log('PERSISTING', item.title);
                 tx.executeSql(`
                     INSERT OR REPLACE INTO favourites (
                         id,
@@ -40,7 +39,6 @@ export const persistFavourites = async (items: DtItem[]): Promise<null | Error> 
 
 export const fetchFavourites = async (): Promise<DtItem[] | Error> => {
     return await new Promise((resolve, reject) => {
-        console.log('...');
         db.transaction((tx) => {
             tx.executeSql(
                 `SELECT * FROM favourites`, 
@@ -52,7 +50,7 @@ export const fetchFavourites = async (): Promise<DtItem[] | Error> => {
                             categories: JSON.parse(item.categories)
                         }
                     });
-                    console.log('items de fetch: ',items); resolve(items);
+                    resolve(items);
                 },
                 (_, error) => {
                     reject(error);

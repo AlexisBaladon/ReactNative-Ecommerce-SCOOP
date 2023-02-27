@@ -1,6 +1,9 @@
 import type { AuthActions } from '../types/';
 import { login as _login, register as _register, updateImage } from '../../firebase/services/auth.services';
 import { takePicture } from '../../helpers/fileSystem';
+import { addItemsCart } from '../../firebase/services/cart.services';
+import { addItemsFavourites } from '../../firebase/services/favourites.services';
+import type { DtItem, DtItemCart } from '../../interfaces';
 
 export const login = (email: string, password: string) => {
 	return async (dispatch: (action: AuthActions) => void) => {
@@ -22,7 +25,13 @@ export const login = (email: string, password: string) => {
 	};
 };
 
-export const register = (email: string, password: string, confirmPassword: string) => {
+export const register = (
+	email: string, 
+	password: string, 
+	confirmPassword: string,
+	favouriteItems: DtItem[],
+	cartItems: DtItemCart[],
+) => {
 	return async (dispatch: (action: AuthActions) => void) => {
 		dispatch({ type: 'LOADING_AUTH' });
 		try {
@@ -35,6 +44,9 @@ export const register = (email: string, password: string, confirmPassword: strin
 				dispatch({ type: 'REGISTER', error: data });
 				return;
 			}
+
+			await addItemsFavourites(data.userId, favouriteItems);
+			await addItemsCart(data.userId, cartItems);
 			dispatch({ type: 'REGISTER', userId: data.userId, email, userToken: data.token });
 		} catch (error) {
 			dispatch({ type: 'REGISTER', error: error as Error });

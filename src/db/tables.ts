@@ -25,17 +25,17 @@ export const CREATE_FAVOURITES_TABLE = `
 `;
 
 export const CREATE_CART_TABLE = `
-CREATE TABLE IF NOT EXISTS cart(
-    id TEXT PRIMARY KEY NOT NULL,
-    title TEXT NOT NULL,
-    description TEXT NOT NULL,
-    pictureUrl TEXT NOT NULL,
-    price REAL NOT NULL,
-    stock INTEGER NOT NULL,
-    type TEXT NOT NULL,
-    categories TEXT NOT NULL,
-    amount INTEGER NOT NULL,
-);
+    CREATE TABLE IF NOT EXISTS cart(
+        id TEXT PRIMARY KEY NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT NOT NULL,
+        pictureUrl TEXT NOT NULL,
+        price REAL NOT NULL,
+        stock INTEGER NOT NULL,
+        type TEXT NOT NULL,
+        categories TEXT NOT NULL,
+        amount INTEGER NOT NULL
+    );
 `;
 
 export const CREATE_ORDERS_TABLE = `

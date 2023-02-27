@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { COLORS } from '../../constants';
 
-const { MAIN_COLOR, LIGHT_COLOR } = COLORS;
+const { MAIN_COLOR, LIGHT_COLOR, NEUTRAL_COLOR } = COLORS;
 const { width } = Dimensions.get('window');
 
 const marginHorizontal = 10;
@@ -89,6 +89,10 @@ export default StyleSheet.create({
 		shadowOpacity: 0.8,
 		shadowRadius: 2,
 		elevation: 5,
+	},
+	disabledButton: {
+		// transparent gray
+		backgroundColor: NEUTRAL_COLOR,
 	},
 	form: {
 		display: 'flex',

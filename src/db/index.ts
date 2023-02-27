@@ -25,6 +25,7 @@ export const init = async (): Promise<null | Error> => {
                     [],
                     () => {resolve(null)},
                     (_, error) => {
+                        console.log(error);
                         reject(error);
                         return true;
                     }

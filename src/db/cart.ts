@@ -41,7 +41,6 @@ export const persistCart = async (items: DtItemCart[]): Promise<null | Error> =>
 
 export const fetchCart = async (): Promise<DtItemCart[] | Error> => {
     return await new Promise((resolve, reject) => {
-        console.log('...');
         db.transaction((tx) => {
             tx.executeSql(
                 `SELECT * FROM cart`, 
@@ -53,7 +52,7 @@ export const fetchCart = async (): Promise<DtItemCart[] | Error> => {
                             categories: JSON.parse(item.categories)
                         }
                     });
-                    console.log('items de fetch: ',items); resolve(items);
+                    resolve(items);
                 },
                 (_, error) => {
                     reject(error);

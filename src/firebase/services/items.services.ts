@@ -21,7 +21,6 @@ export const getItem = async (id: string): Promise<DtItem | Error | undefined> =
 
 export const getItems = async (props: ItemFetchParameters): Promise<DtItem[]> => {
 	const { orderBy, orderDirection, type } = props;
-
 	const response = await fetch(`${API_URL}/items.json`);
 	let data = await response.json();
 	if (data === null) return [];

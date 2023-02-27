@@ -4,11 +4,13 @@ import { View, TextInput, Image, TouchableOpacity, type ImageProps, Alert } from
 import { TEXT } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
 import createStyles from './auth.styles';
-import { Checkbox, CustomText } from '../../components';
+import { CustomText } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, register } from '../../store/actions/auth.action';
 import type { ReduxStoreState } from '../../store';
 import ProfileScreen from '../profile/profile';
+import { humanizeError } from '../../helpers/errorHandler';
+import { isValidMail } from '../../helpers/validations';
 
 const { BRAND_NAME } = TEXT;
 
@@ -49,13 +51,19 @@ const AuthScreen: React.FC = () => {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const isLogged = useSelector((state: ReduxStoreState) => state.auth.loggedIn);
+	const isLogged = useSelector((state: ReduxStoreState) => state.auth.userId != null);
 	const isLoading = useSelector((state: ReduxStoreState) => state.auth.loading);
 	const error = useSelector((state: ReduxStoreState) => state.auth.error);
+	const cartItems = useSelector((state: ReduxStoreState) => state.cart.items);
+	const favouriteItems = useSelector((state: ReduxStoreState) => state.favourites.items);
 
 	useEffect(() => {
 		if (error != null) {
-			Alert.alert('Error', error.message, [{ text: 'OK' }]);
+			Alert.alert(
+				'Error', 
+				humanizeError(error), 
+				[{ text: 'OK' }
+			]);
 		}
 	}, [error]);
 
@@ -63,10 +71,30 @@ const AuthScreen: React.FC = () => {
 	const actionTitle = isLoading ? 'Cargando...' : text.actionTitle;
 
 	const handleOnAuth = (): void => {
-		const toDispatch = hasAccount
-			? login(email, password)
-			: register(email, password, confirmPassword);
-		dispatch(toDispatch as any);
+		if (email === '' || password === '') {
+			Alert.alert('Error', 'Debes llenar todos los campos', [{ text: 'OK' }]);
+			return;
+		}
+		if (hasAccount && password !== confirmPassword) {
+			Alert.alert('Error', 'Las contraseñas no coinciden', [{ text: 'OK' }]);
+			return;
+		}
+		if (!isValidMail(email)) {
+			Alert.alert('Error', 'El correo electrónico no es válido', [{ text: 'OK' }]);
+			return;
+		}
+
+		if (hasAccount) {
+			dispatch(login(email, password) as any);
+		} else {
+			dispatch(register(
+				email, 
+				password, 
+				confirmPassword,
+				favouriteItems,
+				cartItems,
+			) as any);
+		}
 	};
 
 	if (isLogged) {
@@ -157,7 +185,6 @@ const AuthScreen: React.FC = () => {
 								/>
 							</>
 						)}
-						<Checkbox title={'Recuérdame'} size={20} initiallyChecked={true} />
 					</View>
 					<TouchableOpacity
 						onPress={() => {

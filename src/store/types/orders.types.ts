@@ -10,7 +10,7 @@ export type OrdersActionTypes = 'ADD_ORDER' | 'GET_ORDERS' | 'LOADING_ORDERS' | 
 
 export interface OrdersActions {
 	type: OrdersActionTypes;
-	order?: Order;
+	order?: Omit<Order, 'id'>;
 	orderId?: Order['id'];
 	orders?: Order[];
 	error?: Error;

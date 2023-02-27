@@ -68,7 +68,20 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 
 	const handleConfirmCheckout = (): void => {
 		if (userId === null) return;
-		const order: Order = {
+		if (location === '') {
+			Alert.alert('Error', 'Debe ingresar una ubicación', [{ text: 'OK' }]);
+			return;
+		}
+		if (phone === '') {
+			Alert.alert('Error', 'Debe ingresar un número de teléfono', [{ text: 'OK' }]);
+			return;
+		}
+		if (postalCode === '') {
+			Alert.alert('Error', 'Debe ingresar un código postal', [{ text: 'OK' }]);
+			return;
+		}
+
+		const order: Omit<Order, 'id'> = {
 			items,
 			totalPrice,
 			discountPercentage,
@@ -172,9 +185,15 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 					</View>
 				</ScrollView>
 				<View style={styles.buttonContainer} ref={buttonContainerRef}>
-					<TouchableOpacity style={styles.checkoutButton} onPress={handleConfirmCheckout}>
-						<CustomText textType="bold" style={styles.text}>
-							{isLoading ? 'Procesando compra...' : 'Confirmar compra'}
+					<TouchableOpacity 
+						style={[styles.checkoutButton, userId==null ? styles.disabledButton : {}]}
+						onPress={handleConfirmCheckout} 
+						disabled={isLoading || userId == null}
+					>
+						<CustomText textType="bold" style={styles.text}> {
+								userId === null ? 'Inicie sesión' : 
+								isLoading ? 'Procesando compra...' : 'Confirmar compra'
+							}
 						</CustomText>
 					</TouchableOpacity>
 				</View>

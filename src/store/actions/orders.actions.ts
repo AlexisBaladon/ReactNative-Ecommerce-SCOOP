@@ -3,7 +3,7 @@ import { type OrdersActions } from '../types/orders.types';
 import { createOrder as _createOrder, getAllOrders } from '../../firebase/services/orders.services';
 import type { User } from '../../firebase/models/user';
 
-export const createOrder = (userId: User['userId'] | null, order: Order) => {
+export const createOrder = (userId: User['userId'] | null, order: Omit<Order, 'id'>) => {
 	return async (dispatch: (action: OrdersActions) => void) => {
 		dispatch({ type: 'LOADING_ORDERS' });
 		if (userId === null) {

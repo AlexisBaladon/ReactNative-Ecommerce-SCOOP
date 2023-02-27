@@ -23,6 +23,26 @@ export const addItemCart = async (
 	}
 };
 
+export const addItemsCart = async (
+	userId: User['userId'],
+	items: DtItemCart[],
+): Promise<Error | undefined | any> => {
+	try {
+		const response = await fetch(`${API_URL}/users/${userId}/cart.json`, {
+			method: 'PUT', // Put prevents firebase from generating an extra id
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(items),
+		});
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.log(error as Error);
+		return error as Error;
+	}
+};
+
 export const updateItemCart = async (
 	userId: User['userId'],
 	itemId: DtItem['id'],
