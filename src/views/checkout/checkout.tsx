@@ -80,6 +80,10 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 			Alert.alert('Error', 'Debe ingresar un código postal', [{ text: 'OK' }]);
 			return;
 		}
+		if (items.length === 0) {
+			Alert.alert('Error', 'Añada items al carrito antes de realizar su pedido', [{ text: 'OK' }]);
+			return;
+		}
 
 		const order: Omit<Order, 'id'> = {
 			items,

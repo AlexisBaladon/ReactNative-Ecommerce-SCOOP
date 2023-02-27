@@ -11,16 +11,16 @@ export const createOrder = (userId: User['userId'] | null, order: Omit<Order, 'i
 			return;
 		}
 		try {
-			const data = await _createOrder(order, userId);
-			if (data === undefined) {
+			const assignedId = await _createOrder(order, userId);
+			if (assignedId === undefined) {
 				dispatch({ type: 'ADD_ORDER', error: new Error('Something went wrong') });
 				return;
 			}
-			if (data instanceof Error) {
-				dispatch({ type: 'ADD_ORDER', error: data });
+			if (assignedId instanceof Error) {
+				dispatch({ type: 'ADD_ORDER', error: assignedId });
 				return;
 			}
-			dispatch({ type: 'ADD_ORDER', orderId: data, order });
+			dispatch({ type: 'ADD_ORDER', orderId: assignedId, order });
 		} catch (error) {
 			dispatch({ type: 'ADD_ORDER', error: error as Error });
 		}

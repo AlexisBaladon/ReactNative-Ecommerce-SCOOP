@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, TouchableHighlight } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchOrders } from '../../store/actions/orders.actions';
 import {CustomText } from '../../components'
@@ -8,7 +8,7 @@ import type { ReduxStoreState } from '../../store';
 import { TEXT } from '../../constants';
 import ChoosePicture from '../../components/global/choosePicture/choosePicture';
 import { ImageHandler } from '../../helpers';
-import { loadPicture } from '../../store/actions/auth.action';
+import { loadPicture, logout } from '../../store/actions/auth.action';
 import { StatusBar } from 'expo-status-bar';
 import styles from './profile.styles';
 
@@ -51,6 +51,9 @@ const ProfileScreen: React.FC = () => {
                 title={email ?? 'Perfil'}
                 buttonText='Tomar foto'
             />
+            <TouchableHighlight onPress={() => dispatch(logout() as any)} style={styles.logoutButton} underlayColor='#f0f0f0'>
+                <CustomText style={styles.logoutButtonText} size='small' textType='regular'>{'Cerrar sesión'}</CustomText>
+            </TouchableHighlight>
         </View>
         <ScrollView contentContainerStyle={styles.container}>
             <View style={{marginTop: 20}}>

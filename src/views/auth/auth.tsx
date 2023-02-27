@@ -75,7 +75,7 @@ const AuthScreen: React.FC = () => {
 			Alert.alert('Error', 'Debes llenar todos los campos', [{ text: 'OK' }]);
 			return;
 		}
-		if (hasAccount && password !== confirmPassword) {
+		if (!hasAccount && password !== confirmPassword) {
 			Alert.alert('Error', 'Las contraseñas no coinciden', [{ text: 'OK' }]);
 			return;
 		}
@@ -186,15 +186,6 @@ const AuthScreen: React.FC = () => {
 							</>
 						)}
 					</View>
-					<TouchableOpacity
-						onPress={() => {
-							dispatch(login('a@a.com', '123456') as any);
-						}}
-						style={styles.authButton}
-					>
-						<CustomText style={styles.backButtonText}>LOGIN TEST</CustomText>
-					</TouchableOpacity>
-
 					<TouchableOpacity onPress={handleOnAuth} style={styles.authButton}>
 						<CustomText style={styles.authButtonText}> {actionTitle} </CustomText>
 					</TouchableOpacity>

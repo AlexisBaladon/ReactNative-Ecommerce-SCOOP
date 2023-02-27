@@ -45,6 +45,7 @@ export const register = (
 				return;
 			}
 
+			console.log(data)
 			await addItemsFavourites(data.userId, favouriteItems);
 			await addItemsCart(data.userId, cartItems);
 			dispatch({ type: 'REGISTER', userId: data.userId, email, userToken: data.token });

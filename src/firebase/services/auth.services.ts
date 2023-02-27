@@ -42,7 +42,7 @@ export const register = async (
 ): Promise<User | Error | undefined> => {
 	try {
 		if (password !== confirmPassword) {
-			return new Error('Passwords do not match');
+			return new Error('PASSWORDS_DO_NOT_MATCH');
 		}
 		const response = await fetch(SIGNUP_URL, {
 			method: 'POST',

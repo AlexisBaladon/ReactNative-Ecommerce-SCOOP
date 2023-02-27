@@ -9,6 +9,16 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingBottom: height * 0.4,
     },
+    logoutButton: {
+        position: 'absolute',
+        top: height * 0.05,
+        right: 20,
+        padding: 5,
+        borderRadius: 10,
+    },
+    logoutButtonText: {
+        color: COLORS.LIGHT_COLOR,
+    },
     choosePictureContainer: {
         backgroundColor: COLORS.MAIN_COLOR,
         alignItems: 'center',
