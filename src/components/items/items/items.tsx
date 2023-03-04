@@ -26,30 +26,32 @@ const Items: React.FC<IProps> = ({
 	isLoading,
 }) => {
 	if (isLoading !== undefined && isLoading) {
-		return <ActivityIndicator size="large" color="blue" style={{flex: 1}}/>;
+		return <ActivityIndicator size="large" color="blue" style={{ flex: 1 }} />;
 	}
 
 	const styles = createStyles(heightPercentage, paddingBottom, paddingBottomEmpty);
 	const columnAdapterStyle = numColumns === 2 ? styles.itemsTwoColumns : {};
 
-	return (<>
-		{shownItems.length === 0 && (
-			<View style={styles.emptyListTextContainer}>
-				<CustomText style={styles.emptyListText}>{noItemsMessage}</CustomText>
-			</View>
-		)}
-		{shownItems.length > 0 && (
-			<View style={[styles.itemsContainer, columnAdapterStyle]}>
-				<FlatList
-					contentContainerStyle={styles.items}
-					renderItem={RenderItem}
-					data={shownItems}
-					keyExtractor={(item: DtItem) => item.id}
-					numColumns={numColumns}
-				/>
-			</View>
-		)}
-	</>);
+	return (
+		<>
+			{shownItems.length === 0 && (
+				<View style={styles.emptyListTextContainer}>
+					<CustomText style={styles.emptyListText}>{noItemsMessage}</CustomText>
+				</View>
+			)}
+			{shownItems.length > 0 && (
+				<View style={[styles.itemsContainer, columnAdapterStyle]}>
+					<FlatList
+						contentContainerStyle={styles.items}
+						renderItem={RenderItem}
+						data={shownItems}
+						keyExtractor={(item: DtItem) => item.id}
+						numColumns={numColumns}
+					/>
+				</View>
+			)}
+		</>
+	);
 };
 
 export default Items;

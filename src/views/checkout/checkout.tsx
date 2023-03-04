@@ -81,7 +81,9 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 			return;
 		}
 		if (items.length === 0) {
-			Alert.alert('Error', 'Añada items al carrito antes de realizar su pedido', [{ text: 'OK' }]);
+			Alert.alert('Error', 'Añada items al carrito antes de realizar su pedido', [
+				{ text: 'OK' },
+			]);
 			return;
 		}
 
@@ -189,15 +191,18 @@ const CheckoutScreen: React.FC<CheckoutScreenNavigationProp> = ({ route, navigat
 					</View>
 				</ScrollView>
 				<View style={styles.buttonContainer} ref={buttonContainerRef}>
-					<TouchableOpacity 
-						style={[styles.checkoutButton, userId==null ? styles.disabledButton : {}]}
-						onPress={handleConfirmCheckout} 
+					<TouchableOpacity
+						style={[styles.checkoutButton, userId == null ? styles.disabledButton : {}]}
+						onPress={handleConfirmCheckout}
 						disabled={isLoading || userId == null}
 					>
-						<CustomText textType="bold" style={styles.text}> {
-								userId === null ? 'Inicie sesión' : 
-								isLoading ? 'Procesando compra...' : 'Confirmar compra'
-							}
+						<CustomText textType="bold" style={styles.text}>
+							{' '}
+							{userId === null
+								? 'Inicia sesión'
+								: isLoading
+								? 'Procesando compra...'
+								: 'Confirmar compra'}
 						</CustomText>
 					</TouchableOpacity>
 				</View>

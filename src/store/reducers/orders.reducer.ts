@@ -10,7 +10,10 @@ const initialState: OrdersState = {
 const ordersReducer = (state: OrdersState = initialState, action: OrdersActions): OrdersState => {
 	const error = action.error !== undefined ? action.error : state.error;
 	const createdOrderWithoutId = action.order !== undefined ? action.order : null;
-	const createdOrder = createdOrderWithoutId !== null && action.orderId !== undefined ? {...createdOrderWithoutId, id: action.orderId} : null;
+	const createdOrder =
+		createdOrderWithoutId !== null && action.orderId !== undefined
+			? { ...createdOrderWithoutId, id: action.orderId }
+			: null;
 	switch (action.type) {
 		case 'ADD_ORDER':
 			return {

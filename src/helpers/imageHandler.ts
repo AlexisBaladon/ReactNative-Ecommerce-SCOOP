@@ -17,7 +17,9 @@ const getItemImage = (id: string): ImageSourcePropType | undefined => {
 };
 
 const getDefaultImage = (): ImageSourcePropType => {
-	const defaultImage = itemImages.find((image) => image.id === DEFAULT_ID) as { src: ImageSourcePropType };
+	const defaultImage = itemImages.find((image) => image.id === DEFAULT_ID) as {
+		src: ImageSourcePropType;
+	};
 	return defaultImage.src;
 };
 

@@ -5,8 +5,6 @@ interface ItemImage {
 	src: ImageSourcePropType | undefined;
 }
 
-const itemImages: ItemImage[] = [
-	{ id: './default.png', src: require('./default.png') },
-];
+const itemImages: ItemImage[] = [{ id: './default.png', src: require('./default.png') }];
 
 export default itemImages;

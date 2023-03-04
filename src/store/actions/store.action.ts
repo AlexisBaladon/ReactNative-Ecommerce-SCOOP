@@ -10,7 +10,7 @@ export const getStoreItems = (props: ItemFetchParameters) => {
 		try {
 			const items = hasInternet ? await getItemsDB(props) : await fetchStore(props);
 			if (items instanceof Error) throw items;
-			await persistStore(items)
+			await persistStore(items);
 			dispatch({ type: 'GET_ITEMS', items });
 		} catch (error) {
 			dispatch({ type: 'ERROR', error: error as Error });

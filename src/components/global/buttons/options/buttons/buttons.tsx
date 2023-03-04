@@ -1,39 +1,44 @@
 import React from 'react';
-import { View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import Button from '../button/button';
 import styles from './buttons.styles';
 
+interface ButtonT {
+	title: string;
+	onPress: () => void;
+	pressed: boolean;
+	backgroundColor?: string;
+	color?: string;
+	pressedBackgroundColor?: string;
+	pressedColor?: string;
+}
+
 interface IProps {
-	buttons: Array<{
-		title: string;
-		onPress: () => void;
-		pressed: boolean;
-		backgroundColor?: string;
-		color?: string;
-		pressedBackgroundColor?: string;
-		pressedColor?: string;
-	}>;
+	buttons: ButtonT[];
 }
 
 const Buttons: React.FC<IProps> = ({ buttons }) => {
 	return (
-		<View style={styles.categoriesContainer}>
-			{buttons.map((but, i) => {
-				return (
-					<View style={styles.categoryContainer} key={i}>
-						<Button
-							title={but.title}
-							isSelected={but.pressed}
-							onPress={but.onPress}
-							backgroundColor={but.backgroundColor}
-							color={but.color}
-							pressedBackgroundColor={but.pressedBackgroundColor}
-							pressedColor={but.pressedColor}
-						/>
-					</View>
-				);
-			})}
-		</View>
+		<FlatList
+			contentContainerStyle={{paddingBottom: 3}}
+			data={buttons}
+			renderItem={({ item }) => (
+				<View style={styles.categoryContainer}>
+					<Button
+						title={item.title}
+						isSelected={item.pressed}
+						onPress={item.onPress}
+						backgroundColor={item.backgroundColor}
+						color={item.color}
+						pressedBackgroundColor={item.pressedBackgroundColor}
+						pressedColor={item.pressedColor}
+					/>
+				</View>
+			)}
+			keyExtractor={(item) => item.title}
+			horizontal={true}
+			showsHorizontalScrollIndicator={false}
+		/>
 	);
 };
 

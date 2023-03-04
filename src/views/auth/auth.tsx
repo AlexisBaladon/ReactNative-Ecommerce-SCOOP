@@ -59,11 +59,7 @@ const AuthScreen: React.FC = () => {
 
 	useEffect(() => {
 		if (error != null) {
-			Alert.alert(
-				'Error', 
-				humanizeError(error), 
-				[{ text: 'OK' }
-			]);
+			Alert.alert('Error', humanizeError(error), [{ text: 'OK' }]);
 		}
 	}, [error]);
 
@@ -87,13 +83,7 @@ const AuthScreen: React.FC = () => {
 		if (hasAccount) {
 			dispatch(login(email, password) as any);
 		} else {
-			dispatch(register(
-				email, 
-				password, 
-				confirmPassword,
-				favouriteItems,
-				cartItems,
-			) as any);
+			dispatch(register(email, password, confirmPassword, favouriteItems, cartItems) as any);
 		}
 	};
 

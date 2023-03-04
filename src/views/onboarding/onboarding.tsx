@@ -6,6 +6,7 @@ import type {
 } from '../../navigation/types/onboarding.types';
 import { OnboardingTemplate } from '../../components';
 import type { ImageSourcePropType } from 'react-native';
+import { TEXT } from '../../constants';
 
 const imagesSrc: Array<ImageSourcePropType | undefined> = [
 	require('./onboarding1.png'),
@@ -17,13 +18,37 @@ type OnboardingScreen1NavigationProp = NativeStackScreenProps<OnboardingParamLis
 type OnboardingScreen2NavigationProp = NativeStackScreenProps<OnboardingParamList, 'Onboarding2'>;
 type OnboardingScreen3NavigationProp = NativeStackScreenProps<OnboardingParamList, 'Onboarding3'>;
 
-const onboardingScreens = [0, 1, 2].map((index) => {
+const {
+	ONBOARDING1_TITLE,
+	ONBOARDING1_DESCRIPTION,
+	ONBOARDING2_TITLE,
+	ONBOARDING2_DESCRIPTION,
+	ONBOARDING3_TITLE,
+	ONBOARDING3_DESCRIPTION,
+} = TEXT;
+
+const onboardingTexts = [
+	{
+		title: ONBOARDING1_TITLE,
+		description: ONBOARDING1_DESCRIPTION,
+	},
+	{
+		title: ONBOARDING2_TITLE,
+		description: ONBOARDING2_DESCRIPTION,
+	},
+	{
+		title: ONBOARDING3_TITLE,
+		description: ONBOARDING3_DESCRIPTION,
+	},
+];
+
+const onboardingScreens = onboardingTexts.map((text, index) => {
 	return function getOnboardingScreen(navigatePrev: () => void, navigateNext: () => void) {
 		return (
 			<OnboardingTemplate
 				key={index}
-				titleMessage="¡Bienvenido a la app!"
-				description="En esta app podrás buscar y encontrar los mejores productos de la tienda"
+				titleMessage={text.title}
+				description={text.description}
 				currentIndex={index}
 				navigatePrev={navigatePrev}
 				navigateNext={navigateNext}

@@ -1,7 +1,10 @@
 import type { Order } from '../models/orders';
 import { API_URL } from '../env';
 
-export const createOrder = async (order: Omit<Order, 'id'>, userId: string): Promise<Error | string | any> => {
+export const createOrder = async (
+	order: Omit<Order, 'id'>,
+	userId: string,
+): Promise<Error | string | any> => {
 	try {
 		const response = await fetch(`${API_URL}/users/${userId}/orders.json`, {
 			method: 'POST',

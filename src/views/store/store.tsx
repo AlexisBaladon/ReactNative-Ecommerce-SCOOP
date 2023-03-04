@@ -22,7 +22,12 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 	const categories: string[] = useSelector((state: ReduxStoreState) => state.store.categories);
 	const isLoading: boolean = useSelector((state: ReduxStoreState) => state.store.loading);
 	const error = useSelector((state: ReduxStoreState) => state.store.error);
-	const { filterText: setSearchText, currentCategory, filterCategory, filteredItems: shownItems } = useFilter(items);
+	const {
+		filterText: setSearchText,
+		currentCategory,
+		filterCategory,
+		filteredItems: shownItems,
+	} = useFilter(items);
 
 	const dispatch = useDispatch();
 	const userId = useSelector((state: ReduxStoreState) => state.auth.userId);
@@ -49,11 +54,19 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 		pressed: boolean;
 	}
 	const buttons: TButton[] = [
-		{ title: 'Todos', onPress: () => {filterCategory(null)}, pressed: currentCategory === null },
+		{
+			title: 'Todos',
+			onPress: () => {
+				filterCategory(null);
+			},
+			pressed: currentCategory === null,
+		},
 		...categories.map((category) => {
 			return {
 				title: category,
-				onPress: () => {filterCategory(category)},
+				onPress: () => {
+					filterCategory(category);
+				},
 				pressed: currentCategory === category,
 			};
 		}),

@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
-const createStyles = (heightPercentage: number = 100, paddingBottom: number = 120, paddingBottomEmpty?: number): StyleSheet.NamedStyles<any> =>
+const createStyles = (
+	heightPercentage: number = 100,
+	paddingBottom: number = 120,
+	paddingBottomEmpty?: number,
+): StyleSheet.NamedStyles<any> =>
 	StyleSheet.create({
 		itemsContainer: {
 			width: '100%',

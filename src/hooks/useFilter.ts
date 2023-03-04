@@ -1,5 +1,9 @@
 import { useState, useMemo, useDeferredValue } from 'react';
-import { type FilterableItem, filterItemFunction, categoryFilterCondition } from '../helpers/itemFilter';
+import {
+	type FilterableItem,
+	filterItemFunction,
+	categoryFilterCondition,
+} from '../helpers/itemFilter';
 
 function useFilter<T extends FilterableItem>(
 	items: T[],
@@ -19,11 +23,12 @@ function useFilter<T extends FilterableItem>(
 	const filteredItems: T[] = useMemo(() => {
 		let filteredItemsByCategory = items;
 		if (currentCategory !== null) {
-			filteredItemsByCategory = items.filter((item) => categoryFilterCondition(item, currentCategory));
+			filteredItemsByCategory = items.filter((item) =>
+				categoryFilterCondition(item, currentCategory),
+			);
 		}
 		if (deferredQuery === '') return filteredItemsByCategory;
 		return filteredItemsByCategory.filter(filterItemFunction<T>(deferredQuery));
-
 	}, [deferredQuery, currentCategory, items]);
 
 	const filterText = (query: string): void => {

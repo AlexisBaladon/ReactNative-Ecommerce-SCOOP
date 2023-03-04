@@ -111,8 +111,8 @@ export const fetchItemsCart = (userId: User['userId'] | null) => {
 		dispatch({ type: 'LOADING_CART' });
 		try {
 			const hasInternet = await hasConnection();
-			const data = hasInternet && (userId != null) ? await getItemsCart(userId) 
-									                     : await fetchCart();
+			const data =
+				hasInternet && userId != null ? await getItemsCart(userId) : await fetchCart();
 			if (data === undefined) {
 				dispatch({ type: 'ERROR_CART', error: new Error('Something went wrong') });
 				return;

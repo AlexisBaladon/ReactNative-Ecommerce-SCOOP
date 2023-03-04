@@ -15,10 +15,11 @@ const storeReducer = (state: StoreState = initialState, action?: StoreActions): 
 			return {
 				...state,
 				items: action.items !== undefined ? action.items : [],
-				categories: action.items?.reduce((categories, item) => {
-					if (categories.includes(item.type)) return categories;
-					return [...categories, item.type];
-				}, [] as string[]) ?? [],
+				categories:
+					action.items?.reduce((categories, item) => {
+						if (categories.includes(item.type)) return categories;
+						return [...categories, item.type];
+					}, [] as string[]) ?? [],
 				loading: false,
 				error,
 			};

@@ -52,4 +52,3 @@ export const CREATE_ORDERS_TABLE = `
         orderDate TEXT NOT NULL
     );
 `;
-

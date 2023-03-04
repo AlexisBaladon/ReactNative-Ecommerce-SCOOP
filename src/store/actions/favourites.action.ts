@@ -5,10 +5,14 @@ import {
 	removeItemFavourites as _removeItemFavourites,
 	removeAllItemsFavourites as _removeAllItemsFavourites,
 	getAllItemsFavourites,
-} 
-from '../../firebase/services/favourites.services';
+} from '../../firebase/services/favourites.services';
 import type { User } from '../../firebase/models/user';
-import { deleteAllFavourites, deleteFavourite, fetchFavourites, persistFavourites } from '../../db/favourites';
+import {
+	deleteAllFavourites,
+	deleteFavourite,
+	fetchFavourites,
+	persistFavourites,
+} from '../../db/favourites';
 import { hasConnection } from '../../helpers';
 
 export const addItemFavourites = (userId: User['userId'] | null, item: DtItem) => {
@@ -86,8 +90,10 @@ export const fetchFavouriteItems = (userId: User['userId'] | null) => {
 		dispatch({ type: 'LOADING_FAVOURITES' });
 		try {
 			const hasInternet = await hasConnection();
-			const data = (hasInternet && userId !== null) ? await getAllItemsFavourites(userId) 
-									 					  : await fetchFavourites();
+			const data =
+				hasInternet && userId !== null
+					? await getAllItemsFavourites(userId)
+					: await fetchFavourites();
 			if (data === undefined) {
 				dispatch({
 					type: 'ERROR_FAVOURITES',

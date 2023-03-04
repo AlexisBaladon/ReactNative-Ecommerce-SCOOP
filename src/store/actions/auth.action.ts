@@ -1,5 +1,9 @@
 import type { AuthActions } from '../types/';
-import { login as _login, register as _register, updateImage } from '../../firebase/services/auth.services';
+import {
+	login as _login,
+	register as _register,
+	updateImage,
+} from '../../firebase/services/auth.services';
 import { takePicture } from '../../helpers/fileSystem';
 import { addItemsCart } from '../../firebase/services/cart.services';
 import { addItemsFavourites } from '../../firebase/services/favourites.services';
@@ -18,7 +22,13 @@ export const login = (email: string, password: string) => {
 				dispatch({ type: 'LOGIN', error: data });
 				return;
 			}
-			dispatch({ type: 'LOGIN', userId: data.userId, email, userToken: data.token, pictureUri: data.pictureUri });
+			dispatch({
+				type: 'LOGIN',
+				userId: data.userId,
+				email,
+				userToken: data.token,
+				pictureUri: data.pictureUri,
+			});
 		} catch (error) {
 			dispatch({ type: 'LOGIN', error: error as Error });
 		}
@@ -26,8 +36,8 @@ export const login = (email: string, password: string) => {
 };
 
 export const register = (
-	email: string, 
-	password: string, 
+	email: string,
+	password: string,
 	confirmPassword: string,
 	favouriteItems: DtItem[],
 	cartItems: DtItemCart[],
@@ -45,7 +55,6 @@ export const register = (
 				return;
 			}
 
-			console.log(data)
 			await addItemsFavourites(data.userId, favouriteItems);
 			await addItemsCart(data.userId, cartItems);
 			dispatch({ type: 'REGISTER', userId: data.userId, email, userToken: data.token });
@@ -56,25 +65,28 @@ export const register = (
 };
 
 export const logout = () => {
-	return async (dispatch: (action: AuthActions) => void) => {	
+	return async (dispatch: (action: AuthActions) => void) => {
 		dispatch({ type: 'LOGOUT' });
-	}
+	};
 };
 
 export const loadPicture = (userId: string | null) => {
 	return async (dispatch: (action: AuthActions) => void) => {
 		const imageUri = await takePicture();
 		if (imageUri === null || imageUri === undefined || imageUri instanceof Error) {
-			dispatch({ type: 'SET_IMAGE', error: imageUri ?? new Error('Something went wrong while loading picture') });
+			dispatch({
+				type: 'SET_IMAGE',
+				error: imageUri ?? new Error('Something went wrong while loading picture'),
+			});
 			return;
 		}
 		dispatch({ type: 'SET_IMAGE', pictureUri: imageUri });
-		
+
 		if (userId === null || userId === undefined) return;
 
 		const response = await updateImage(userId, imageUri);
 		if (response instanceof Error) {
 			dispatch({ type: 'SET_IMAGE', error: response });
 		}
-	}
-}
+	};
+};
