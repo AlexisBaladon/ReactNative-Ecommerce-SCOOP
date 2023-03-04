@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
 	container: {
 		alignItems: 'center',
 		paddingTop: 20,
-		paddingBottom: height * 0.4,
+		paddingBottom: height * 0.5,
 	},
 	logoutButton: {
 		position: 'absolute',

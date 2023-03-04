@@ -33,7 +33,7 @@ const signUpText = {
 const { height } = Dimensions.get('window');
 
 const hasSmallScreen = height < 650;
-const defaultVisibleHeader = hasSmallScreen;
+const defaultVisibleHeader = !hasSmallScreen;
 
 const AuthScreen: React.FC = () => {
 	const dispatch = useDispatch();

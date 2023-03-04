@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type {
 	OnboardingParams,
@@ -7,6 +7,7 @@ import type {
 import { OnboardingTemplate } from '../../components';
 import type { ImageSourcePropType } from 'react-native';
 import { TEXT } from '../../constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const imagesSrc: Array<ImageSourcePropType | undefined> = [
 	require('./onboarding1.png'),
@@ -64,6 +65,17 @@ const onboardingScreens = onboardingTexts.map((text, index) => {
 const navProps: OnboardingParams = { animation: 'slide_from_right', headerShown: false };
 
 const OnboardingScreen1: React.FC<OnboardingScreen1NavigationProp> = ({ navigation }) => {
+	useEffect(() => {
+		const getFirstTime = async (): Promise<void> => {
+			const onboarding = await AsyncStorage.getItem('firstTime');
+
+			if (onboarding === 'false') {
+				navigation.navigate('Home', { name: 'Tienda' });
+			}
+		};
+		getFirstTime().then(() => {}).catch(() => {});
+	}, []);
+	
 	const navigateNext = (): void => {
 		navigation.navigate('Onboarding2', navProps);
 	};

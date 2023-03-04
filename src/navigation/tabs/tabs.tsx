@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import type { RootBottomTabParamList } from '../types/tabs.types';
@@ -8,6 +8,7 @@ import FavouritesNavigator from '../stacks/favouritesNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import styles from './tabs.styles';
 import { AuthScreen } from '../../views';
+import {useAsyncStorage} from '@react-native-async-storage/async-storage'
 
 const BottomTab = createBottomTabNavigator<RootBottomTabParamList>();
 
@@ -19,6 +20,14 @@ const iconsImages = {
 };
 
 const TabsNavigator: React.FC = () => {
+	useEffect(() => {
+		const setFirstTime = async (): Promise<void> => {
+			const onboarding = useAsyncStorage('firstTime');
+			await onboarding.setItem('false');
+		};
+		setFirstTime().then(() => {}).catch(() => {});
+	}, []);
+
 	return (
 		<NavigationContainer independent={true}>
 			<BottomTab.Navigator
