@@ -1,6 +1,6 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Image, TouchableOpacity, type ImageProps, Alert } from 'react-native';
+import { Dimensions, View, TextInput, Image, TouchableOpacity, type ImageProps, Alert } from 'react-native';
 import { TEXT } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
 import createStyles from './auth.styles';
@@ -30,15 +30,20 @@ const signUpText = {
 	actionTitle: 'Registrarse',
 };
 
+const { height } = Dimensions.get('window');
+
+const hasSmallScreen = height < 650;
+const defaultVisibleHeader = hasSmallScreen;
+
 const AuthScreen: React.FC = () => {
 	const dispatch = useDispatch();
-	const [visibleHeader, setVisibleHeader] = useState(true);
+	const [visibleHeader, setVisibleHeader] = useState(defaultVisibleHeader);
 	useKeyboardListener(
 		() => {
 			setVisibleHeader(false);
 		},
 		() => {
-			setVisibleHeader(true);
+			setVisibleHeader(defaultVisibleHeader);
 		},
 	);
 	const [hasAccount, setHasAccount] = useState(true);
@@ -101,7 +106,7 @@ const AuthScreen: React.FC = () => {
 						</CustomText>
 					</View>
 				)}
-				<View style={styles.bottomInfo}>
+				<View style={[styles.bottomInfo, hasSmallScreen && {flex: 1}]}>
 					<View style={styles.headings}>
 						<CustomText style={styles.title} size="big" textType="bold">
 							{text.title}

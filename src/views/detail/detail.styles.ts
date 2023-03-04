@@ -10,7 +10,7 @@ export default StyleSheet.create({
 		display: 'flex',
 		position: 'relative',
 		backgroundColor: 'white',
-		marginBottom: height * 0.1,
+		marginBottom: height * 0.125,
 		marginTop: -height * 0.01,
 	},
 	itemDetail: {},
