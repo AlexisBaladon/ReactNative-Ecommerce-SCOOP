@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Items from '../../components/items/items/items';
-import { View, Alert, Pressable, Image, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Alert, Pressable, Image, TouchableOpacity, Dimensions, StatusBar } from 'react-native';
 import createStyles from './cart.styles';
 import { TEXT } from '../../constants';
 import { type DtItem, type DtItemCart } from '../../interfaces';
@@ -117,6 +117,7 @@ const CartScreen: React.FC<CartScreenNavigationProp> = ({ navigation, route }) =
 
 	return (
 		<>
+			<StatusBar barStyle="dark-content" translucent={true} />
 			<View style={[styles.orderDescription]}>
 				<OrderDescription
 					totalItems={totalItems}

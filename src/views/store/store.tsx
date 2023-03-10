@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Pressable, Alert } from 'react-native';
+import { View, Pressable, Alert, StatusBar } from 'react-native';
 import { TEXT } from '../../constants/index';
 import { Buttons, Items, Search } from '../../components';
 import styles from './store.styles';
@@ -94,6 +94,7 @@ const StoreScreen: React.FC<StoreScreenNavigationProp> = ({ navigation, route })
 
 	return (
 		<>
+			<StatusBar barStyle="dark-content" translucent={true} />
 			<View style={styles.search}>
 				<Search placeHolder={SEARCH_PLACEHOLDER} onChangeText={setSearchText} />
 			</View>

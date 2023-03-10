@@ -1,6 +1,6 @@
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, View, TextInput, Image, TouchableOpacity, type ImageProps, Alert } from 'react-native';
+import { Dimensions, View, TextInput, Image, TouchableOpacity, type ImageProps, Alert, StatusBar } from 'react-native';
 import { TEXT } from '../../constants';
 import { useKeyboardListener } from '../../hooks';
 import createStyles from './auth.styles';
@@ -97,6 +97,7 @@ const AuthScreen: React.FC = () => {
 	}
 	return (
 		<>
+			<StatusBar backgroundColor="transparent" barStyle="light-content" />
 			<View style={styles.auth}>
 				{!visibleHeader ? null : (
 					<View style={styles.brand}>

@@ -20,6 +20,7 @@ const iconsImages = {
 };
 
 const TabsNavigator: React.FC = () => {
+
 	useEffect(() => {
 		const setFirstTime = async (): Promise<void> => {
 			const onboarding = useAsyncStorage('firstTime');

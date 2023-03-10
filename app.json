@@ -1,6 +1,6 @@
 {
 	"expo": {
-		"name": "scoop",
+		"name": "Scoop",
 		"slug": "scoop",
 		"version": "1.0.0",
 		"platforms": ["ios", "android"],
@@ -17,16 +17,30 @@
 		},
 		"assetBundlePatterns": ["**/*"],
 		"ios": {
-			"supportsTablet": true
+			"supportsTablet": true,
+      		"bundleIdentifier": "com.alexis.baladon.scoop"
 		},
 		"android": {
+			"androidStatusBar": {
+				"translucent": true
+		  	},
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"
-			}
+			},
+      		"package": "com.alexis.baladon.scoop",
+			"permissions": [
+				"CAMERA",
+				"WRITE_EXTERNAL_STORAGE"
+			]
 		},
 		"web": {
 			"favicon": "./assets/favicon.png"
+		},
+		"extra": {
+			"eas": {
+				"projectId": "0eab781f-2bd0-4452-ba2c-4cdd90b7f75d"
+			}
 		}
 	}
 }

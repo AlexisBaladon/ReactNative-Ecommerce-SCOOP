@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, type ImageSourcePropType } from 'react-native';
+import { View, Image, type ImageSourcePropType, StatusBar } from 'react-native';
 import AdvanceButton from '../global/buttons/advanceButton/advanceButton';
 import CustomText from '../global/customText/customText';
 import Slider from '../global/slider/slider';
@@ -28,7 +28,8 @@ const OnboardingTemplate: React.FC<IProps> = ({
 	sliderLength,
 	buttonWidth,
 }) => {
-	return (
+	return (<>
+		<StatusBar backgroundColor="transparent" barStyle="light-content" />
 		<View style={styles.onboarding}>
 			<View style={styles.background}>
 				<Image style={styles.image} source={imageSrc} />
@@ -62,7 +63,7 @@ const OnboardingTemplate: React.FC<IProps> = ({
 				</View>
 			</View>
 		</View>
-	);
+	</>);
 };
 
 export default OnboardingTemplate;

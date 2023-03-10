@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Items, Buttons, Search } from '../../components';
-import { View, Alert, Pressable } from 'react-native';
+import { View, Alert, Pressable, StatusBar } from 'react-native';
 import { styles } from './favourites.styles';
 import { TEXT } from '../../constants';
 import { type DtItem } from '../../interfaces';
@@ -84,6 +84,7 @@ const FavouritesScreen: React.FC<FavouritesScreenNavigationProp> = ({ route, nav
 
 	return (
 		<>
+			<StatusBar barStyle="dark-content" translucent={true} />
 			<View style={styles.search}>
 				<Search onChangeText={filterText} placeHolder={SEARCH_PLACEHOLDER} />
 			</View>

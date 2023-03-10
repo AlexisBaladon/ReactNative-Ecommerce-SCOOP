@@ -9,12 +9,16 @@ const { OnboardingScreen1, OnboardingScreen2, OnboardingScreen3 } = OnboardingSc
 const Stack = createNativeStackNavigator<OnboardingParamList>();
 
 const OnboardingNavigator: React.FC = () => {
-
 	return (
 		<NavigationContainer>
 			<Stack.Navigator 
 				initialRouteName= 'Onboarding1'
-				screenOptions={{ headerShown: false }}>
+				screenOptions={{ 
+					headerShown: false, 
+					statusBarTranslucent: true, 
+					statusBarHidden: false 
+				}}
+			>
 				<Stack.Screen
 					name="Onboarding1"
 					component={OnboardingScreen1}
