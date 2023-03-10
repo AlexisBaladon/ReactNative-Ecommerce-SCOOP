@@ -9,11 +9,14 @@
 - Ver tu historial de compras
 - Tomar foto para el perfil
 
-# Tecnologías
+![readme](./readme/gif.gif)
+# Librerías
 
-- [ReactNative] - Utilizado para el front end de la aplicación
+- [ReactNative] - Utilizado para el desarrollo de la aplicación móvil.
 - [Typescript] - Lenguaje de fuerte tipado para trabajar con React de forma más organizada y segura.
 - [Firebase] - Base de datos no relacional y serverless proveída por Google.
-- [CSS] - Utilizado para dar estilos a los componentes de la página.
-
-![readme](./readme/gif.gif)
+- [SQLite] - Base de datos relacional para almacenar los datos de forma local.
+- [Redux] - Manejo de estado global de la aplicación.
+- [ReactNavigation] - Manejo de navegación entre pantallas.
+- [ReactNativeCamera] - Manejo de la cámara del dispositivo.
+- [ReactNativeImagePicker] - Manejo de la galería del dispositivo.
