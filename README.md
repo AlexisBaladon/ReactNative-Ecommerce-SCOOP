@@ -1,10 +1,10 @@
 ![SCOOP](./readme/readme-logo.png)
 
-**Scoop** es un sitio web e-commerce de venta de helados donde podrás:
+**Scoop** es una aplicación móvil de venta de helados donde podrás:
 
 - Ver y filtrar un listado de helados por categoría
 - Seleccionar un producto para verlo en más detalle, incluyendo un sistema de recomendaciones
-- Agregar productos al carrito
+- Agregar productos al carrito y a favoritos
 - Registrarte para realizar una compra
 - Ver tu historial de compras
 - Tomar foto para el perfil
