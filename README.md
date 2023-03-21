@@ -9,7 +9,8 @@
 - Ver tu historial de compras
 - Tomar foto para el perfil
 
-![readme](./readme/gif.gif)
+https://user-images.githubusercontent.com/93690531/226705633-1349433b-becb-446f-8a32-f1435f54a415.mp4
+
 # Librerías
 
 - [ReactNative] - Utilizado para el desarrollo de la aplicación móvil.
