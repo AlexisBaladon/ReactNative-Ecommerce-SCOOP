@@ -16,7 +16,14 @@
 - [Typescript] - Lenguaje de fuerte tipado para trabajar con React de forma más organizada y segura.
 - [Firebase] - Base de datos no relacional y serverless proveída por Google.
 - [SQLite] - Base de datos relacional para almacenar los datos de forma local.
+- [AsyncStorage] - Almacenamiento local de datos.
 - [Redux] - Manejo de estado global de la aplicación.
 - [ReactNavigation] - Manejo de navegación entre pantallas.
 - [ReactNativeCamera] - Manejo de la cámara del dispositivo.
 - [ReactNativeImagePicker] - Manejo de la galería del dispositivo.
+
+![reactnative](./readme/libraries/react.png)
+![redux](./readme/libraries/redux.png)
+![typescript](./readme/libraries/typescript.png)
+![firebase](./readme/libraries/firebase.png)
+![sqlite](./readme/libraries/sqlite.png)
